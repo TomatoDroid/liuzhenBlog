@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body,ul{
+            padding:0;
+            margin: 0;
+            list-style: none;
+        }
+
+        ul{
+            width: 600px;
+            margin: 100px auto;
+        }
+        
+        ul li{
+            float: left;
+            width: 120px;
+            height: 40px;
+            position: relative;
+            /* border: 1px solid #000; */
+            /* transform: rotateX(30deg) rotateY(-131deg); */
+            /* 使子盒子保持3D效果 */
+            transform-style: preserve-3d;
+            transition: all 1s;
+        }
+        /* 延迟每一个transtion */
+        ul li:nth-child(2){
+            transition-delay: 0.2s;
+        }
+        ul li:nth-child(3){
+            transition-delay: 0.4s;
+        }
+        ul li:nth-child(4){
+            transition-delay: 0.6s;
+        }
+        ul li:nth-child(5){
+            transition-delay: 0.8s;
+        }
+        li span{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 20px;
+            line-height: 40px;
+            text-align: center;
+            background-color: turquoise;
+        }
+        li span:nth-child(1){
+            transform: translateZ(20px);
+        }
+        li span:nth-child(2){
+            background-color: yellow;
+            transform: rotateX(90deg) translateZ(20px);
+        }
+        ul:hover li{
+            transform: rotateX(-90deg);
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li>
+            <span>止咳糖浆</span>
+            <span>止咳糖浆</span>
+        </li>
+        <li>
+            <span>止咳糖浆</span>
+            <span>止咳糖浆</span>
+        </li>
+        <li>
+            <span>止咳糖浆</span>
+            <span>止咳糖浆</span>
+        </li>
+        <li>
+            <span>止咳糖浆</span>
+            <span>止咳糖浆</span>
+        </li>
+        <li>
+            <span>止咳糖浆</span>
+            <span>哈哈哈哈</span>
+        </li>
+    </ul>
+</body>
+</html>
