@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html,body{
+            height: 100%;
+        }
+        body{
+            background-color: lightgreen;
+            overflow: hidden;
+        }
+        .sea{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 235px;
+        }
+        .sea>div{
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background: url(1.png) no-repeat bottom left;
+            opacity: 0.4;
+        }
+        .sea .sea1{
+            animation: upDown 1s infinite alternate;
+        }
+        .sea .sea2{
+            background: url(2.png);
+            animation: upDown 1s infinite alternate 0.5s;
+        }
+
+        @keyframes upDown {
+            0%{
+                bottom: 0;
+            }
+            100%{
+                bottom: -30px;
+            }
+        }
+
+        /* 太阳 */
+        .sun{
+            width: 80px;
+            height: 80px;
+            background-color: #fff;
+            border-radius: 50%;
+            position: absolute;
+            left: 100px;
+            top: 100px;
+        }
+        .sun1,.sun2{
+            width: 80px;
+            height: 80px;
+            background-color: #fff;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .sun1{
+            animation: bigger 1s infinite;
+        }
+        .sun2{
+            animation: bigger 1s infinite 0.5s;
+        }
+        @keyframes bigger {
+            0%{
+                transform: scale(1);
+                opacity: 1;
+            }
+            100%{
+                transform: scale(1.5);
+                opacity: 0.1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sun">
+        <div class="sun1"></div>
+        <div class="sun2"></div>
+    </div>
+    <div class="sea">
+        <div class="sea1"></div>
+        <div class="sea2"></div>
+    </div>
+</body>
+</html>
