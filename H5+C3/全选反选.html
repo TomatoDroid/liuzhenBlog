@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div class="all">
+        <input type="checkbox" id="all">
+    </div>
+    <div id="body">
+        <input type="checkbox">
+        <input type="checkbox">
+        <input type="checkbox">
+        <input type="checkbox">
+        <input type="checkbox">
+    </div>
+    <script>
+        window.onload = function(){
+            var all = document.getElementById('all');
+            var body = document.getElementById('body');
+            var ones = body.getElementsByTagName('input');
+            all.onclick = function(){
+                for(var i=0;i<ones.length;i++){
+                    ones[i].checked = this.checked;
+                }
+            }
+            for(var i=0;i<ones.length;i++){
+                ones[i].onclick = function(){
+                    var bool = true;
+                    for(var j=0;j<ones.length;j++){
+                        if(ones[j].checked === false){
+                            bool = false;
+                        }
+                    }
+                    all.checked = bool;
+                }
+            }
+        };
+        
+    </script>
+</body>
+</html>
