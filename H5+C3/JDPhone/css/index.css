@@ -1,0 +1,277 @@
+/* 最外层的容器 */
+.jd_container{
+    width: 100%;
+    min-height: 800px;
+    background-color: #eee;
+}
+
+/* 顶部通栏 */
+.jd_header{
+    height: 40px;
+    width: 100%;
+    background-color: rgb(201, 21, 35);
+    /* 固定所以使用fixed */
+    position: fixed;
+    z-index: 99;
+    /* 设置padding把input挤进去 */
+    padding-left: 70px;
+    padding-right: 60px;
+}
+
+.jd_header .header_logo{
+    width: 60px;
+    height: 36px;
+    position: absolute;
+    left: 4px;
+    top: 2px;
+    /* background-color: black; */
+    
+    /* 设置背景图片 */
+    background-image: url(../images/sprites.png);
+    background-repeat: no-repeat;
+    background-position: 0 -103px;
+
+    /* 设置背景图片的大小 压缩了一倍 为了防止用户看到像素颗粒*/
+    background-size: 200px 200px;
+}
+.jd_header .header_search{
+    width: 100%;
+    height: 30px;
+    margin-top: 5px;
+    border-radius: 15px;
+    padding-left: 25px;
+}
+.jd_header .header_login{
+    position: absolute;
+    right: 15px;
+    top: 0;
+    line-height: 40px;
+    color: white;
+    font-size: 17px;
+}
+.jd_header .header_glass{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    background-image: url(../images/sprites.png);
+    background-size: 200px 200px;
+    background-position: -60px -109px;
+    background-repeat: no-repeat;
+    top: 10px;
+    left: 75px;
+}
+
+/* 轮播图 */
+.jd_banner{
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+.jd_banner .banner_images{
+    /* 为了横向放置10张图片 */
+    width: 1000%;
+}
+.jd_banner .banner_images li{
+    float: left;
+    width: 10%;
+}
+.jd_banner .banner_images li a{
+    display: block;
+    width: 100%;
+}
+.jd_banner .banner_images li a img{
+    display: block;
+    width: 100%;
+}
+/* 轮播图索引标签 */
+.jd_banner .banner_index{
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    margin-left: -44px;
+    /* border: 1px solid rgb(82, 13, 13); */
+}
+.jd_banner .banner_index li{
+    float: left;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    border: 1px solid white;
+    margin-left: 5px;
+}
+.jd_banner .banner_index li.current{
+    background-color: white;
+}
+
+/* 导航栏 */
+.jd_nav{
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    background-color: white;
+}
+.jd_nav ul{
+    width: 100%;
+    padding-top: 5px;
+}
+.jd_nav ul li{
+    float: left;
+    width: 25%;
+}
+.jd_nav ul li a{
+    width: 100%;
+    display: block;
+}
+.jd_nav ul li a img{
+    width: 60%;
+    margin:0 auto;
+    display: block;
+}
+.jd_nav ul li a p{
+    text-align: center;
+    color: gray;
+    padding: 5px 0;
+}
+
+/* 设置京东首页内容的主要样式 */
+.jd_main{
+    width: 100%;
+    padding: 0 5px;
+    margin-top: 10px;
+}
+.jd_main .main_content{
+    width: 100%;
+    background-color: white;
+    min-height: 150px;
+    margin-bottom: 5px;
+    /* 阴影 */
+    box-shadow: 0 0 2px gray;
+}
+.jd_main .main_content .content_top{
+    height: 32px;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+}
+.jd_main .main_content .content_bottom{
+    width: 100%;
+}
+
+/* 内容区域的 第一个盒子 */
+.jd_main .main_content:nth-child(1) .content_top{
+    border-bottom:none;
+}
+
+.jd_main .main_content:nth-child(1) .content_top span{
+    background-image: url('../images/seckill-icon.png');
+    background-size: 20px 25px;
+    float: left;
+    margin-top: 3.5px;
+    margin-left: 5px;
+    width: 20px;
+    height: 25px;
+}
+.jd_main .main_content:nth-child(1) .content_top p{
+    color: rgb(201, 21, 35);
+    margin-left: 5px;
+    line-height: 32px;
+    float: left;
+}
+.jd_main .main_content:nth-child(1) .content_top ul{
+    height: 32px;
+    padding-top: 8.5px;
+}
+.jd_main .main_content:nth-child(1) .content_top ul li{
+    float: left;
+    background-color: black;
+    height: 15px;
+    width: 15px;
+    color: white;
+    margin-left: 3px;
+    text-align: center;
+    line-height: 15px;
+}
+/* 这样可以去到 第三个 第六个 */
+.jd_main .main_content:nth-child(1) .content_top ul li:nth-child(3n){
+    background-color: transparent;
+    color: black;
+}
+.jd_main .main_content:nth-child(1) .content_top a{
+    color: gray;
+    line-height: 32px;
+    margin-right: 5px;
+}
+
+.jd_main .main_content:nth-child(1) .content_bottom{
+    width: 100%;
+}
+.jd_main .main_content:nth-child(1) .content_bottom ul{
+    width: 100%;
+}
+.jd_main .main_content:nth-child(1) .content_bottom li{
+    float: left;
+    width: 33.3333%;
+}
+.jd_main .main_content:nth-child(1) .content_bottom li a{
+    display: block;
+    width: 100%;
+    border-right: 1px solid gray;
+}
+.jd_main .main_content:nth-child(1) .content_bottom li:last-child a{
+    border-right: none;
+}
+.jd_main .main_content:nth-child(1) .content_bottom ul li a img{
+    display: block;
+    width: 60%;
+    margin: 0 auto;
+}
+.jd_main .main_content:nth-child(1) .content_bottom ul li  p{
+    text-align: center;
+    padding: 3px 0;
+    font-size: 12px;
+}
+.jd_main .main_content:nth-child(1) .content_bottom ul li  p:nth-child(2){
+    color: rgb(201, 21, 35);
+}
+.jd_main .main_content:nth-child(1) .content_bottom ul li  p:nth-child(3){
+    color: black;
+    text-decoration: line-through;
+}
+
+/* 为除了第一个主要区域的盒子设置样式 */
+.jd_main .main_content:nth-child(n+2) .content_top span{
+    color: rgb(201, 21, 35);
+    line-height: 32px;
+    margin-left: 15px;
+    position: relative;
+}
+.jd_main .main_content:nth-child(n+2) .content_top span::before{
+    content: '';
+    position: absolute;
+
+    /* 宽高 */
+    height: 15px;
+    width: 5px;
+    background-color: rgb(201, 21, 35);
+    left: -10px;
+    top: 8.5px;
+}
+.jd_main .main_content:nth-child(n+2) .content_bottom{
+    width: 100%;
+}
+.jd_main .main_content:nth-child(n+2) .content_bottom ul{
+    width: 100%;
+}
+.jd_main .main_content:nth-child(n+2) .content_bottom ul li{
+    width: 50%;
+}
+.jd_main .main_content:nth-child(n+2) .content_bottom ul li a{
+    width: 100%;
+    display: block;
+}
+.jd_main .main_content:nth-child(n+2) .content_bottom ul li a img{
+    width: 100%;
+    display: block;    
+}
+
+
+
+

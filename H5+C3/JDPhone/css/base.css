@@ -1,0 +1,67 @@
+/* 通用样式 */
+*,
+::before,
+::after{
+    font-size: 14px;
+
+    margin: 0;
+    padding: 0;
+
+    /* 去除点击高亮效果 */
+    -webkit-tab-highlight-color:rgba(0,0,0,0);
+    -webkit-tab-highlight-color:transparent;
+
+    /* 盒子模型 */
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+
+    /* 统一设置文字 sans-serif为移动端默认的字体*/
+    font-family: '微软雅黑',sans-serif;
+}
+
+/* input清除默认的样式 */
+input{
+    border: none;
+    -webkit-appearance: none;
+}
+
+/* a标签下划线 */
+a{
+    text-decoration: none;
+}
+/* 去掉小圆点 */
+ul,li{
+    list-style: none;
+}
+
+/* 清除浮动 */
+.f_l{
+    float: left;
+}
+.f_r{
+    float: right;
+}
+
+.clear_fix::before,
+.clear_fix::after{
+    content: '';
+    display: block;
+    line-height: 0;
+    height: 0;
+    visibility: hidden;
+    clear: both;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
