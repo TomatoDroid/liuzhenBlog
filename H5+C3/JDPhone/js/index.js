@@ -2,7 +2,7 @@ window.onload = function(){
     // 顶部通栏的滚动效果
     headerScroll();
 
-    // cutDownTime();
+    cutDownTime();
 
     // banner();
 }
@@ -28,10 +28,11 @@ function headerScroll(){
     headerDom.style.backgroundColor = 'rgba(201,21,35,1)';
 
     window.onscroll = function(){
-        var scrollDistance = window.document.body.scrollTop;
+        // 兼容写法
+        var scrollDistance = window.document.body.scrollTop || window.document.documentElement.scrollTop;
 
         var percent = scrollDistance / maxDistance;
-        console.log('percent',percent);
+        // console.log('percent',percent);
         if(percent>1){
             percent = 1;
         }
