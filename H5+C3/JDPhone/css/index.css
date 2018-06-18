@@ -206,17 +206,23 @@
 .jd_main .main_content:nth-child(1) .content_bottom ul{
     width: 100%;
 }
-.jd_main .main_content:nth-child(1) .content_bottom li{
-    float: left;
-    width: 33.3333%;
+.jd_main .main_content:nth-child(1) .content_bottom ul li{
+	float: left;
+	/* 为了保证 零头 不影响 布局
+		假设 给的是33% 
+			父盒子的宽度是 100
+			父盒子的宽度是 1000 
+	 */
+	width: 33.33333%;
 }
-.jd_main .main_content:nth-child(1) .content_bottom li a{
-    display: block;
-    width: 100%;
-    border-right: 1px solid gray;
+.jd_main .main_content:nth-child(1) .content_bottom ul li a{
+	display: block;
+	width: 100%;
+	border-right: 1px solid gray;
 }
-.jd_main .main_content:nth-child(1) .content_bottom li:last-child a{
-    border-right: none;
+/* 最后一个li标签 里面的 a标签 不要 右边的 边框 */
+.jd_main .main_content:nth-child(1) .content_bottom ul li:last-child a{
+	border-right: none;
 }
 .jd_main .main_content:nth-child(1) .content_bottom ul li a img{
     display: block;
