@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 书中指出，目前最广泛的创建自定义类型的方法是：构造函数模式+原型模式
+        function Person(name,age,job){
+            this.name = name;
+            this.age = age;
+            this.job = job;
+            this.friends = ['liuzhen','kunkun'];
+        }
+
+        Person.prototype = {
+            constructor:Person,
+            sayName:function(){
+                alert(this.name);
+            }
+        }
+
+        var person1 = new Person('xioaman',26,'Android');
+        var person2 = new Person('qiuyang',23,'JavaScript');
+
+        person1.friends.push('xiaohong');
+        alert(person1.friends); //['liuzhen','kunkun','xiaohong']
+        alert(person2.friends); //['liuzhen','kunkun']
+        alert(person1.friends == person2.friends); //false
+        alert(person1.sayName == person2.sayName);  //true
+        
+        //实例属性都是在构造函数中定义，共享属性都是在原型中定义
+
+
+        //动态原型模式    重要
+        function PersonT(name,age,job){
+            // 属性
+            this.name = name;
+            this.age = age;
+            this.job = job;
+            // 方法
+            if(typeof this.sayName != 'function'){
+                PersonT.prototype.sayName = function(){
+                    alert(this.name);
+                }
+            }
+        }
+        var person3 = new PersonT('gaoji',33,'JS');
+        person3.sayName();
+        console.log(person3.sayName);
+    </script>
+</body>
+</html>
