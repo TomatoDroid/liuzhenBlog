@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function createFunction(){
+            var arr = new Array();
+            for(var i=0;i<10;i++){
+                arr[i] = function(){
+                    return i;   //保存的每个函数都保存着createFunction函数的活动对象
+                }
+            }
+            return arr;
+        }
+        var arr = createFunction();
+        for(var i=0;i<arr.length;i++){
+            //结果是所有的数组都返回10 
+            console.log(arr[i]());
+        }
+
+        function createFunctionB(){
+            var arr = new Array();
+            for(var i=0;i<10;i++){
+                arr[i] = function(num){
+                    return function(){
+                        return num;
+                    };
+                }(i);
+            }
+            return arr;
+        }
+        var arrb = createFunctionB();
+        for(var i=0;i<arrb.length;i++){
+            console.log('arrb--',arrb[i]());
+        }
+    </script>
+</body>
+</html>
