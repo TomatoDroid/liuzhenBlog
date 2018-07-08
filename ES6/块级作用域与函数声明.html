@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function f(){
+            console.log('I am in outerside!');
+        }
+        (function(){
+            if(false){
+                function f(){
+                    console.log('I am in inside!');
+                }
+            }
+            f();
+        }());
+        
+        // 实际的执行情况
+        // function f(){
+        //     console.log('I am in outerside!');
+        // }
+        // (function(){
+        //     var if = undefined;
+        //     if(false){
+        //         function f(){
+        //             console.log('I am in inside!');
+        //         }
+        //     }
+        //     f();
+        // }());
+    </script>
+</body>
+</html>
