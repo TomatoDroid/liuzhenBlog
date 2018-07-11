@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body{
+            padding: 0;
+            margin: 0;
+            height: 1000px;
+        }
+        div{
+            background: red;
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            /* margin: 0 auto; */
+        }
+    </style>
+</head>
+<body>
+    <div class="DIV" data-title="点击拖拽"></div>
+    <script>
+        window.onload = function(){
+            var flag = false,
+                cur = {
+                    x:0,
+                    y:0
+                },
+                x,
+                y,
+                nx,
+                ny,
+                dx,
+                dy,
+                div = document.querySelector('div');
+            div.addEventListener('touchstart',function(){
+                flag = true;
+                cur.x = event.touches[0].clientX;
+                cur.y = event.touches[0].clientY;
+                dx = event.target.offsetLeft;
+                dy = event.target.offsetTop;
+                // alert(event.target.attributes['data-title']);
+                console.log('touchstart');
+            },false);
+            div.addEventListener('touchmove',function(){
+                if(flag){
+                    nx = event.touches[0].clientX - cur.x;
+                    ny = event.touches[0].clientY - cur.y;
+                    event.target.style.left = nx+dx+'px';
+                    event.target.style.top = ny+dy+'px';
+                    console.log('touchmove');
+                }
+            },false);
+            div.addEventListener('touchend',function(){
+                flag = false;
+                console.log('touchend');
+            },false);
+
+            div.addEventListener('click',function(){
+                console.log('click');
+            },false);
+        }
+    </script>
+</body>
+</html>
