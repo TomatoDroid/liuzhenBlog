@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title> 
+</head>
+<body>
+    <div id="app">
+        {{message}}
+        <component-a></component-a>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var bus = new Vue();//中央事件总线
+        Vue.component('component-a',{
+            template:'<button @click="handleEvent">传递事件</button>',
+            methods: {
+                handleEvent:function(){
+                    bus.$emit('on-message','来自组件component-a的通信');
+                }
+            }
+        });
+        var app = new Vue({
+            el:'#app',
+            data:{
+                message:'12'
+            },
+            //在生命周期mounted中监听来自中央事件总线的事件
+            mounted:function(){
+                var _this = this;
+                bus.$on('on-message',function(msg){
+                    _this.message = msg;
+                });
+            }
+        });
+    </script>
+</body>
+</html>
