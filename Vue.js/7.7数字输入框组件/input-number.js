@@ -1,5 +1,5 @@
 function isValueNumber(value){
-    return (/(^-?[0-9]+\.{1}\d+$)|(^-?[1-9][0-9]*$)|(^-?0(1)$)/).test(value+'');
+    return (/(^-?[0-9]+\.{1}\d+$)|(^-?[1-9][0-9]*$)|(^-?0{1}$)/).test(value+'');
 }
 
 Vue.component('input-number',{
@@ -8,9 +8,9 @@ Vue.component('input-number',{
         <input \
             type="text" :value="currentValue" @change="handleChange">\
         <button \
-            @click="handleDown" :disable="currentValue <= min">-</button>\
+            @click="handleDown" @keyup.down="handleDown" :disable="currentValue <= min">-</button>\
         <button \
-            @click="handleUp" :disable="currentValue >= max">+</button>\
+            @click="handleUp"  @keyup.up="handleUp" :disable="currentValue >= max">+</button>\
     </div>',
     props:{
         max:{
@@ -21,6 +21,10 @@ Vue.component('input-number',{
             type:Number,
             default:-Infinity
         },
+        step:{
+            type:Number,
+            default:10
+        },
         value:{
             type:Number,
             default:0
@@ -28,7 +32,8 @@ Vue.component('input-number',{
     },
     data:function(){
         return{
-            currentValue : this.value
+            currentValue : this.value,
+            currentStep : this.step
         }
     },
     watch:{
@@ -48,11 +53,11 @@ Vue.component('input-number',{
         },
         handleDown:function(){
             if(this.currentValue < this.min) return;
-            this.currentValue--;
+            this.currentValue -= this.currentStep;
         },
         handleUp:function(){
             if(this.currentValue > this.max) return;
-            this.currentValue++;
+            this.currentValue += this.currentStep;
         },
         handleChange:function(event){
             var val = event.target.value.trim();

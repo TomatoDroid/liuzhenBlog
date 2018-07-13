@@ -4,14 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>数字输入框</title>
+    <title>标签页组件</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="app">
-        <input-number v-model="value" :max="100" :min="0" :step="10"></input-number>
+    <div id="app" c-cloak>
+
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="input-number.js"></script>
-    <script src="index.js"></script>
+    <script src="pane.js"></script>
+    <script src="table.js"></script>
+    <script>
+        var app = new Vue({
+            el:'#app'
+        });
+    </script>
 </body>
 </html>
