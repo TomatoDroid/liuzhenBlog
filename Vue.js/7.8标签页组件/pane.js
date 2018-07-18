@@ -7,7 +7,7 @@ Vue.component('pane',{
     data:function(){
         return{
             show:true,
-            closable:this.closable
+            paneClosable:this.closable
         }
     },
     props: {
@@ -19,8 +19,8 @@ Vue.component('pane',{
             default:''
         },
         closable:{
-            type:Boolean,
-            default:false
+            type:String,
+            default:''
         }
     },
     methods:{
@@ -35,6 +35,6 @@ Vue.component('pane',{
     },
     mounted () {
         this.updateNav();
-        this.$emit('',this.closable);
+        this.$emit('tabClose',this.paneClosable);
     }
 });

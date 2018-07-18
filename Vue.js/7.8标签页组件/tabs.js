@@ -7,7 +7,7 @@ Vue.component('tabs',{
                 v-for="(item,index) in navList" 
                 @click="handleChange(index)">
                 {{item.label}}
-                    <div class="delete" v-show="" @>×</div>
+                    <div class="delete" v-show="closable" @tabClose="changeClose">×</div>
                 </div>
         </div>
         <div class="tabs-content">
@@ -24,7 +24,8 @@ Vue.component('tabs',{
         return {
             currentValue:this.value,
             // 用于渲染tabs的标题
-            navList:[]
+            navList:[],
+            closable:false
         }
     },
     methods: {
@@ -77,6 +78,10 @@ Vue.component('tabs',{
             tabs.forEach(function(tab){
                 return tab.show = tab.name === _this.currentValue;
             });
+        },
+        changeClose(boolean){
+            debugger;
+            this.closable = boolean;
         }
     },
     watch: {
