@@ -7,7 +7,7 @@ Vue.component('tabs',{
                 v-for="(item,index) in navList" 
                 @click="handleChange(index)">
                 {{item.label}}
-                    <div class="delete" v-show="closable" @tabClose="changeClose">×</div>
+                    <div class="delete" v-show="closable">×</div>
                 </div>
         </div>
         <div class="tabs-content">
@@ -79,8 +79,8 @@ Vue.component('tabs',{
                 return tab.show = tab.name === _this.currentValue;
             });
         },
-        changeClose(boolean){
-            debugger;
+        changeClose:function(boolean){
+            console.log(boolean);
             this.closable = boolean;
         }
     },
