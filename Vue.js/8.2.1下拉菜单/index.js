@@ -1,7 +1,7 @@
 var app = new Vue({
     el:"#app",
     data:{
-        show:flase
+        show:false
     },
     methods:{
         handleClose(){
