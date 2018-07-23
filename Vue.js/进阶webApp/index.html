@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div v-show="page1">
+            <p>1.请问你的性别是：</p>
+            <input type="radio" ><label>男</label>
+            <input type="radio" ><label>女</label>
+            <input type="radio" ><label>保密</label>
+            <Button :type="" :disabled="" @click="">>下一步</Button>
+        </div>
+        <div v-show="page2">
+
+        </div>
+        <div v-show="page3">
+
+        </div>
+    </div>
+    <script src="src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js""></script>
+    <script>
+        Vue.component('Button',{
+            template:`
+                <button></button>
+            `,
+            props:function(){
+                return{
+                    type:[
+                        value:'',
+                        default:
+                    ]
+                }
+            },
+            methods:{
+
+            },
+        });
+        var app = new Vue({
+            el:'#app',
+            data:{
+
+            },
+            methods: {
+                
+            }
+        });
+    </script>
+</body>
+</html>

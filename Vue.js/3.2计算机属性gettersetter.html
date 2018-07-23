@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        姓名：{{fullName}}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el:'#app',
+            data:{
+                firstName:'liu',
+                lastName:'zhen'
+            },
+            computed: {
+                fullName:{
+                    // getter方法 用于读取
+                    get(){
+                        return this.firstName + ' ' + this.lastName;
+                    },  
+                    set(newValue){
+                        var name = newValue.split(' ');
+                        this.firstName = name[0];
+                        this.lastName = name[name.length -1];
+                    }
+                    // app.fullName = 'luo jinyi' 调用此方法会改变fullName
+                }
+            }
+        });
+    </script>
+</body>
+</html>
