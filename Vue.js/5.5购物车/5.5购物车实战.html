@@ -9,39 +9,44 @@
 </head>
 <body>
     <div id="app" v-cloak>
-        <template v-if="list.length">
+        <template v-if="lists.length">
             <table>
                 <thead>
                     <tr>
-                        <th></th>
+                        <th>
+                            <input type="checkbox" :checked="allChecked" @click="allCheck($event)">
+                        </th>
+                        <th>序号</th>
                         <th>商品名称</th>
-                        <th>商品价格</th>
+                        <th>商品单价</th>
                         <th>购买数量</th>
                         <th>操作</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(item,index) in list">
+                    <tr v-for="(item,index) in lists">
+                        {{index}} {{item}} 
+                        <!-- <tr v-for="one in item">
+
+                        </tr> -->
+                        <!-- <td><input type="checkbox" :checked="item.checked" @click="checkbox(index)"></td>
                         <td>{{index+1}}</td>
                         <td>{{item.name}}</td>
                         <td>{{item.price}}</td>
                         <td>
-                            <button
-                            @click="handleReduce(index)"
-                            :disable="item.count === 1">-</button>
+                            <button @click="handleReduce(index)">-</button>
                             {{item.count}}
-                            <button
-                            @click="handleAdd(index)">+</button>
+                            <button @click="handleAdd(index)">+</button>
                         </td>
                         <td>
                             <button @click="handleRemove(index)">移除</button>
-                        </td>
+                        </td> -->
                     </tr>
                 </tbody>
             </table>
-            <div>总价:￥{{totalPrice}}</div>
         </template>
-        <div v-else>购物车为空</div>
+        <div v-else>空空如也</div>
+        <p>总价：￥{{totalCount}}</p>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="index.js"></script>

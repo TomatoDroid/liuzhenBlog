@@ -2,15 +2,18 @@
     display: none;
 }
 table{
-    border: 1px solid #e9e9e9;
-    border-collapse: collapse;
+    border: 1px solid #000000;
+    /* 合并单元格 */
+    border-collapse: collapse; 
+    /* 单元格之间的间距 */
     border-spacing: 0;
+    /* 空的单元格是否显示 */
     empty-cells: show;
 }
 th,td{
     padding: 8px 16px;
-    border: 1px solid #e9e9e9;
-    text-align: center;
+    border: 1px solid #000000;
+    text-align: left;
 }
 th{
     background: #f7f7f7;
