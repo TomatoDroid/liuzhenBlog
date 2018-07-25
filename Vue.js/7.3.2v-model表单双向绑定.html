@@ -8,18 +8,20 @@
 </head>
 <body>
     <div id="app">
-        <p>总数：{{total}}</p>
-        <my-template v-model="total"></my-template>
+        总数：{{total}}
+        <my-component v-model="total"></my-component>
         <button @click="handleReduce">-1</button>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
-        Vue.component('my-template',{
+        Vue.component('my-component',{
             props: ['value'],
-            template:'<input type="text" :value="value" @input="updateValue">',
+            template:`
+                <input type="text" :value="value" @input="updateValue">
+            `,
             methods:{
-                updateValue:function(event){
-                    this.$emit('input',event.target.value);
+                updateValue(e){
+                    this.$emit('input',e.target.value);
                 }
             }
         });
@@ -29,7 +31,7 @@
                 total:0
             },
             methods: {
-                handleReduce:function(){
+                handleReduce(){
                     this.total--;
                 }
             }

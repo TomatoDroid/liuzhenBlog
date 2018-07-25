@@ -13,33 +13,33 @@
 </head>
 <body>
     <div id="app" v-cloak>
-        <p>总数:{{total}}</p>
-        <my-template @increase="handleGetTotal" @reduce="handleGetTotal"></my-template>
+        总数：{{total}}
+        <my-component @increase="handleGetTotal" @reduce="handleGetTotal"></my-component>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
-        Vue.component('my-template',{
-            template:'\
-                <div>\
-                    <button @click="handleIncrease">+</button>\
-                    <button @click="handleReduce">-</button>\
-                </div>',
-            data:function(){
-                return{
+        Vue.component('my-component',{
+            template:`
+                <div>
+                    <button @click="handleReduce">-1</button>
+                    <button @click="handleIncrease">+1</button>
+                </div>
+            `,
+            data(){
+                return {
                     counter:0
                 }
             },
             methods: {
-                handleIncrease:function(){
+                handleIncrease(){
                     this.counter++;
                     this.$emit('increase',this.counter);
                 },
-                handleReduce:function(){
+                handleReduce(){
                     this.counter--;
                     this.$emit('reduce',this.counter);
-                }
+                },
             }
-
         });
         var app = new Vue({
             el:'#app',
@@ -47,9 +47,9 @@
                 total:0
             },
             methods:{
-                handleGetTotal:function(total){
+                handleGetTotal(total){
                     this.total = total;
-                }   
+                }
             }
         });
     </script>
