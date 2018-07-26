@@ -6,11 +6,11 @@ Vue.component('input-number',{
     template:'\
     <div class="input-number">\
         <input \
-            type="text" :value="currentValue" @change="handleChange">\
+            type="text" :value="currentValue" @change="handleChange"   @keyup.up="handleIncrease"  @keyup.down="handleReduce">\
         <button \
-            @click="handleDown" @keyup.down="handleDown" :disable="currentValue <= min">-</button>\
+            @click="handleDown" :disable="currentValue <= min">-</button>\
         <button \
-            @click="handleUp"  @keyup.up="handleUp" :disable="currentValue >= max">+</button>\
+            @click="handleUp" :disable="currentValue >= max">+</button>\
     </div>',
     props:{
         max:{
