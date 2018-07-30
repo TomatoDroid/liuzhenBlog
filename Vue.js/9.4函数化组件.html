@@ -66,7 +66,7 @@
                 function getComponent(){
                     var data = context.props.data;
                     if(data.type === 'img') return ImgItem;
-                    if(data.type === 'video') return VedioItem;
+                    if(data.type === 'vedio') return VedioItem;
                     return TextItem;
                 }
                 return createElement(
@@ -107,7 +107,7 @@
             },
             created () {
                 // 默认初始化数据
-                this.change('img');
+                this.change('vedio');
             }
         });
     </script>
