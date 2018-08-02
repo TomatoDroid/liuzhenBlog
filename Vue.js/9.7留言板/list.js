@@ -1,8 +1,10 @@
 Vue.component('list',{
     props: {
-        type:Array,
-        default:function(){
-            return []
+        list:{
+            type:Array,
+            default:function(){
+                return [];
+            }
         }
     },
     render(h){
@@ -21,17 +23,33 @@ Vue.component('list',{
                         class:'list-msg'
                     }
                 },[
-                    h('p',meg.message),
-                    h('a',{
+                    h('p',msg.message),
+                    h('div',{
                         attrs:{
-                            class:'list-replay'
-                        },
-                        on:{
-                            click:function(){
-                                _this.handleReplay(index);
-                            }
+                            class:'list-btn'
                         }
-                    },'回复')
+                    },[
+                        h('a',{
+                            attrs:{
+                                class:'list-replay'
+                            },
+                            on:{
+                                click:function(){
+                                    _this.handleReply(index);
+                                }
+                            }
+                        },'回复'),
+                        h('a',{
+                            attrs:{
+                                class:'list-delete'
+                            },
+                            on:{
+                                click:function(){
+                                    _this.handleDelete(index);
+                                }
+                            }
+                        },'删除')
+                    ])
                 ])
             ]);
             lists.push(node);
@@ -51,8 +69,11 @@ Vue.component('list',{
         }
     },
     methods: {
-        handleReplay(index){
-            this.$emit('replay',index);
+        handleReply(index){
+            this.$emit('reply',index);
+        },
+        handleDelete(index){            
+            this.$emit('delete',index);
         }
     }
 });

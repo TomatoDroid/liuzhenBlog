@@ -1,20 +1,12 @@
 var app = new Vue({
     el:'#app',
     data:{
-        message:'',
         username:'',
+        message:'',
         list:[]
     },
     methods: {
         handleSend(){
-            if(this.username === ''){
-                window.alert('请填写用户名');
-                return;
-            }
-            if(this.message === ''){
-                window.alert('请填写内容');
-                return;
-            }
             this.list.push({
                 name:this.username,
                 message:this.message
@@ -23,8 +15,7 @@ var app = new Vue({
         },
         handleReply(index){
             var name = this.list[index].name;
-            this.message = '回复@'+name+': ';
-            // 直接调用子组件
+            this.message = '回复：'+name+':';
             this.$refs.message.focus();
         },
         handleDelete(index){
