@@ -6,7 +6,7 @@ var config  = {
     entry:{
         main:'./main'
     },
-    // 出口  打包后的文件将会存储为。./dist/main.js
+    // 出口  打包后的文件将会存储为./dist/main.js
     output:{
         path: path.join(__dirname,'./dist'),
         publicPath: '/dist/',
@@ -18,7 +18,7 @@ var config  = {
                 test:/\.css$/,
                 use:ExtractTextPlugin.extract({
                     use:'css-loader',
-                    fullback:'style-loader'
+                    fallback:'style-loader'
                 })
             }
         ]
