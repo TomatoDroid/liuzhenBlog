@@ -39,6 +39,11 @@ var config  = {
                     use:'css-loader',
                     fallback:'style-loader'
                 })
+            },
+            // 文件加载器
+            {
+                test:/\.(git|jpg|png|woff|svg|eot|ttf)\??.*$/,
+                loader:'url-loader?limit=1024'
             }
         ]
     },

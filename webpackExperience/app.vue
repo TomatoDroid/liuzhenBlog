@@ -2,6 +2,7 @@
     <div>
         <v-title title="Vue组件化"></v-title>
         <v-button @click="handleClick" color="#ffrrdd">点击按钮</v-button>
+        <img src="./image/image1.jpg" style="width:200px;">
     </div>
 </template>
 <script>
