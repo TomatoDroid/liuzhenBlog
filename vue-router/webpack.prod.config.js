@@ -14,7 +14,7 @@ module.exports = merge(webpackBaseConfig,{
     },
     plugins:[
         new MiniCssExtractPlugin({
-            filename:'[name].css',
+            filename:'[name].[chunkhash:8].css',
             chunkFilename: "[id].css"
         }),
         new webpack.DefinePlugin({
