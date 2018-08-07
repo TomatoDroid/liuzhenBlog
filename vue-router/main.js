@@ -1,7 +1,26 @@
 import Vue from 'vue';
+// 使用路由插件
+import VueRouter from 'vue-router';
 import App from './app.vue';
+
+Vue.use(VueRouter);
+// 创建一个数组来定制路由匹配列表
+const Routers = [
+    { path: '/index', component: (resolve) => require(['./views/index.vue'],resolve)},
+    { path: '/about', component: (resolve) => require(['./views/about.vue'],resolve)},
+    { path: '*', redirect: '/index' },
+    { path: '/user/:id', component: (resolve) => require(['./views/user.vue'],resolve) }
+]
+
+const RouterConfig = {
+    mode:'history',
+    routes:Routers
+};
+
+const router = new VueRouter(RouterConfig);
 
 new Vue({
     el:'#app',
-    render:(h) => h(App)
+    router:router,
+    render:h => h(App)
 });
