@@ -1,0 +1,76 @@
+html,body{
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    color: #657180;
+    font-size: 16px;
+}
+.daily-menu{
+    width: 150px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    overflow: auto;
+    background:#f5f7f9;
+}
+.daily-menu-item{
+    text-align: center;
+    font-size: 18px;
+    margin: 5px 0;
+    padding: 10px 0;
+    cursor: pointer;
+    border-right: 2px solid transparent;
+    transform: all 1s ease-in-out;
+}
+.daily-menu-item:hover{
+    background: #e3e8ee;
+}
+.daily-menu-item.on{
+    border-right: 2px solid #39f;
+}
+.daily-list{
+    width: 300px;
+    position: fixed;
+    top: 0;
+    left: 150px;
+    bottom: 0;
+    overflow: auto;
+    border-right: 1px solid #d7dde4;
+}
+.daily-date{
+    text-align: center;
+    margin: 10px 0;
+}
+.daily-item{
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    padding: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transform: all .3s ease-in-out;
+}
+.daily-item:hover{
+    background: #e3e8ee;
+}
+.daily-img{
+    width: 80px;
+    height: 80px;
+    float: left;
+}
+.daily-img img{
+    width: 100%;
+    height: 100%;
+    border-radius: 3px;
+}
+.daily-title{
+    padding: 10px 5px 10px 90px;
+}
+.daily-title.noimg{
+    padding-left: 5spx;
+}
+.daily-article{
+    margin-left: 450px;
+    padding: 20px;
+}
