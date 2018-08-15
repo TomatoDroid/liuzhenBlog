@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { util } from 'node-forge';
 
 // 基本配置
 const Util = {

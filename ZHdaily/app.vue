@@ -16,23 +16,27 @@
             <template v-if="type === 'recommend'">
                 <div v-for="list in recommandList" :key="list.id">
                     <div class="daily-date">{{ formatDay(list.date) }}</div>
-                    <Item v-for="item in list.stories" :key="item.id" :data="item"></Item>
+                    <Item v-for="item in list.stories" :key="item.id" :data="item" 
+                        @click.native="handleClick(item.id)"></Item>
                 </div>
             </template>
             <template v-if="type === 'daily'">
-                <Item v-for="item in list" :data="item" :key="item.id"></Item>
+                <Item v-for="item in list" :data="item" :key="item.id"
+                    @click.native="handleClick(item.id)"></Item>
             </template>
         </div>
-        <!-- <daily-article></daily-article> -->
+        <daily-article :id="articleId"></daily-article>
     </div>
 </template>
 <script>
 import $ from './libs/util.js';
 import Item from './componens/item.vue';
+import dailyArticle from './componens/daily-article.vue';
 
 export default {
     components: {
-        Item
+        Item,
+        dailyArticle
     },
     data () {
         return {
@@ -43,7 +47,8 @@ export default {
             themesId:0,
             recommandList:[],
             dailyTime:$.getTodayTime(),
-            isLoading:false
+            isLoading:false,
+            articleId:0
         }
     },
     methods: {
@@ -87,6 +92,9 @@ export default {
             if(month.substr(0,1) === '0') month = month.substr(1,1);
             if(day.substr(0,1) === '0') day = day.substr(1,1);
             return `${month} 月 ${day} 日`;
+        },
+        handleClick(id){
+            this.articleId = id;
         }
     },
     mounted () {
@@ -99,7 +107,6 @@ export default {
         $list.addEventListener('scroll',() =>{
             // 在主题日报或在加载推荐列表时停止操作
             if(this.type === 'daily' || this.isLoading) return;
-            //已经滚动到距离加页面的高度等于整个内容区高度时，视为街粗底部
             if( $list.scrollTop + document.body.clientHeight >= $list.scrollHeight ){
                 // 事件相对减少一天
                 this.dailyTime -= 86400000;
