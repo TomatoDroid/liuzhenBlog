@@ -10,7 +10,7 @@ const routers = [
     },
     {
         path:'/product/:id',
-        mate:{
+        meta:{
             title:'商品详情'
         },
         component:(resolve) => {
@@ -19,7 +19,7 @@ const routers = [
     },
     {
         path:'/cart',
-        menu:{
+        meta:{
             title:'购物车'
         },
         component:(resolve) => require(['./view/cart.vue'],resolve)
