@@ -133,7 +133,33 @@ export default {
         height: 60px;
         line-height: 60px;
         text-align: center;
-        border-bottom: 1px dashed #e9
+        border-bottom: 1px dashed #e9eaec;
+        overflow: hidden;
+    }
+    .cart-content-main div{
+        float: left;
+    }
+    .cart-content-main img{
+        width: 40px;
+        height: 40px;
+        position: relative;
+        top: 10px;
+    }
+    .cart-control-minus,.cart-control-add{
+        display: inline-block;
+        margin: 0 4px;
+        width: 24px;
+        height: 24px;
+        line-height: 22px;
+        text-align: center;
+        background: #f8f8f8;
+        border-radius: 50%;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, .2);
+        cursor: pointer;
+    }
+    .cart-control-delete{
+        cursor: pointer;
+        color: #2d8cf0;
     }
 </style>
 
