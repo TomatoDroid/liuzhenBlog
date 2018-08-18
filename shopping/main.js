@@ -77,6 +77,7 @@ const store = new Vuex.Store({
         },
         // 修改商品数量
         editCartCount(state,payload){
+            debugger;
             const product = state.cartList.find(item => item.id === payload.id);
             product.count += payload.count;
         },
@@ -84,6 +85,10 @@ const store = new Vuex.Store({
         deleteCart(state,id){
             const index = state.cartList.findIndex(item => item.id === id);
             state.cartList.splice(index,1);
+        },
+        // 清空购物车
+        emptyCart(state){
+            state.cartList = [];
         }
     },
     actions:{
@@ -93,6 +98,15 @@ const store = new Vuex.Store({
             setTimeout(() => {
                 context.commit('setProductList',productor_data);
             },1000);
+        },
+        // 购买
+        buy(context){
+            return new Promise(resolve => {
+                setTimeout( () => {
+                    context.commit('emptyCart');
+                    resolve();
+                },500);
+            });
         }
     },
 });

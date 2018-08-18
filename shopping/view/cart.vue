@@ -20,9 +20,9 @@
                     ￥ {{ productDictList[item.id].cost }}
                 </div>
                 <div class="cart-count">
-                    <span class="cart-countrol-minus" @click="handleCount(index,-1)">-</span>
+                    <span class="cart-control-minus" @click="handleCount(index,-1)">-</span>
                     {{ item.count }}
-                    <span class="cart-countrol-add" @click="handleCount(index,1)">+</span>
+                    <span class="cart-control-add" @click="handleCount(index,1)">+</span>
                 </div>
                 <div class="cart-cost">
                     ￥ {{ productDictList[item.id].cost * item.count }}
@@ -33,6 +33,26 @@
             </div>
             <div class="cart-empty" v-if="!cartList.length">购物车为空</div>
         </div>
+        <div class="cart-promotion" v-show="cartList.length">
+            <span>使用优惠码</span>
+            <input type="text" v-model="promotionCode">
+            <span class="cart-control-promotion" @click="handleCheckCode">验证</span>
+        </div>
+        <div class="cart-footer" v-show="cartList.length">
+            <div class="cart-footer-desc">
+                共计<span>{{ countAll }}</span>件产品
+                <div class="cart-footer-desc">
+                    应付金额<span>￥{{ costAll - promotion }}</span>
+                    <br>
+                    <template v-if="promotion">
+                        （优惠 <span>￥{{ promotion }}</span>）
+                    </template>
+                </div>
+                <div class="cart-footer-desc">
+                    <div class="cart-control-order" @click="handleOrder">现在结算</div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -40,12 +60,14 @@ import product_data from '../product.js';
 export default {
     data () {
         return {
-            productList : product_data
+            productList : product_data,
+            promotionCode:'',
+            promotion:0
         }
     },
     computed: {
         cartList(){
-            return this.$store.state.productList;
+            return this.$store.state.cartList;
         },
         productDictList(){
             const dict = {};
@@ -73,12 +95,30 @@ export default {
         handleCount(index,count){
             if(count < 0 && this.cartList[index].count === 1) return;
             this.$store.commit('editCartCount',{
-                id:this.productDictList[index].id,
+                id:this.cartList[index].id,
                 count:count
             });
         },
         handleDelete(){
             this.$store.commit('deleteCart',this.cartList[index].id);
+        },
+        // 验证优惠码
+        handleCheckCode(){
+            if(this.promotionCode === ''){
+                alert(请输入优惠码);
+                return;
+            }else if(this.promotionCode !== 'Vue.js'){
+                alert('优惠码验证失败');
+                return;
+            }else{
+                this.promotion = 500;
+            }
+        },
+        // 通知Vuex完成下单
+        handleOrder(){
+            this.$store.dispatch('buy').then( () => {
+                window.alert('购买成功');
+            });
         }
     }
 }
@@ -160,6 +200,35 @@ export default {
     .cart-control-delete{
         cursor: pointer;
         color: #2d8cf0;
+    }
+    .cart-promotion{
+        padding: 16px 32px;
+    }
+    .cart-control-promotion,
+    .cart-control-order{
+        display: inline-block;
+        padding: 8xp 32px;
+        border-radius: 6px;
+        background: #2d8cf0;        
+        color: #fff;
+        cursor: pointer;
+    }
+    .cart-control-promotion{
+        padding: 2px 6px;
+        font-size: 12px;
+        border-radius: 3px;
+    }
+    .cart-footer{
+        padding: 32px;
+        text-align: right;
+    }
+    .cart-footer-desc{
+        display: inline-block;
+        padding: 0 10px;
+    }
+    .cart-footer-desc span{
+        color: #f2352e;
+        font-size: 20px;
     }
 </style>
 
