@@ -1,11 +1,11 @@
 <template>
     <div class="product">
         <router-link :to="'/product/' + info.id" class="product-main">
-            <img src="info.image" alt="">
-            <h4>{{ indo.name }}</h4>
+            <img :src="info.image" alt="">
+            <h4>{{ info.name }}</h4>
             <div class="product-color" :style="{background:colors[info.color]}"></div>
             <div class="product-cost">￥ {{ info.cost }}</div>
-            <div class="product-add-cart" @click="handleCart">加入购物车</div>
+            <div class="product-add-cart" @click.prevent="handleCart">加入购物车</div>
         </router-link >
     </div>
 </template>
@@ -13,7 +13,7 @@
 export default {
     props: {
         info:{
-            type:Array
+            type:Object
         }
     },
     data () {
@@ -48,6 +48,7 @@ export default {
         background: #fff;
         text-align: center;
         position: relative;
+        text-decoration: none;
     }
     .product-main img{
         width: 100%;
