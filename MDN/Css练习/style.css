@@ -1,0 +1,78 @@
+/* General styles - put these straight into your stylesheet */
+/* 浏览器会为<h2> 和 <p>元素应用默认的 margin，这会影响我们的设计，所以编写一个规则集，来将他们的 margin 设置为 0。 */
+body ,h2, p{
+    margin: 0;
+  }
+  
+  html {
+    font-family: 'Helvetica neue', Arial, 'sans serif';
+    font-size: 15px;
+    background-color: #ccc;
+  }
+  
+  /* Selectors to be matched up with rulesets */
+/*   
+  .card article img
+  .card footer
+  .card header
+  .card */
+  
+  /* Rulesets to be matched up with selectors */
+  /* 为整体卡片的容器提供一个固定的宽/高，背景颜色，边框，以及边框圆角等等。 */
+  .card{
+    width: 35em;
+    height: 22em;
+    margin: 5em auto;
+    background-color: red;
+    border: 0.2em solid black;
+    border-radius: 1.5em;
+  }
+  /* 为header提供一个渐变的背景颜色，从更暗到更亮，加上圆角，配合在卡片容器上设置的圆角。 */
+  .card header{
+    background-image: linear-gradient(to bottom,rgba(0,0,0,0.1), rgba(0,0,0,0));
+    border-radius: 1.5em 1.5em 0 0;
+  }
+  
+  .card footer{
+    background-image: linear-gradient(to bottom,rgba(0,0,0,0), rgba(0,0,0,0.1));
+    border-radius: 0 0 1.5em 1.5em;
+  }
+  
+  .card article img {
+    max-height: 100%;
+    float: right;
+  }
+
+/* 为卡片的标题编写一个规则集，以及卡片页脚，使他们的高度为 50px，
+其中包括 30px 的内容高度，和 10px 的 padding，不过需要使用em来表示。 */
+.card footer, .card header{
+    height: 3em;
+    padding: 1em;
+}
+/* 为了阻止图像溢出名片的主要内容 ( <article> 元素)，我们需要给它设置一个明确的高度。设置 <article>的高度为 120px，
+但是使用 em来表示。还要给它一个半透明黑色的背景颜色，产生一个稍暗一点的阴影，让背景红色的颜色也会发光。 */
+.card article{
+    height: 12em;
+    background-color: rgba(99, 79, 79, 0.5);
+}
+/* 编写一个规则集，使 <h2> 有效的字体大小为20px (使用 em表达) 以及一个适当的行高将其放置在标题的内容框的中央。
+回想起来，内容框高度应该是30px，你所有需要的数字都已经给你了，所以可以计算出行高。 */
+.card header h2{
+    font-size: 2em;
+    line-height: 45px;
+}
+.card footer p{
+    line-height: 45px;
+}
+/* 为页脚中的 <p> 编写一个规则集，使它的有效字体大小为 15px (使用 em表达) 
+以及一个适当的行高将其放置在页面的内容框的中央。回想起来，内容框高度应该是30px，你所有需要的数字都已经给你了，所以可以计算出行高。 */
+.card article p{
+    color: #ffffff;
+    font-size: 15px;
+    line-height: 25px;
+}
+ /* 最为最后一步, 为 <article> 中的段落设置一个合适的 padding 值，
+ 让它和 <h2> 以及页脚的段落左边缘对齐，并将其颜色设置得便于阅读。 */
+ .card article{
+     padding-left: 1em;
+ }
