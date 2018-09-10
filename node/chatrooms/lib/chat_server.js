@@ -9,7 +9,7 @@ exports.listen = function(server){
     io = socketio.listen(server);
     io.set('log level',1);
     io.sockets.on('connection',function(socket){
-        guestNumber = assignGuestName(socket,guestNumber,nickName,namesUsed);
+        guestNumber = assignGuestName(socket,guestNumber,nickNames,namesUsed);
         joinRoom(socket,'Lobby');
         handleMessageBroadcasting(socket,nickNames);
         handleNameChangeAttempts(socket,nickNames,namesUsed);
@@ -17,7 +17,7 @@ exports.listen = function(server){
         socket.on('room',function(){
             socket.emit('room',io.sockets.manager.rooms);
         });
-        handleClientDisconnectionn(socket,nickName,namesUsed);
+        handleClientDisconnectionn(socket,nickNames,namesUsed);
     });
 
 }
@@ -42,7 +42,7 @@ function joinRoom(socket,room){
     socket.broadcast.to(room).emit('message',{
         text:nickNames[socket.id] + 'has joined' + room + '.'
     });
-    var usersInRoom = io.socket.clients(room);
+    var usersInRoom = io.sockets.clients(room);
     if(usersInRoom.length > 1){
         var usersInRoomSummary = 'Users currently in' + room + ':';
         for(var index in usersInRoom){

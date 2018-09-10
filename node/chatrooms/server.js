@@ -55,5 +55,5 @@ server.listen(3000,function(){
     console.log('Server listening on port 3000');
 });
 
-var chartServer = require('./lib/chart_server');
+var chartServer = require('./lib/chat_server');
 chartServer.listen(server);
