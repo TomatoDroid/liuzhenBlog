@@ -2,30 +2,29 @@ var fs = require('fs');
 var complatedTasks = 0;
 var tasks = [];
 var wordCounts = {};
-var filesDir = './text';
+var fileDir = './text';
 
 function checkIfComplete(){
     complatedTasks++;
     if(complatedTasks == tasks.length){
         for(var index in wordCounts){
-            console.log(index+': '+wordCounts[index]);
+            console.log(index +': '+wordCounts[index]);
         }
     }
 }
 
 function countWordsInText(text){
-    // 匹配所有的单词并排序
     var words = text.toString().toLowerCase().split(/\W+/).sort();
     for(var index in words){
-        var word = words[index] ;
+        var word = words[index];
         if(word){
             wordCounts[word] = (wordCounts[word]) ? wordCounts[word]+1 : 1;
         }
     }
 }
 
-fs.readdir(filesDir,function(err,files){
-    if(err) return err;
+fs.readdir(fileDir,function(err,files){
+    if(err) throw err;
     for(var index in files){
         var task = (function(file){
             return function(){
@@ -35,10 +34,11 @@ fs.readdir(filesDir,function(err,files){
                     checkIfComplete();
                 });
             }
-        })(filesDir+'/'+files[index]);
+        })(fileDir+'/'+files[index]);
         tasks.push(task);
     }
-    for(var task in tasks){
-        tasks[task]();
+    for(var index in tasks){
+        tasks[index]();
     }
 });
+
