@@ -1,3 +1,4 @@
+// 更精简的写法
 var http = require('http');
 var formidable = require('formidable');
 
@@ -32,28 +33,17 @@ function upload(req,res){
         res.statusCode = 400;
         res.end('Bad Request:expacting multipart/form-data');
         return;
+    }else{
+        var form = new formidable.IncomingForm();
+        form.parse(req,function(err,fields,files){
+            console.log('fields',fields);
+            console.log('files',files);
+            res.end('upload complete');
+        });
     }
-    var form = new formidable.IncomingForm();
-    form.on('field',function(name,value){
-        // console.log('field',name);
-        // console.log('value',value);
-    });
-    form.on('file',function(name,file){
-        // console.log('name',name);
-        // console.log('file',file);
-    });
-    form.on('end',function(){
-        res.end('upload complete');
-    });
-    form.on('progress',function(bytesReceived,bytesExpected){
-        var percent = Math.floor(bytesReceived/bytesExpected*100);
-        console.log('percent',percent);
-    });
-    form.parse(req);
 }
 
 function isFormData(req){
-    var type = req.headers['content-type'] || '';
-    console.log('type',type);
-    return 0 == type.indexOf('multipart/form-data');
+    var header = req.headers['content-type'] || '';
+    return 0 == header.indexOf('multipart/form-data');
 }
