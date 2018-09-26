@@ -4,7 +4,7 @@ function errorHandler(){
         res.statusCode =  500;
         switch(env){
             case 'development':
-                res.setHeaders('Content-Type','application/json');
+                res.setHeader('Content-Type','application/json');
                 res.end(JSON.stringify(err));
                 break;
             default:
