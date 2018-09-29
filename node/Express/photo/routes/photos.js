@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-// var photo = require('../models/photo');
+var Photo = require('../models/photo');
 var path = require('path');
 var fs = require('fs');
 var join = path.join;
@@ -24,7 +24,7 @@ router.get('/',function(req,res,next){
     Photo.find({},function(err,photos){
         if(err) return next(err);
         res.render('photos',{
-            name:'Photos',
+            title:'Photos',
             photos:photos
         });
     });
@@ -40,6 +40,8 @@ router.post('/upload',submit(router.get('photos')));
 
 function submit(dir){
     return function(req,res,next){
+        console.log(req.files);
+        console.log('body--------',req.body);
         var img = req.files.photo.image;
         var name = req.body.photo.name || img.name;
         var path = join(dir,img.name);
