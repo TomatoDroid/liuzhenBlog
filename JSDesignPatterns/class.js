@@ -11,10 +11,10 @@ var Book = (function(){
         // 私有方法
         function checkID(id){}
         // 特权方法
-        function setName(){}
-        function getName(){}
-        function setPrice(){}
-        function getPrice(){}
+        this.setName = function(){}
+        this.getName = function (){}
+        this.setPrice = function (){}
+        this.getPrice = function (){}
         // 共有属性
         this.id = newId;
         // 共有方法
@@ -37,3 +37,9 @@ var Book = (function(){
     // 返回类
     return _book;
 })();
+
+var book = new Book('1','JS创建类','24');
+
+console.log(book.id);
+console.log(book.isJSBook);
+console.log(Book);

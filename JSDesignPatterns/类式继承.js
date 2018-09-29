@@ -34,6 +34,7 @@ console.log(SubClass.prototype instanceof SuperClass); //true
 function SuperClass1(){
     this.books = ['js设计模式','js权威指南'];
 }
+var superClass1 = new SuperClass1();
 function SubClass1(){}
 SubClass1.prototype = new SuperClass1();
 var instance1 = new SubClass1();
@@ -42,3 +43,4 @@ console.log(instance1.books); //[ 'js设计模式', 'js权威指南' ]
 instance2.books.push('JS语言精粹');
 console.log(instance1.books); //[ 'js设计模式', 'js权威指南', 'JS语言精粹' ]
         // 2实例化父类无法向父类构造函数传递参数
+console.log(superClass1.books);
