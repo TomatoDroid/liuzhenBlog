@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>摇一摇</title>
+</head>
+<body>
+    <h1>摇一摇</h1>
+    <script>
+        // 摇动速度阈值
+        var SHAKE_SPEED_THRESHOLD = 300;
+        // 上次变化的时间
+        var lastTime = 0;
+        // 位置变量初始化
+        var x=y=z=lastX=lastY=laxtZ=0;
+        function motionHandler(evt){
+            // 取得包含重力加速的位置信息
+            var acceleration = evt.accelerationIncludingGravity;
+            var curTime = new Date();
+            if((curTime - lastTime) > 120){
+                var diffTime = curTime - lastTime;
+                lastTime = curTime;
+                x = acceleration.x;
+                y = acceleration.y;
+                z = acceleration.z;
+                // 计算摇动的速度
+                var speed = Math.abs(x+y+z-lastX-lastY-lastZ)/diffTime*1000;
+                if(speed > SHAKE_SPEED_THRESHOLD){
+                    alert('你摇动了手机');
+                }
+                lastX = x;
+                lastY = y;
+                lastZ = z;
+            }
+        }
+        if(window.DeviceMotionEvent){
+            window.addEventListener('devicemotion',motionHandler,false);
+        }else{
+            alert('设置不支持位置感应');
+        }
+    </script>
+</body>
+</html>

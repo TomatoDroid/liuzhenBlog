@@ -1,0 +1,8 @@
+CACHE MANIFEST
+#cache之后的资源都会被缓存
+CACHE:
+sotrage.html
+main.js
+#network之后的资源不会被缓存
+NETWORK
+account/

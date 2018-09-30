@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>h5input</title>
+</head>
+<body>
+    <input type="search"><br>
+    <input type="tel" name="tel" value="" placeholder="请输入手机号码" pattern="1[3-8][0-9]{9}" title="请输入11位手机号"><br>
+    <input type="url"><br>
+    <input type="email"><br>
+    <input type="date"><br>
+    <input type="color"><br>
+    <input type="number"><br>
+    <input type="range"><br>
+    <!-- 表单验证 -->
+    <input type="text" placeholder="此项必填" required><br>
+    <!-- pattern="1[3-8][0-9]{9}"  采用正则进行验证 校验失败的信息可用title -->
+    <progress min="10" max="100"></progress><br>
+    <meter value="3" min="0" max="10">3/10</meter><br>
+    <meter value="0.6">60%</meter><br>
+
+    <p contenteditable="true">这里的内容是可以编辑的，使用了conte nbnteditable</p><br>
+</body>
+</html>
