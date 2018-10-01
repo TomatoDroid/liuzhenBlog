@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>客户端</title>
+</head>
+<body>
+    数据：<input><button>获取</button>
+    <!-- 数据获取显示 -->
+    <script>
+        document.querySelector('button')
+        .addEventListener('click',function(e){
+            // 阻止按钮默认提交事件
+            e.preventDefault();
+            // 实例化XMLHttpRequest对象
+            var xhr = new XMLHttpRequest();
+            // 判断浏览器是否支持level2
+            if(typeof xhr.withCredentials === undefined){
+                console.log('浏览器不支持html5 XMLHttpRequest level2的跨域请求');
+            }else{
+                // 监听load事件
+                xhr.onload = function(){
+                    // 将文本转化成JSON数据
+                    var data = JSON.parse(xhr.responseText);
+                    document.querySelector('input').value = data.data;
+                }
+                xhr.onerror = function(e){
+                    console.log(e);
+                }
+                // 请求地址和发送
+                xhr.open('GET','http://localhost:4412',true);
+                xhr.send();
+            }
+
+        });
+    </script>
+</body>
+</html>

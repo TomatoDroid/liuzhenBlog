@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>拖拽</title>
+    <style>
+        .draggable div,.text div{
+            width: 100px;
+            height: 100px;
+            margin: 20px;
+            text-align: center;
+            line-height: 100px;
+        }
+        .draggable div{
+            margin: 100px auto;
+            background-color: green;
+            border-radius: 50%;
+        }
+        .text{
+            width: 500px;
+            margin: 0 auto;
+        }
+        .text div{
+            border: 1px solid #000000;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="draggable">
+        <div draggable=true>
+            绿色
+        </div>
+    </div>
+    <div class="text">
+        <div>red</div>
+        <div>green</div>
+    </div>
+    <script src="./jquery.js"></script>
+    <script>
+        var draggableColor = $('.draggable > div');
+        var redText = $('.text>div:nth-child(2)');
+        draggableColor.on('dragstart',function(event){
+            event.originalEvent.dataTransfer.setData('ele','.draggable>div');
+        });
+        redText.on('dragover',function(event){
+            event.preventDefault();
+        }).on('drop',function(event){
+            var dragTarget = event.originalEvent.dataTransfer.getData('ele');
+            $(dragTarget).css('visibility','hidden');
+            $(this).text('current');
+        });
+    </script>
+</body>
+</html>
+

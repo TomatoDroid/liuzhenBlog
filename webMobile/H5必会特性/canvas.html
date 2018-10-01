@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>饼状图</title>
+</head>
+<body>
+    <canvas class="pie-chart" width="850" height="500"></canvas>
+    <script>
+        // 构造函数
+        let PieChat = function(selecter,options){
+            let canvas = 'string' === typeof selecter ? document.querySelector(selecter) : null;
+            if(canvas === null) return false;
+            let defaultOptions = {
+                redius:200,//拼图半径
+                // 图例参数
+                legendParams:{
+                    font:'24px Arial',
+                    x:30,
+                    y:30,
+                    margin:50,
+                    width:40,
+                    height:24
+                }
+            }
+            // 获取context上下文
+            this.context = canvas.getContext('2d');
+            this.width = canvas.getAttribute('width') || 300;
+            this.height = canvas.getAttribute('height') || 300;
+            // 合并参数
+            this.options = Object.assign(defaultOptions,options); 
+        }
+        PieChat.prototype.load = function(data){
+            data.forEach(item => {
+                this.count ? this.count += item.value : this.count = item.value
+            });
+            this.data = data;
+            return this;
+        }
+        PieChat.prototype.reader = function(){
+            let _generateLegend = (item,index) => {
+                this.context.fillRect(
+                    this.options.legendParams.x,
+                    this.options.legendParams.y + index * this.options.legendParams.margin,
+                    this.options.legendParams.width,
+                    this.options.legendParams.height
+                );
+                this.context.font = this.options.legendParams.font;
+                this.context.fillText(
+                    item.title,
+                    this.options.legendParams.y + this.options.legendParams.margin,
+                    (index+1) * this.options.legendParams.margin
+                );
+            };
+            let temparc = 0;
+            this.data.forEach((item,index) => {
+                item.color = `#${('00000'+(Math.random()*0x1000000<<0).toString(16)).substr(-6)}`;
+                this.context.beginPath();
+                this.context.moveTo(this.width/2,this.height/2);
+                let startarc = temparc,endarc = startarc+(item.value/this.count)*Math.PI*2;
+                this.context.arc(
+                    this.width/2,
+                    this.height/2,
+                    this.options.redius,
+                    startarc,
+                    endarc,
+                    false
+                );
+                this.context.closePath();
+                this.context.fillStyle = item.color;
+                this.context.fill();
+                temparc = endarc;
+                if(this.options.legend){
+                    _generateLegend(item,index);
+                }
+            });
+            return this;
+        }
+        const data = [
+            {title:'沪江网校',value:1024},
+            {title:'沪江小D',value:512},
+            {title:'沪江学习',value:256},
+            {title:'开心词场',value:920},
+        ]
+        let pie = new PieChat('.pie-chart',{legend:true});
+        pie.load(data).reader();
+    </script>
+</body>
+</html>

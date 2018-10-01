@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>server-send-event demo</title>
+</head>
+<body>
+    <script>
+        // 监听load事件，页面load完成之后进行后续操作
+        window.addEventListener('load',function(){
+            // 缓存dom对象
+            var status = document.querySelector('#status');
+            var output = document.querySelector('#output');
+            var source;
+            function connect(){
+                source = new EventSource('stream');
+                // 监听message事件，获取服务端发送的数据
+                source.addEventListener('message',function(event){
+                    output.textContent = event.data;
+                },false);
+                source.addEventListener('open',function(event){
+                    status.textContent = '连接打开了';
+                },false);
+                source.addEventListener('error',function(event){
+                    if(event.target.readyState === EventSource.CLOSED){
+                        source.close();
+                        status.textContent = '连接关闭';
+                    }else{
+                        status.textContent = '连接关闭，未知错误';
+                    }
+                },false);
+            }
+            if(!!window.EventSource){
+                connect();
+            }else{
+                status.textContent = '浏览器不支持EventSource';
+            }
+        });
+    </script>
+    <span id="status">Connection closed</span>
+    <span id="output"></span>
+</body>
+</html>

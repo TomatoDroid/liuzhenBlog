@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="vieWport" content="Width=device-Width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>消息接收</title>
+    <style>
+        #messageList{
+            border: 1px solid #333;
+            border-radius: 4px;
+            Width: 200px;
+            min-height: 150px;
+        }
+        /* #postWindoW{
+            display: none;
+        } */
+    </style>
+</head>
+<body>
+    <h3>设置消息端</h3>
+    <ul id="postMessage"></ul>
+    <iframe src="post_page.html" frameborder="0"></iframe>
+    <script>
+        (function(W){
+            var doc = W.document;
+            var msgList = doc.querySelector('#postMessage');
+            var handler = function(msg){
+                var li = doc.createElement('li');
+                li.innerText = msg;
+                msgList.appendChild(li);
+            }
+            // 监听postMessage发送的消息
+            W.addEventListener('message',function(evt){
+                if(evt.origin === 'http://localhost:8080'){
+                    handler(evt.data);
+                }
+            },false);
+        })(window);
+    </script>
+</body>
+</html>

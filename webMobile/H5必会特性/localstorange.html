@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>通过localstorange存储数据</title>
+</head>
+<body>
+    <h2>localStorange保存数据</h2>
+    <div>
+        <textarea id="content" cols="100" rows="20"></textarea>
+    </div>
+    <script>
+        var el = document.querySelector('#content');
+        el.value = localStorage.getItem('data') || '';
+        el.addEventListener('blur',function(){
+            // 获取文本域的内容
+            var data = el.value;
+            localStorage.setItem('data',data);
+        });
+
+
+        // 使用索引和属性的方式来操作
+        // 存储数据
+        localStorage['key1'] = 'value1'
+        localStorage.key2 = 'value2'
+        // 获取数据
+        localStorage['key1'];
+        localStorage.key2;
+        // 便利和清空的常用操作
+        for(var i=0;i<localStorage.length;i++){
+            var key = localStorage.key(i);
+            var value = localStorage.getItem(key);
+            console.log(key,value);
+        }
+        // localStorage.clear();
+    </script>
+</body>
+</html>

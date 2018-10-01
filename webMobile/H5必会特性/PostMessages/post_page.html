@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>消息的发送端</title>
+</head>
+<body>
+    <script>
+        (function(){
+            // 模拟数据
+            var message = [
+                '今天天气不错',
+                '明天会议大家不要迟到',
+                '今晚大家去吃一顿好吃的',
+                '打车记得拿发票',
+                '明天请假一天',
+                '这本书干货很多，大家好好看',
+            ];
+            // 随机发送信息
+            var getMessage = function(){
+                var index = Math.floor(Math.random()*10);
+                return message[index] || null;
+            }
+            var postMessageLoop = function(){
+                var randomTime = Math.floor(Math.random()*10000);
+                setTimeout(() => {
+                    var message = getMessage();
+                    if(message !== null){
+                        // 发送消息到父页面
+                        window.parent.postMessage(message,'http://localhost:8080');
+                    }
+                    postMessageLoop();
+                }, randomTime);
+            }
+            postMessageLoop();
+        })();
+    </script>
+</body>
+</html>
