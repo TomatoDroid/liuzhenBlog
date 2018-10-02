@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Transform</title>
+    <style>
+        .box{
+            /* 定义容器，指定观察者距离为100px */
+            width: 640px;
+            margin: 0 auto;
+            perspective: 100px;
+        }
+        .box > div{
+            float: left;
+            width: 120px;
+            height: 80px;
+            margin: 40px 20px;
+            background-color: gray;
+        }
+        .box a{
+            display: block;
+            height: 80px;
+            background-color: black;
+            text-align: center;
+            color: white;
+        }
+        .box .none{
+            transform: none;
+        }
+        /* 2d位移，分别在x和y上移动10px */
+        .box .translate{
+            transform: translate(10px,10px);
+        }
+        /* 3D位移，沿z轴向内移动30px */
+        .box .translate3d{
+            transform: translate3d(0,0,-20px);
+        }
+        /* 2D缩放，x轴缩小0.8倍，y轴放大1.2倍 */
+        .box .scale{
+            transform: scale(0.8,1.2);
+        }
+        /* 3d缩放，x轴y轴不变，沿z轴放放大1.5倍，便于观察，将像素旋转10° */
+        .box .scale3d{
+            transform:scale3d(1,1,1.5) rotateX(10deg);
+        }
+        /* 2d旋转，顺时针旋转30° */
+        .box .rotate{
+            transform: rotate(30deg);
+        }
+        /* 3d旋转，在3D空间x=1，y=0.2,z=0的向量上，顺时针旋转30° */
+        .box .rotate3d{
+            transform: rotate3d(1,0.2,0,30deg);
+        }
+        /* 2d倾斜，将元素在x轴上倾斜30° */
+        .box .skew{
+            transform: skew(30deg,0);
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div><a class="none" href="">none</a></div>
+        <div><a class="translate" href="">translate<br>(10px,10px)</a></div>
+        <div><a class="translate3d" href="">translate3d<br>(0,0,-30px)</a></div>
+        <div><a class="scale" href="">scale<br>(0.8,1.2)</a></div>
+        <div><a class="scale3d" href="">scale3d<br>(1,1,1.5)</a></div>
+        <div><a class="rotate" href="">roate<br>(30deg)</a></div>
+        <div><a class="rotate3d" href="">rotate3d<br>(1,0.2,0,30deg)</a></div>
+        <div><a class="skew" href="">skew<br>(30deg,0)</a></div>
+    </div>
+</body>
+</html>

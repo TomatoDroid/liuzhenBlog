@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>rem</title>
+    <style>
+        /* 设置页面基础字体 */
+        body{
+            font-size: 12px;
+            margin: 0;
+        }
+        .btns{
+            width: 10rem;
+            margin: 0 auto;
+        }
+        .btns > a{
+            float: left;
+            width: 2.5rem;
+            text-align: center;
+            padding-top: 0.2rem;
+        }
+        .btns > a > i{
+            display: inline-block;
+            width: 1.2rem;
+            height: 1.2rem;
+            background: gray;
+            border-radius: 50%;
+        }
+        .btns > a > span{
+            display: block;
+            line-height: 0.8rem;
+            font-size: 14px;
+        }
+    </style>
+    <script>
+        (function(){
+            // 获取根元素
+            var de = document.documentElement;
+            function resetFontSize(){
+                var w = de.getBoundingClientRect().width;
+                if(w > 640) w = 640;
+                de.style.fontSize = (w/10)+"px";
+            }
+            resetFontSize();
+            window.addEventListener('resize',resetFontSize,false);
+        })();
+    </script>
+</head>
+<body>
+    <div class="btns">
+        <a href=""><i></i><span>英语</span></a>
+        <a href=""><i></i><span>日语</span></a>
+        <a href=""><i></i><span>韩语</span></a>
+        <a href=""><i></i><span>小语种</span></a>
+        <a href=""><i></i><span>留学</span></a>
+        <a href=""><i></i><span>职场</span></a>
+        <a href=""><i></i><span>中小幼</span></a>
+        <a href=""><i></i><span>全部分类</span></a>
+    </div>
+</body>
+</html>
