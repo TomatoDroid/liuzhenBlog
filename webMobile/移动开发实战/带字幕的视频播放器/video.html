@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>弹幕视频播放器</title>
+    <style>
+        .ctl{
+            width: 600px;
+            text-align: center;
+            background: #eee;
+            padding: 4px 0;
+        }
+        .ctl input{
+            padding: 4px 20px;
+        }
+        /* 设置字母样式 */
+        video::cue{
+            background: transparent;
+            color: black;
+            text-shadow: 1px 1px 2px #fff;
+            font-size: 40px;
+        }
+        /* 设置字母中加粗的部分为黄色 */
+        video::cue(b){
+            color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <video width="600" poster="./coverimg.jpg">
+        <source src="http://f6.c.hjfile.cn/qiniu/classzt/20160803/90614_video_2.mp4" type="video/mp4">
+        <track kind="subtitles" src="webvtt.vtt" default />
+    </video>
+    <div class="ctl">
+        <input type="button" value="播放">
+        <input type="button" value="快进(×1)">
+        <input type="button" value="静音">
+    </div>
+    <script>
+        var vd = document.querySelector('video');
+        var btns = document.querySelectorAll('.ctl input');
+        btns[0].onclick = function(){
+            if(vd.paused){
+                vd.play();
+                this.value = '暂停';
+            }else{
+                vd.pause();
+                this.value = '播放';
+            }
+        }
+        btns[1].onclick = function(){
+            if(vd.playbackRate >= 8) vd.playbackRate = 1;
+            else vd.playbackRate *= 2;
+            this.value = '快进(x'+vd.playbackRate+')';
+        }
+        btns[2].onclick = function(){
+            vd.muted = !vd.muted;
+            this.value = vd.muted ? '取消静音' : '静音';
+        }
+    </script>
+</body>
+</html>

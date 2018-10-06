@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>刮刮乐</title>
+    <style>
+        .container{
+            width: 320px;
+            margin: 100px auto;
+            min-height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <canvas></canvas>
+    </div>
+    <script>
+        var bodystyle = document.body.style;
+        bodystyle.mozUserSelect = 'none';
+        bodystyle.webkitUserSelect = 'none';
+
+        // 实例化一个图片
+        var img = new Image();
+        var canvas = document.querySelector('canvas');
+        // 将canvas设置为透明背景
+        canvas.style.backgroundColor = 'transparent';
+        canvas.style.position = 'absolute';
+
+        var imgs = ['bg_01.jpg','bg_02.jpg'];
+        var num = Math.floor(Math.random()*2);
+        img.src = imgs[num];
+
+        img.addEventListener('load',function(e){
+            var ctx,
+                w = img.width, //宽度
+                h = img.height, //高度
+                offsetX = canvas.offsetLeft,
+                offsetY = canvas.offsetTop,
+                mousedown =  false;
+            function layer(ctx){
+                ctx.fillStyle = 'gray';
+                ctx.fillRect(0,0,w,h);
+            }
+            // 鼠标按下时触发
+            function eventDown(e){
+                e.preventDefault();
+                mousedown = true;
+            }
+            function eventUp(e){
+                e.preventDefault();
+                mousedown = false;
+            }
+            function eventMove(e){
+                e.preventDefault();
+                if(mousedown){
+                    // 拿到Touchlist对象中的最后一个对象
+                    if(e.changeTouches){
+                        e = e.changeTouches[e.changeTouches.length-1];
+                    }
+                    // 获取当前鼠标坐标
+                    var x = (e.clientX+document.body.scrollLeft || e.pageX)-offsetX || 0;
+                    var y = (e.clientY+document.body.scrollTop || e.pageY)-offsetY || 0;
+                    ctx.beginPath();
+                    ctx.arc(x,y,20,0,Math.PI*2);
+                    ctx.fill();
+                }
+            }
+            canvas.width = w;
+            canvas.height = h;
+            canvas.style.backgroundImage = 'url('+img.src+')';
+            ctx = canvas.getContext('2d');
+            ctx.fillstyle = 'transparent';
+            ctx.fillRect(0,0,w,h);
+            layer(ctx);
+            /* 路径与原图像重叠部分透明 */
+            ctx.globalCompositeOperation = 'destination-out';
+            canvas.addEventListener('touchstart',eventDown);
+            canvas.addEventListener('touchmove',eventMove);
+            canvas.addEventListener('touchend',eventUp);
+            canvas.addEventListener('mousedown',eventDown);
+            canvas.addEventListener('mouseup',eventUp);
+            canvas.addEventListener('mousemove',eventMove);
+        });
+    </script>
+</body>
+</html>
