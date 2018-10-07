@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>水平居中</title>
+    <style>
+        body{
+            background-color: #ccc;
+        }
+        .container{
+            /* 有宽度的前提下，设置margin：0 auto是的块级元素水平居中 */
+            margin: 0 auto; 
+            width: 960px; 
+            background: #ddd;
+        }
+        h1{
+            /* 行内元素水平居中 */
+            text-align: center;
+        }
+
+        .container1{
+            width: 960px;
+            position: absolute;
+            background: rgb(155, 228, 113);
+            left: 50%;
+            top: 100px;
+            margin-left: -480px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>这是网站的标题</h1>
+    </div>
+    <!-- 块级元素水平居中的绝对定位方式 -->
+    <div class="container1">
+        <h1>块级元素水平居中的绝对定位方式</h1>
+    </div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>3d全景效果</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+    <div class="scene">
+        <div class="container">
+            <div class="cube">
+                <img src="images/front.png" alt="" class="face front">
+                <img src="images/back.png" alt="" class="face back">
+                <img src="images/left.png" alt="" class="face left">
+                <img src="images/right.png" alt="" class="face right">
+                <img src="images/top.png" alt="" class="face top">
+                <img src="images/bottom.png" alt="" class="face bottom">
+            </div>
+        </div>
+    </div>
+    <script>
+        (function(){
+            var speed = 100;
+            var cube = document.querySelectorAll('.cube')[0];
+            var lastPosX, lastPosY, curPosX, curPosY;
+            document.addEventListener('touchstart',function(e){
+                lastPosX = e.touches[0].pageX;
+                lastPosY = e.touches[0].pageY;
+            });
+            document.addEventListener('touchmove',function(e){
+                curPosX = e.touches[0].pageX;
+                curPosY = e.touches[0].pageY;
+                valLR = -1 * speed * (curPosX - lastPosX) / 360;
+                valTB = speed * (curPosY - lastPosY) / 360;
+                value = 'rotateX(' + valTB + 'deg) rotateY(' + valLR + 'deg)';
+                cube.style.transform = value;
+            });
+        })();
+    </script>
+</body>
+</html>
