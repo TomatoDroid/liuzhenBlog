@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>块级元素的垂直居中</title>
+    <style>
+        .wrap{
+            width: 300px;
+            height: 300px;
+            margin: 10px auto;
+            background-color: #ccc;
+            border: 1px solid #ccc;
+            position: relative;
+        }
+        .container{
+            width: 100px;
+            /* 具有固定高度的块级元素垂直居中 */
+            height: 100px;
+            background-color: aquamarine;
+            border: 1px solid #ccc;
+            position: absolute;
+            top: 50%;
+            margin-top: -50px;
+        }
+        .container1{
+            background-color: aquamarine;
+            border: 1px solid #ccc;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            /* 移动自身的一半 顺便水平居中(水平居中方法一样)*/
+            transform: translate(-50%,-50%);
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="container">我是块级元素,固定高度</div>
+    </div>
+    <div class="wrap">
+            <div class="container1">我是块级元素，没有高度</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" style="font-size:41.4px;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>侧边栏滑进滑出效果</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        /* 网页左上角头像 */
+        .avatar_small{
+            position: absolute;
+            z-index: 2;
+            left: 0;
+            top: 0;
+            width: 1rem;
+            height: 1rem;
+        }
+        /* 滑出菜单时网页遮罩的样式 */
+        .mask{
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, .5);
+            z-index: 10;
+        }
+        /* 侧边栏的样式 */
+        .nav{
+            position: absolute;
+            top: 0;
+            /* left: -5rem; */
+            left: 0;
+            width: 5rem;
+            height: 100%;
+            z-index: 11;
+            background-color: #555;
+        }
+        .nav{
+            transition: left linear 0.5s;
+        }
+        .nav ul, .nav li{
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .nav a{
+            display: block;
+            padding: 1rem 0;
+            border-bottom: 1px solid #888;
+            font-size: 16px;
+            color: #eee;
+            text-align: center;
+        }
+        .nav .avatar_small{
+            width: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- 定义网页主题内容容器 -->
+    <div class="body">
+        <!-- 用户头像 -->
+        <a href="" class="avatar_small"></a>
+        <!-- 网页主体内容 -->
+        <img src="body.png" alt="" style="width:10rem">
+    </div>
+    <!-- 遮罩层 -->
+    <div class="mask"></div>
+    <!-- 侧边栏容器 -->
+    <div class="nav">
+        <li><a href=""><img class="avatar_small" src="guest.png" alt=""></a></li>
+        <li><a href="">我的课程</a></li>
+        <li><a href="">我的订单</a></li>
+        <li><a href="">我的收藏</a></li>
+        <li><a href="">个人中心</a></li>
+    </div>
+    <script>
+        // 分别获取遮罩，用户头像，侧边栏
+        var btn = document.querySelector('.avatar_small'),
+            mask = document.querySelector('.mask'),
+            nav = document.querySelector('.nav');
+        btn.addEventListener('click',function(){
+            mask.style.display = 'block';
+            nav.style.left = 0;
+        },false);
+        mask.addEventListener('click',function(){
+            mask.style.display = 'none';
+            nav.style.left = '-5rem';
+        },false);
+    </script>
+</body>
+</html>

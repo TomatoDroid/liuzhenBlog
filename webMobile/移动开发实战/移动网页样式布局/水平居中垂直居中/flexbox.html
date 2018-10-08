@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>FlexBox</title>
+    <style>
+        body{
+            display: flex;
+            background-color: #ccc;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container{
+            /* 外边距设置为auto就可以水平垂直居中 */
+            margin: auto;
+            padding: 20px;
+            background-color: bisque;
+            /* 但是如果仅需实现垂直居中可以使用 align-self:center; */
+            /* align-self: center; */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        父元素设置display：flex，子元素margin：auto就可以实现垂直水平的居中。
+        真的超级简单!
+    </div>
+</body>
+</html>

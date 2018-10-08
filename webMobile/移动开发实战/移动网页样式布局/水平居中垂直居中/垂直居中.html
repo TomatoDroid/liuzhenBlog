@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>行内元素垂直居中，单行多行文本</title>
+    <style>
+        div{
+            margin: 20px;
+        }
+        .row{
+            width: 300px;
+            height: 50px;
+            border: 1px solid #ccc;
+            text-align: center;
+            /* 单行文本垂直居中，使行高等于元素高度 */
+            line-height: 50px;
+        }
+        .row2{
+            width: 300px;
+            border: 1px solid #ccc;
+            text-align: center;
+            /* 不固定高度的多行文本垂直居中，使用padding实现 */
+            padding: 20px;
+        }
+        .wrap{
+            height: 300px;
+            width: 300px;
+            display: table;
+        }
+        .row3{
+            vertical-align: middle;
+            display: table-cell;
+            border: 1px solid #ccc;
+            background-color:aqua; 
+        }
+    </style>
+</head>
+<body>
+    <div class="row">单行文本垂直居中效果</div>
+    <div class="row2"> 不固定高度的多行文本垂直居中，使用padding实现. 
+        不固定高度的多行文本垂直居中，使用padding实现. 
+        不固定高度的多行文本垂直居中，使用padding实现
+    </div>
+    <div class="wrap">
+        <div class="row3">
+            固定高度的多行文本垂直居中，
+            可以使用display设置为table，配合样式vertical-align:middle来实现
+        </div>
+    </div>
+</body>
+</html>

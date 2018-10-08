@@ -1,0 +1,66 @@
+body{
+    display: flex;
+    flex-flow: column;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-size: 2em;
+}
+.container{
+    flex: 1;
+    display: flex;
+}
+footer{
+    height: 100px;
+    background-color: bisque;
+    text-align: center;
+}
+main{
+    background: gray;
+}
+nav{
+    background: lightslategray;
+}
+aside{
+    background: darkgoldenrod;
+}
+.side, .side2{
+    height: 300px;
+    border-bottom: 1px solid #fff;
+}
+.block1, .block2{
+    height: 300px;
+    border-bottom: 1px solid #fff;
+}
+nav, aside{
+    width: 200px;
+    min-width: 200px;
+    max-width: 200px;
+    height: auto;
+}
+main{
+    flex: 1;
+}
+@media (max-width:1000px){
+    /* 在屏幕不大于1000px时，隐藏侧边栏 */
+    aside{
+        display: none;
+    }
+}
+@media(max-width:768px){
+    .container{
+        flex-direction: column;
+    }
+    nav, aside{
+        width: 100%;
+        max-width: 100%;
+        min-width: 100%;
+    }
+    aside{
+        display: block;
+    }
+    main{
+        min-width: 90vh;
+        height: 90vh;
+    }
+}
