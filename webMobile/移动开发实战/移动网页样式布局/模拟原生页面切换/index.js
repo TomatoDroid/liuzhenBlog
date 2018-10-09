@@ -5,7 +5,7 @@ var Router = function(){
         var router = this._routers.filter(function(item,index){
             return '#'+item.url === hash;
         });
-        return _routers[0] || {};
+        return router[0] || {};
     }.bind(this);
 }
 //注意路由匹配
@@ -35,12 +35,12 @@ Router.prototype.init = function(){
  * @return {Router}
  */
 Router.prototype.go = function(page){
-    var enter_page = document.querySelector(page.select);
+    var enter_page = document.querySelector(page.selector);
     if(!enter_page) return false;
     var enter = (function(){
         enter_page.classList.add('enter');
     }.bind(this)());
-    if(page.hasOwnPrototype('handle')){
+    if(page.hasOwnProperty('handle')){
         page.handle.call(this);
     }
 }
@@ -54,7 +54,7 @@ var home_page = {
     }
 }
 var start_page = {
-    url:'/',
+    url:'start',
     selector:'.page-start',
     handle:function(){
         console.log('Start page enter.');
