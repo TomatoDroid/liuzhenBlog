@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>父子组件传递消息</title>
+    <script src="lib/react.min.js"></script>
+    <script src="lib/react-dom.min.js"></script>
+    <script src="lib/browser.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        var Search = React.createClass({
+            getInitialState:function(){
+                // 设置输入框默认值
+                return { value:this.props.defaultValue };
+            },
+            handleChange:function(){
+                // 当内容发生变化，获取新值并更新state
+                this.setState({value:ReactDOM.findDOMNode(this.refs.search).value});
+            },
+            handleSearch:function(){
+                // 点击搜索时，调用父组件的回调函数，并传递当前输入的内容
+                this.props.onSearch && this.props.onSearch(this.state.value);
+            },
+            render:function(){
+                var isDisabled = this.state.value === '';
+                return(
+                    <div>
+                        <input
+                            type="search"
+                            onChange={this.handleChange}
+                            value={this.state.value}
+                            ref='search'
+                        />
+                        <button onClick={this.handleSearch} disabled={isDisabled} >搜索</button>
+                        <button onClick={ () => this.setState({value:''}) }>清除</button>
+                    </div>
+                );
+            }
+        });
+
+        var Page = React.createClass({
+            handleSerach:function(value){
+                window.alert('搜索关键字：'+value);
+            },
+            render:function(){
+                return(
+                    <div>
+                        <Search defaultValue="英语六级" onSearch={this.handleSerach}/>
+                    </div>
+                );
+            }
+        });
+        ReactDOM.render(<Page/>,document.querySelector('#root'));
+    </script>
+</body>
+</html>

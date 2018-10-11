@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件的关注分离</title>
+    <script src="lib/react.min.js"></script>
+    <script src="lib/react-dom.min.js"></script>
+    <script src="lib/browser.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        var UserList = React.createClass({
+            render:function(){
+                var userList = this.props.users.map(user => (
+                    <div className="user-item">
+                        <img src={user.avatar} className="user-avatar" />
+                        <span>{user.name}</span>
+                    </div>
+                ));
+                return(
+                    <ul>{userList}</ul>
+                );
+            }
+        });
+
+        // 约定props
+        UserList.propTypes = {
+            users:React.PropTypes.array
+        };
+
+        var FriendListContainer = React.createClass({
+            getInitialState:function(){
+                return {
+                    friendList:[]
+                }
+            },
+            componentWillMount:function(){
+                // 通过fetch获取初始值
+                fetch('api/friends.json?id='+this.props.userId)
+                    .then(res => res.json())
+                    .then(
+                        data => {
+                            this.setState({
+                                friendList : data.items
+                            });
+                        }
+                    );
+            },
+            render:function(){
+                return(
+                    <UserList users={this.state.friendList} />
+                );
+            }
+        });
+        ReactDOM.render(<FriendListContainer userId={123} />,document.querySelector('#root'));
+    </script>
+</body>
+</html> 
