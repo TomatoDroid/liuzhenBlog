@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>简单的路由实现</title>
+</head>
+<body>
+
+    <script>
+            function Router(){
+                this.routes = {};
+                this.route = function(path,callback){
+                    this.routes[path] = callback;
+                }
+                this.refresh = function(){
+                    // debugger;
+                    var curUrl = location.hash.slice(1) || '/'; //在hash模式下获取路径
+                    // var curUrl = location.pathname; //在history模式下获取路径
+                    this.routes[curUrl](); //调用最终callback
+                }
+                this.init = function(){
+                    window.addEventListener('load',this.refresh.bind(this),false);
+                    window.addEventListener('hashchange',this.refresh.bind(this),false);
+                    // History 模式下，监听popstate事件
+                    // window.addEventListener('popstate',this.refresh.bind(this),false);
+                }
+            }
+            var router = new Router();
+            router.init();
+            router.route('/',function(){
+                console.log('/');
+            });
+            router.route('test',function(){
+                console.log('test');
+            });
+    </script>
+</body>
+</html>
