@@ -8,6 +8,7 @@
 </head>
 <body>
     <div id="container"></div>
+    <div id="linkNav"></div>
     <script>
         // 基本提示框
         var Alert = function(data){
@@ -140,14 +141,14 @@
             var tpl = '<b>{#num#}</b>';
             for(var i=data.length-1;i>=0;i--){
                 // 腾讯 =》 腾讯<b>22</b>
-                data[i].name += formateString(tpl,data[i]);
+                data[i].name += data[i].name + formateString(tpl,data[i]);
             }
             return Nav.call(this,data);
         }
-        var LinkNuv = function(data){
+        var LinkNav = function(data){
             var tpl = '<span>{#link#}</span>';
-            for(var i=data.length-1;i<=0;i--){
-                data[i].name += formateString(tpl,data[i]);
+            for(var i=data.length-1;i>=0;i--){
+                data[i].name += data[i].name + formateString(tpl,data[i]);
             }
             return Nav.call(this,data);
         }
@@ -170,6 +171,16 @@
                 title:'腾讯首页',
                 name:'腾讯',
                 num:'22'
+            }
+        ]);
+        var linkNav = document.querySelector('#linkNav');
+        linkNav.innerHTML = LinkNav([
+            {
+                href:'http://baidu.com',
+                title:'腾讯首页',
+                name:'腾讯',
+                num:'22',
+                link:'http://tengxun.com'
             }
         ]);
     </script>
