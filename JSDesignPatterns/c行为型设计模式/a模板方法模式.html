@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>提示框</title>
+</head>
+<body>
+    <div id="container"></div>
+    <script>
+        // 基本提示框
+        var Alert = function(data){
+            // 没有数据则返回
+            if(!data){
+                return;
+            }
+            // 设置内容
+            this.content = data.content;
+            // 创建提示框面板
+            this.panel = document.createElement('div');
+            // 创建内容提示组件
+            this.contentNode = document.createElement('p');
+            // 创建确定按钮
+            this.confirmBtn = document.createElement('span');
+            // 关闭按钮
+            this.closeBtn = document.createElement('b');
+            // 提示框类
+            this.panel.className = 'alert';
+            // 关闭按钮类
+            this.closeBtn.className = 'a-close';
+            // 确定按钮类
+            this.confirmBtn.className = 'a-confirm';
+            // 确定按钮内容
+            this.confirmBtn.innerHTML = data.confirmBtn || '确认';
+            // 提示内容
+            this.contentNode.innerHTML = data.content;
+
+            this.success = data.success || function(){};
+            this.fail = data.fail || function(){};
+        }
+        // 提示框原型方法    
+        Alert.prototype = {
+            init:function(){
+                // 生成提示框
+                this.panel.appendChild(this.contentNode);
+                this.panel.appendChild(this.closeBtn);
+                this.panel.appendChild(this.confirmBtn);
+                document.body.appendChild(this.panel);
+                this.bindEvent();
+                this.show();
+            },
+            bindEvent:function(){
+                var me = this;
+                this.closeBtn.onclick = function(){
+                    me.fail();
+                    me.hide();
+                }
+                this.confirmBtn.onclick = function(){
+                    me.success();
+                    me.hide();
+                }
+            },
+            hide:function(){
+                this.panel.style.display = 'none';
+            },
+            show:function(){
+                this.panel.style.display = 'block';
+            }
+        }
+        // 右侧按钮提示框
+        var RightAlert = function(data){
+            Alert.call(this,data);
+            this.confirmBtn.className = this.confirmBtn.className + ' right';
+        }
+        RightAlert.prototype = new Alert();
+        // 标题提示框
+        var TitleAlert = function(data){
+            Alert.call(this,data);
+            this.title = data.title;
+            this.titleNode = document.createElement('h3');
+            this.titleNode.innerHTML = this.title; 
+        }
+        TitleAlert.prototype = new Alert();
+        TitleAlert.prototype.init = function(){
+            // 插入标题
+            this.panel.insertBefore(this.titleNode,this.panel.firstChild);
+            // 继承基本提示框init方法
+            Alert.prototype.init.call(this);
+        }
+        var CancelAlert = function(data){
+            TitleAlert.call(this,data);
+            this.cancel = data.cancel;
+            this.cancelBtn = document.createElement('span');
+            this.cancelBtn.className = 'cancel'
+            this.cancelBtn.innerHTML = this.cancel || '取消';
+        }
+        CancelAlert.prototype = new Alert();
+        CancelAlert.prototype.init = function(){
+            TitleAlert.prototype.init.call(this);
+            this.panel.appendChild(this.cancelBtn);
+        }
+        CancelAlert.prototype.bindEvent = function(){
+            var me = this;
+            TitleAlert.prototype.bindEvent.call(me);
+            this.cancelBtn.onclick = function(){
+                me.fail();
+                me.hide();
+            }
+        }
+
+        new CancelAlert({
+            title:'提示标题',
+            content:'提示内容',
+            success:function(){
+                console.log('ok');
+            },
+            fail:function(){
+                console.log('cancel');
+            }
+        }).init();
+
+        // 导航栏基类
+        // 格式化字符串方法
+        function formateString(str,data){
+            return str.replace(/\{#(\w+)#\}/g,function(match,key){
+                return typeof data[key] === undefined ? '' : data[key];
+            });
+        }
+        var Nav = function(data){
+            this.item = '<a href="{#href#}" title="{#title#}">{#name#}</a>';
+            this.html = '';
+            for(var i=0,len=data.length;i<len;i++){
+                this.html += formateString(this.item,data[i]);
+            }
+            return this.html;
+        }
+        // 带有消息提醒的导航栏
+        var NumNav = function(data){
+            var tpl = '<b>{#num#}</b>';
+            for(var i=data.length-1;i>=0;i--){
+                // 腾讯 =》 腾讯<b>22</b>
+                data[i].name += formateString(tpl,data[i]);
+            }
+            return Nav.call(this,data);
+        }
+        var LinkNuv = function(data){
+            var tpl = '<span>{#link#}</span>';
+            for(var i=data.length-1;i<=0;i--){
+                data[i].name += formateString(tpl,data[i]);
+            }
+            return Nav.call(this,data);
+        }
+        var nav = document.getElementById('container');
+        nav.innerHTML = NumNav([
+            {
+                href:'http://baidu.com',
+                title:'淘宝商城',
+                name:'淘宝',
+                num:'4'
+            },
+            {
+                href:'http://baidu.com',
+                title:'百度一下，你就知道',
+                name:'百度',
+                num:'10'
+            },
+            {
+                href:'http://baidu.com',
+                title:'腾讯首页',
+                name:'腾讯',
+                num:'22'
+            }
+        ]);
+    </script>
+</body>
+</html>

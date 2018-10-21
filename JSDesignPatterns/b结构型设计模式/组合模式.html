@@ -16,7 +16,7 @@
         }
 
         var inheritPrototype = function(subClass,superClass){
-            var p = inheritObject(superClass.prototype);
+            var p = inheritObject(superClass);
             p.constructor = subClass;
             subClass.prototype = p;
         }
@@ -197,7 +197,7 @@
             new Item('normal').add(
                 new IconNews('保护强国强队用意明显','#','live')
             )
-        );
+        ).show();
     </script>
 </body>
 </html>

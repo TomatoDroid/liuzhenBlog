@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>享元模式</title>
+</head>
+<body>
+    <div id="container"></div>
+    <button id="next_page">下一页</button>
+    <script>
+        // 享元对象
+        var Flyweight = function(){
+            var created = [];
+            // 创建新闻的包装容器
+            function create(){
+                var dom = document.createElement('div');
+                document.getElementById('container').appendChild(dom);
+                created.push(dom);
+                return dom;
+            }   
+            return {
+                getDiv:function(){
+                    if(created.length < 5){
+                        return create();
+                    }else{
+                        var div = created.shift();
+                        created.push(div);
+                        return div;
+                    }
+                }
+            }
+        }();
+        
+        var article = [
+            '这是第一条新闻',
+            '这是第二条新闻',
+            '这是第三条新闻',
+            '这是第四条新闻',
+            '这是第五条新闻',
+            '这是第六条新闻',
+            '这是第七条新闻',
+            '这是第八条新闻']
+
+        var paper = 0,
+            num = 0,
+            len = article.length;
+        for(var i=0;i<len;i++){
+            if(article[i]){
+                Flyweight.getDiv().innerHTML = article[i];
+            }
+        }
+
+        document.getElementById('next_page').onclick = function(){
+            if(article.length > 5)
+                return;
+            var n = ++paper * num % len,j=0;
+            for(;j<5;j++){
+                if(article[n+j]){
+                    Flyweight.getDiv().innerHTML = article[n+j];
+                }else if(article[n+j-len]){
+                    Flyweight.getDiv().innerHTML = article[n+j-len];
+                }else{
+                    Flyweight.getDiv().innerHTML = '';
+                }
+            }
+        }
+
+    </script>
+</body>
+</html>
