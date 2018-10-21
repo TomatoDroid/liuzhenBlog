@@ -57,3 +57,4 @@ console.log(instance2.colors);
 instance2.getName();
 instance2.getTime();
 console.log(instance1 instanceof SuperClass);  //true
+console.log(instance1 instanceof SubClass); 
