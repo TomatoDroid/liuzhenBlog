@@ -14,6 +14,7 @@ function inheritObject(o){
  */
 function inheritPrototype(subClass,superClass){
     // 复制一份父类的原型副本保存在变量中
+    console.log('superClass.prototype',superClass.prototype);
     var p = inheritObject(superClass.prototype);
     console.log('p---: ',p);
     console.log('p.constructor---: ',p.constructor);
