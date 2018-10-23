@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>职责链模式</title>
+</head>
+<body>
+    <div>
+        <input type="text">
+        <span></span>
+    </div>
+    <script>
+        // 请求模块
+        /**
+         * data 请求数据
+         * dealType 响应数据处理对象
+         * dom 事件源
+         * */
+        var sendData = function(data,dealType,dom){
+            var xhr = new XMLHttpRequest(),
+                url = 'getData.php?mod=userinfo';
+            xhr.onload = function(event){
+                if((xhr.status >= 200 && xhr.status <= 300) || xhr.status === 304){
+                    dealData(xhr.responseText,dealType,dom);
+                }else{
+                    // 请求失败
+                }
+            }
+            for(var i in data){
+                url += '&' + i + '=' + data[i];
+            }
+            xhr.open('get',url,true);
+            xhr.send();
+        }    
+        // 响应数据适配模块
+        var dealData = function(data,dealType,dom){
+            // 对象toString方法简化引用
+            var dataType = Object.prototype.toString.call(data);
+            switch(dealType){
+                case 'sug':
+                    if(dataType === '[object Array]'){
+                        return createSug(data,dom);
+                    }
+                    if(dataType === '[object Object]'){
+                        var newData = [];
+                        for(var i in data){
+                            newData.push(data[i]);
+                        }
+                        return createSug(newData,dom);
+                    }
+                    return createSug(data,dom);
+                    break;
+                case 'validate':
+                    return createValidateResult(data,dom);
+                    break;
+            }
+        }
+        // 创建组件模块
+        var createSug = function(data,dom){
+            var i=0,
+                len = data.length,
+                html = '';
+            for(;i<len;i++){
+                html += '<li>' + data[i] + '</li>';
+            }
+            dom.parentNode.getElementsByTagName('ul')[0].innerHTML = html;
+        }
+        var createValidateResult = function(data,dom){
+            dom.parentNode.getElementsByTagName('span')[0].innerHTML = data;
+        }
+
+        // 测试
+        var input = document.querySelectorAll('input');
+        dealData('用户名不正确','validate',input[0]);
+        dealData('[123]','sug',input[0]);
+        // 也可以进行重写 创建组件模块的方法，只测试dealDara模块
+        function createSug(data,dom){
+            console.log(data,dom,'sug');
+        }
+    </script>
+</body>
+</html>

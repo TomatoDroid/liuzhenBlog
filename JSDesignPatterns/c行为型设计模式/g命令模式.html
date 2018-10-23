@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>命令模式</title>
+</head>
+<body>
+    <script>
+        var ViewCommand = (function(){
+            var tpl = {
+                // 展示图片结构模式
+                product:[
+                    '<div>',
+                        '<img src="{#src#}">',
+                        '<p>{#text#}</p>',
+                    '</div>'
+                ].join(''),
+                // 展示标题结构模板
+                title:[
+                    '<div class="title">',
+                        '<div class="main">',
+                            '<h2>{#title#}</h2>',
+                            '<p>{#tips#}</p>',
+                        '</div>',
+                    '</div>'
+                ].join('')
+            }
+            var html = '';
+            function formatString(str,obj){
+                return str.replace(/\{#(\w+)#\}/g,function(metch,key){
+                    return obj[key];
+                });
+            }
+            // 方法集合
+            var Action = {
+                // 创建方法
+                create:function(data,view){
+                    if(data.length){
+                        for(var i=0,len=data.length;i<len;i++){
+                            html += formatString(tpl[view],data[i]);
+                        }
+                    }else{
+                        html += formatString(tpl[view],data);
+                    }
+                },
+                // 展示方法
+                display:function(){
+
+                }
+            }
+            return function excute(){}
+        })();    
+    </script>
+</body>
+</html>

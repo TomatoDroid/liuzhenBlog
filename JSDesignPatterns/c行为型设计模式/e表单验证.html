@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>策略模式——表单验证</title>
+</head>
+<body>
+    <script>
+        var InputStrategy = (function(){
+            var strategy = {
+                // 是否为空
+                notNull:function(value){
+                    return /\s+/.test(value) ? '请输入内容' : '';
+                },
+                // 是否是一个数字
+                number:function(value){
+                    return /^[0-9]+(\.[0-9]+)?$/.test(value) ? '' : '请输入数字';
+                },
+                phone:function(value){
+                    return /^\d{3}\-\d{8}$|^\d{4}\-\d{7}$/.test(value) ? '' : '请输入正确的电话号码形式，如010-12345678,0418-1234567';
+                }
+            }
+            return {
+                check:function(type,value){
+                    // 去除首尾空白符
+                    var val = value.replace(/^\s+|\s+$/g,'');
+                    return strategy[type] && strategy[type](value);
+                },
+                // 添加策略
+                addStrategy:function(type,fn){
+                    return strategy[type] = fn;
+                }
+            }
+        })();
+        var input = InputStrategy.check('number','123a');
+        console.log(input); 
+    </script>
+</body>
+</html>

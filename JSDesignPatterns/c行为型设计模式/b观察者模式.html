@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>观察者模式</title>
+</head>
+<body>
+    <script>
+        var Observer = (function(){
+            var _messages = {};
+            return{
+                regist:function(type,fn){
+                    if(typeof _messages[type] === 'undefined'){   
+                        // 将动作推入到该消息对应的动作执行队列中
+                        // [fn] 方法数组
+                        _messages[type] = [fn];
+                    }else{
+                        _messages[type].push(fn);
+                    }
+                },
+                fire:function(type,args){
+                    if(!_messages[type]){
+                        return;
+                    }
+                    var events = {
+                        type:type,
+                        args:args || {}
+                    }
+                    i=0;
+                    len = _messages[type].length;
+                    for(;i<len;i++){
+                        _messages[type][i].call(this,events);
+                    }
+                },
+                remove:function(type,fn){
+                    if(_messages[type] instanceof Array){
+                        var i = _messages[type].length-1;
+                        for(;i>=0;i--){
+                            _messages[type][i] === fn && _messages[type].slice(i,1);
+                        }
+                    }
+                }
+            }
+        })();
+
+        Observer.regist('test',function(e){
+            console.log(e.type,e.args.msg);
+        });
+        Observer.regist('test',function(){
+            console.log('多个注册消息');
+        });
+        Observer.fire('test',{msg:'传递参数'});
+    </script>
+</body>
+</html>
