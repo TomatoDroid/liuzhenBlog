@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>中介者模式</title>
+</head>
+<body>
+    <script>
+        // 创建中介者对象
+        var Mediator = (function(){
+            var _msg = {}
+            return {
+                register:function(type,action){
+                    if(_msg[type]){
+                        _msg[type].push(action);
+                    }else{
+                        // 不存在则创建消息容器
+                        _msg[type] = [];
+                        _msg[type].push(action);
+                    }
+                },
+                send:function(type){
+                    if(_msg[type]){
+                        for(var i=0,len=_msg[type].length;i<len;i++){
+                            // 执行该回调函数
+                            _msg[type][i] && _msg[type][i]();
+                        }
+                    }
+                }
+            }
+        })();
+        // 测试
+        Mediator.register('demo',function(){
+            console.log('first');
+        });
+        Mediator.register('demo',function(){
+            console.log('second');
+        });
+        Mediator.send('demo');
+
+        // 显隐导航小组件
+        var showHideNavWeight = function(mod,tag,showOrHide){
+            var mod = document.getElementById(mod),
+                tag = mod.getElementsByTagName(tag),
+                showOrHide = (!showOrHide || showOrHide === 'hide') ? 'hidden' : 'visible';
+            for(var i=0,len=tag.length;i<len;i++){
+                tag.style.visibility = showOrHide;
+            }
+        }
+
+        // 用户收藏导航模块
+        (function(){
+            Mediator.register('hideAllNavNum',function(){
+                showHideNavWeight('collection_nav','b',false);
+            });
+            Mediator.register('showAllNavNum',function(){
+                showHideNavWeight('collection_nav','b',true);
+            });
+            Mediator.register('hideAllNavUrl',function(){
+                showHideNavWeight('collection_nav','span',false);
+            });
+            Mediator.register('hideAllNavUrl',function(){
+                showHideNavWeight('collection_nav','span',true);
+            });
+        })();
+    </script>
+</body>
+</html>

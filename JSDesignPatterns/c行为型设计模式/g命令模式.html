@@ -7,6 +7,8 @@
     <title>命令模式</title>
 </head>
 <body>
+    <div id="title"></div>
+    <div id="product"></div>
     <script>
         var ViewCommand = (function(){
             var tpl = {
@@ -46,12 +48,46 @@
                     }
                 },
                 // 展示方法
-                display:function(){
-
+                display:function(container,data,view){
+                    if(data){
+                        this.create(data,view);
+                    }
+                    document.getElementById(container).innerHTML = html;
+                    html = '';
                 }
             }
-            return function excute(){}
+            return function excute(msg){
+                msg.param = Object.prototype.toString.call(msg.param) === '[object Array]' ?
+                    msg.param : [msg.param];
+                Action[msg.command].apply(Action,msg.param);
+            }
         })();    
+        var productData = [
+            {
+                src:'01.png',
+                text:'绽放的桃花'
+            },
+            {
+                src:'01.png',
+                text:'阳光的温馨'
+            },
+            {
+                src:'01.png',
+                text:'镜头前的绿色'
+            },
+        ],
+            titleData = {
+                title:'夏日里的一片温暖',
+                tips:'暖暖的温情带给人们家的感受'
+            };
+        ViewCommand({
+            command:'display',
+            param:['product',productData,'product']
+        });
+        ViewCommand({
+            command:'display',
+            param:['title',titleData,'title']
+        });
     </script>
 </body>
 </html>
