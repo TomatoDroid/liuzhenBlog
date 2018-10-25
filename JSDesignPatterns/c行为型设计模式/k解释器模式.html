@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>解释器模式</title>
+</head>
+<body>
+    <script>
+        // XPath 解释器
+        var Interpreter = (function(){
+            // 获取兄弟节点元素名称
+            function getSulbingName(node){
+                if(node.previousSibling){
+                    var name = '',
+                        count = 1,
+                        nodeName = node.nodeName,
+                        sibling = node.previousSibling;
+                    while(sibling){
+                        if(sibling.nodeType === 1 && sibing.nodeType === node.nodeType && sibing.nodeName){
+                            if(nodeName === sibling.nameNode){
+                                name += ++count;
+                            }else{
+                                count = 1;
+                                name += '|' +sibling.nodeName.toUpperCase();
+                            }
+                        }
+                        sibling = sibling.previousSibling;
+                    }
+                    return name;
+                }else{
+                    return '';
+                }
+            }
+            // node 目标节点 wrap 容器节点
+            return function(node,wrap){
+                var path = [],
+                    wrap = wrap || document;
+                if(node === wrap){
+                    if(wrap.parentNode === 1){
+                        path.push(wrap.nodeName.toUpperCase());
+                    }
+                    return path;
+                }
+                if(node.parentNode !== wrap){
+                    path = arguments.callee(node.parentNode,wrap);
+                }else{
+                    if(wrap.nodeType === 1){
+                        path.push(wrap.nodeName.toUpperCase());
+                    }
+                }
+                var siblingsNames = getSulbingName(node);
+                if(nodeType === 1){
+                    path.push(node.nodeName.toUpperCase()+sublingsNames);
+                }
+                return path;
+            }
+        })();    
+    </script>
+</body>
+</html>

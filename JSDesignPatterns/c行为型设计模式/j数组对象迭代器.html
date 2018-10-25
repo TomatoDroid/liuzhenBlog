@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 数组迭代器
+        var eachArray = function(arr,fn){
+            var i=0,
+                len=arr.length;
+            for(;i<len;i++){
+                if(fn.call(arr[i],i,arr[i]) === false){
+                    break;
+                }
+            }
+        }
+        for(var arr=[],i=0;i<5;i++){
+            arr[i]=i;
+        }
+        eachArray(arr,function(i,data){
+            console.log(i,data+1);
+        });
+        // 对象迭代器
+        var eachObject = function(obj,fn){
+            for(var i in obj){
+                if(fn.call(obj[i],i,obj[i]) ===false){
+                    break;
+                }
+            }
+        } 
+        var obj = {
+            a:23,
+            b:34,
+            c:1
+        }
+        eachObject(obj,function(index,value){
+            console.log(index,value);
+        });
+    </script>
+</body>
+</html>

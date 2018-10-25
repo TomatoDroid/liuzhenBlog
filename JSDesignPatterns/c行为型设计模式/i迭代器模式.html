@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>迭代器效果</title>
+</head>
+<body>
+    <ul id="container">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+    </ul>
+    <script>
+        var Iterator = function(items,container){
+            var container = container && document.getElementById(container) || document,
+                items = container.getElementsByTagName(items),
+                length = items.length,
+                index = 0;
+            // 缓存原生数组splice方法
+            var splice = [].splice;
+            return{
+                first:function(){
+                    index = 0;
+                    return items[index];
+                },
+                // 获取最后后一个元素
+                second:function(){
+                    index = length-1;
+                    return items[index];
+                },
+                // 获取前一个元素
+                pre:function(){ 
+                    if(--index > 0){
+                        return items[index];
+                    }else{
+                        index = 0;
+                        return items[index];
+                    }
+                },
+                next:function(){
+                    if(++index < length){
+                        return items[index];
+                    }else{
+                        index = length-1;
+                        return items[index];
+                    }
+                },
+                get:function(num){
+                    index = num >= 0 ? num % length : num % length + length;
+                    return items[index];
+                },
+                // 回调函数在每一个元素的作用域中执行一次
+                dealEach:function(fn){
+                    // 截掉第一个参数
+                    var args = splice.call(arguments,1);
+                    for(var i=0;i<length;i++){
+                        fn.apply(items[i],args);
+                    }
+                },
+                // 对某一个元素执行某一种方法
+                dealItem:function(num,fn){
+                    fn.apply(this.get(num),splice.call(arguments,2));
+                },
+                // 排他方式处理某一个元素
+                exclusive:function(num,allFn,numFn){
+                    this.dealEach(allFn);
+                    if(Object.prototype.toString.call(num) === '[object Array]'){   
+                        for(var i=0,len=num.length;i<len;i++){
+                            this.dealItem(num[i],numFn);
+                        }
+                    }else{
+                        this.dealItem(num,numFn);
+                    }
+                }
+            }
+        }
+        var demo = new Iterator('li','container');
+        console.log(demo.first());
+        console.log(demo.next());
+        console.log(demo.second());
+        console.log(demo.get(2000));
+        // demo.dealEach(function(text,color){
+        //     this.innerHTML = text;
+        //     this.style.background = color;
+        // },'test','pink');
+        demo.exclusive([2,3],function(){
+            this.innerHTML = '被排除的';
+            this.style.background='green';
+        },function(){
+            this.innerHTML = '被选中的';
+            this.style.background = 'red';
+        });
+    </script>
+</body>
+</html>
