@@ -7,6 +7,25 @@
     <title>解释器模式</title>
 </head>
 <body>
+    <div></div>
+    <div id="container">
+        <div>
+            <div>
+                <ul>
+                    <li><span id="span1">1</span></li>
+                    <li><span id="span2">2</span></li>
+                </ul>
+            </div>
+        </div>
+        <div>
+            <div>
+                <ul>
+                    <li><span id="span6">6</span></li>
+                    <li><span id="span7">7</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
     <script>
         // XPath 解释器
         var Interpreter = (function(){
@@ -18,8 +37,8 @@
                         nodeName = node.nodeName,
                         sibling = node.previousSibling;
                     while(sibling){
-                        if(sibling.nodeType === 1 && sibing.nodeType === node.nodeType && sibing.nodeName){
-                            if(nodeName === sibling.nameNode){
+                        if(sibling.nodeType == 1 && sibling.nodeType === node.nodeType && sibling.nodeName){
+                            if(nodeName == sibling.nameNode){
                                 name += ++count;
                             }else{
                                 count = 1;
@@ -38,7 +57,7 @@
                 var path = [],
                     wrap = wrap || document;
                 if(node === wrap){
-                    if(wrap.parentNode === 1){
+                    if(wrap.parentNode == 1){
                         path.push(wrap.nodeName.toUpperCase());
                     }
                     return path;
@@ -46,17 +65,19 @@
                 if(node.parentNode !== wrap){
                     path = arguments.callee(node.parentNode,wrap);
                 }else{
-                    if(wrap.nodeType === 1){
+                    if(wrap.nodeType == 1){
                         path.push(wrap.nodeName.toUpperCase());
                     }
                 }
-                var siblingsNames = getSulbingName(node);
-                if(nodeType === 1){
+                var sublingsNames = getSulbingName(node);
+                if(node.nodeType == 1){
                     path.push(node.nodeName.toUpperCase()+sublingsNames);
                 }
                 return path;
             }
-        })();    
+        })();  
+        var path = Interpreter(document.getElementById('span7'));  
+        console.log(path.join('>'));
     </script>
 </body>
 </html>
