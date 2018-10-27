@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="demo"></div>
+    <div id="text"></div>
+    <script>
+        // var A = function(){
+        //     return {
+        //         size:function(){
+        //             return 'return size'
+        //         }
+        //     }
+        // }
+        // A.prototype = {
+        //     length:2,
+        //     size:function(){
+        //         return this.length;
+        //     }
+        // }
+        // A.size = function(){
+        //     return 'a';
+        // };
+        // // 如果调用size要怎么样做
+        // console.log(A.size());
+        // console.log(A().size());
+
+        // 找一位助手
+        // var A = function(){
+        //     return B;
+        // }
+        // B = A.prototype = {
+        //     length:2,
+        //     size:function(){
+        //         return this.length;
+        //     }
+        // }
+        // console.log(A().size());
+        // 在JQuery中为了减少变量的创建，直接将B看成是A的属性
+        // var A = function(){
+        //     return A.fn;
+        // }
+        // A.fn = A.prototype = {
+        //     length:2,
+        //     size:function(){
+        //         return this.length;
+        //     }
+        // }
+        // console.log(A().size());
+
+        // var A = function(selector){
+        //     return A.fn.init(selector);
+        // }
+
+        // A.fn = A.prototype = {
+        //     init:function(selector){
+        //         return document.getElementById(selector);
+        //     },  
+        //     length:2,
+        //     size:function(){
+        //         return this.size;
+        //     }
+        // }
+        // console.log(A('demo'));
+
+        // 还想要调用本对象的其他方法  
+        // var A = function(selector){
+        //     // 这种方式返回，第二次调用会覆盖第一次的返回的值 详见如下
+        //     // 是因为init()返回同一个对象造成的,使用new 关键字代替
+        //     return A.fn.init(selector);
+        // }
+        // A.fn = A.prototype = {
+        //     init:function(selector){
+        //         this[0] = document.getElementById(selector);
+        //         this.length = 1;
+        //         return this;
+        //     },
+        //     length:2,
+        //     size:function(){
+        //         return this.length;
+        //     }
+        // }
+        // var demo = A('demo');
+        // console.log(demo);
+        // console.log(demo.size());
+        // var text = A('text');
+        // console.log(demo);
+
+        // var A = function(selector){
+        //     return new A.fn.init(selector);
+        // }
+        // A.fn = A.prototype = {
+        //     init:function(selector){
+        //         this[0] = document.getElementById(selector);
+        //         this.length = 1;
+        //         console.log(this === A.fn,this === A.prototype, this);
+        //         return this;
+        //     },
+        //     length:2,
+        //     size:function(){
+        //         return this.length;
+        //     }
+        // }
+        // var demo = A('demo');
+        // // var text = A('text');
+        // console.log(demo);
+        // // console.log(demo.size()); //报错 demo.size is not a function n
+
+        var A = function(selector){
+            return new A.fn.init(selector);
+        }
+        A.fn = A.prototype = {
+            constructor:A,
+            init:function(selector){
+                this[0] = document.getElementById(selector);
+                this.length = 1;
+                return this;
+            },
+            length:2,
+            size:function(){
+                return this.length;
+            }
+        }
+        A.fn.init.prototype = A.fn;
+        var demo = A('demo');
+        console.log(demo);
+        console.log(demo.size());
+    </script>
+</body>
+</html>
