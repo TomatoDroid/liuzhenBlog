@@ -174,12 +174,10 @@
 
         var demo = A('div');
         console.log(demo);
-        A.fn.extend({css:function(){
-            console.log('css');
+        A.fn.extend({attr:function(){
+            console.log('attr');
         }});
-        console.log(A('#demo').css);
-        
-        console.log(A('#demo'));
+        console.log(A('#demo').attr);
 
         A('#demo').css({
             height:'30px',
