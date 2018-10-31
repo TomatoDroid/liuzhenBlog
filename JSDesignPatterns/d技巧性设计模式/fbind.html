@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>bind</title>
+</head>
+<body>
+    <button>点击</button>
+    <p>段落</p>
+    <script>
+        var bind = function(fn,context){
+            return function(){
+                return fn.apply(context,arguments);
+            }
+        }
+        // var demoObj = {
+        //     title:'这是一个例子'
+        // }
+        // var demoFn = function(){
+        //     console.log(this.title);
+        // }
+        // var bindFn = bind(demoFn,demoObj);
+        // demoFn();
+        // bindFn();
+        var btn = document.querySelector('button');
+        var p = document.querySelector('p');
+        function demoFn(){
+            console.log(arguments,this);
+        }
+        var bindFn = bind(demoFn);
+        btn.addEventListener('click',bindFn);
+        
+        var bindFn = bind(demoFn,btn);
+        btn.addEventListener('click',bindFn);
+
+        var bindFn = bind(demoFn,p);
+        btn.addEventListener('click',bindFn);
+
+        // 函数柯里化
+        function curry(fn){
+            var Slice = [].slice;
+            var args = Slice.call(arguments,1);
+            return function(){
+                var addArgs = Slice.call(arguments),
+                allArgs = args.concat(addArgs);
+                // 返回新函数
+                return fn.apply(null,allArgs);
+            }
+        }
+        // 加法器
+        function add(num1,num2){
+            return num1+num2;
+        }
+        // 加5加法器
+        function add5(num1){
+            return num1+5;
+        }
+        // 测试
+        console.log(add(1,2));  //3
+        console.log(add5(3));   //8
+
+        // 函数柯里化创建加5加法器
+        var add5 = curry(add,5);
+        console.log(add5(7));
+        //8+7
+        var add7add8 = curry(add,7,8);
+        console.log(add7add8());  
+    </script>
+</body>
+</html>
