@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>同步模式模块-SMD</title>
+</head>
+<body>
+    <div id="test">  你好</div>
+    <script>
+        var F = F || {};
+        // 正常情况下，模块方法应该再闭包中实现
+        // str模块路由，fn模块方法
+        F.define = function(str,fn){
+            var parts = str.split('.'),
+                old = parent = this,
+                i = len = 0;
+            if(parts[0] === 'F'){
+                parts = parts.slice(1);
+            }
+            if(parts[0] === 'define' || parts[0] === 'module'){
+                return;
+            }
+            for(len=parts.length;i<len;i++){
+                if(typeof parent[parts[i]] === 'undefined'){
+                    parent[parts[i]] = {}
+                }
+                old = parent;
+                parent = parent[parts[i]];
+            }
+            if(fn){
+                // 此时i=parts.length 故减一
+                old[parts[--i]] = fn();
+            }
+            return this;
+        }
+        // 创建模块
+        F.define('string',function(){
+            return {
+                trim:function(str){
+                    return str.replace(/^\s+|\s+$/g,'');
+                }
+            }
+        });
+        // 测试
+        console.log(F.string.trim('  你好'));
+        F.define('dom',function(){
+            var $ = function(id){
+                $.dom = document.getElementById(id);
+                return $;
+            }
+            $.html = function(html){
+                if(html){
+                    this.dom.innerHTML = html;
+                    return this;
+                }else{
+                    return this.dom.innerHTML;
+                }
+            }
+            return $;
+        });
+        console.log(F.dom('test').html());
+    </script>
+</body>
+</html>
