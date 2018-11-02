@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MVVM</title>
+</head> 
+<body>
+    <script>
+        //  屏蔽压缩包错
+        ~(function(){
+            var window = this || (0,eval)('this');
+            var FONTSIZE = function(){
+                return  parseInt(document.body.currentStyle ? document.body.currentStyle['fontSize'] : 
+                    getComputedStyle(document.body,false)['fontSize']);
+            }();
+            var VM = function(){
+                var method = {
+                    // 进度条组件创建方法
+                    progressBar:function(dom,data){
+                        var progress = document.createElement('div'),
+                            param = data.data;
+                        progress.style.width = (param.position || 100) + '%';
+                        dom.className += ' ui-progressbar';
+                        dom.appendChild(progress);
+                    },
+                    // 滑动条组件创建方法
+                    slider:function(dom,data){
+                        var bar = document.createElement('span'),
+                            progress = document.createElement('div'),
+                            totleText = null,
+                            progressText = null,
+                            param = data.data,
+                            width = dom.clientWidth,
+                            left = dom.offsetLeft,
+                            realWidth = (param.position || 100) * width /100;
+                        dom.innerHTML = '';
+                        if(param.totle){
+                            text = document.createElement('b');
+                            progressText = document.createElement('em');
+                            text.innerHTML = param.totle;
+                            dom.appendChild(text);
+                            dom.appendChild(progressText);
+                        }
+                        setStyle(realWidth);
+                        dom.className += ' ui-slider';
+                        dom.appendChild(progress);
+                        dom.appendChild(bar);
+                        function setStyle(w){
+                            progress.style.width = w + 'px';
+                            bar.style.left = w - FONTSIZE/2 + 'px';
+                            if(progressText){
+                                progressText.style.left = w - FONTSIZE /2 *2.4 + 'px';
+                                progressText.innerHTML = progress(w/width*100).toFixed(2) + '%';
+                            }
+                        }
+                        bar.onmousedown = function(){
+
+                        }
+                        document.onmouseup = function(){
+
+                        }
+                    }
+                }
+                function getBindData(dom){
+
+                }
+                return function(){
+                    
+                }
+            }
+            window.VM = VM;
+        })();
+    </script>
+</body>
+</html>

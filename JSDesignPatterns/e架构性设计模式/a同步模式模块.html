@@ -61,6 +61,46 @@
             return $;
         });
         console.log(F.dom('test').html());
+        // 也可进行先声明后创建
+        F.define('dom.addClass');
+        F.dom.addClass = function(type,fn){
+            return function(className){
+                if(!~this.dom.className.indexOf(className)){
+                    this.dom.className += ' ' + className;
+                }
+            }
+        }();
+        F.dom('test').addClass('test');
+        // 模块的调用方法
+        F.module = function(){
+            var args = [].slice.call(arguments),
+                fn = args.pop(),
+                parts = args[0] && args[0] instanceof Array ? args[0] : args,
+                modules = [],
+                modIDs = '',
+                i = 0,
+                ilen = parts.length,
+                parent, j, jlen;
+            while(i < ilen){
+                if(typeof parts[i] === 'string'){
+                    parent = this;
+                    modIDs = parts[i].replace(/^F\./,'').split('.');
+                    for(j=0,jlen = modIDs.length;j<jlen;j++){
+                        parent = parent[modIDs[j]] || false;
+                    }
+                    modules.push(parent);
+                }else{  
+                    modules.push(parts[i]);
+                }
+                i++;
+            }
+            fn.apply(null,modules);
+        }
+        
+        F.module(['dom',document],function(dom,doc){
+            dom('test').html('new Add!');
+            doc.body.style.background = 'red';
+        });
     </script>
 </body>
 </html>
