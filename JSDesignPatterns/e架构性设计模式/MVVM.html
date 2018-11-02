@@ -7,6 +7,9 @@
     <title>MVVM</title>
 </head> 
 <body>
+    <div class="first" data-bind="type:'slider',data:demo1"></div>
+    <div class="second" data-bind="type:'slider',data:demo2"></div>
+    <div class="third" data-bind="type:'progressbar',data:demo3"></div>
     <script>
         //  屏蔽压缩包错
         ~(function(){
@@ -16,7 +19,7 @@
                     getComputedStyle(document.body,false)['fontSize']);
             }();
             var VM = function(){
-                var method = {
+                var Method = {
                     // 进度条组件创建方法
                     progressBar:function(dom,data){
                         var progress = document.createElement('div'),
@@ -56,7 +59,18 @@
                             }
                         }
                         bar.onmousedown = function(){
-
+                            document.onmousemove = function(event){
+                                var e = event || window.event;
+                                var w = e.clientX - left;
+                                setStyle(w<width?(w>0?w:0):width);
+                            }
+                            document.onselectstart = function(){
+                                return false;
+                            }
+                        }
+                        document.onmouseup = function(){
+                            document.onmousemove = null;
+                            document.onselectstart = null;
                         }
                         document.onmouseup = function(){
 
@@ -64,14 +78,34 @@
                     }
                 }
                 function getBindData(dom){
-
+                    var data = dom.getAttribute('data-bind');
+                    return !!data && (new Function("return ({"+data+"})"))();
                 }
                 return function(){
-                    
+                    var dom = document.getElementsByTagName('*'),
+                        ctx = null;
+                        for(var i=0;i<dom.length;i++){
+                            ctx = getBindData(dom[i]);
+                            ctx.type && Method[ctx.type] && Method[ctx.type](dom[i],ctx);
+                        }
                 }
             }
             window.VM = VM;
         })();
+
+        var domo1 = {
+            position:60,
+            total:200
+            },
+            demo2 = {
+                position:20
+            },
+            demo3 = {
+                position:30
+            }
+        window.onload = function(){
+            VM();
+        }
     </script>
 </body>
 </html>
