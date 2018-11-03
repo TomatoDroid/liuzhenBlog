@@ -5,6 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>MVVM</title>
+    <style>
+        div{
+            margin: 10px 0;
+            border: 1px solid black;
+            height: 20px;
+            width: 500px;
+            box-sizing: border-box;
+        }
+        .ui-slider{
+            height: 20px;
+            background: red;
+        }
+        .ui-slider div{
+            height: 18px;
+            margin: 0;
+            background: rgb(231, 187, 187);
+        }
+        .ui-slider span{
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            border: 1px solid blanchedalmond;
+            background: gray;
+        }
+    </style>
 </head> 
 <body>
     <div class="first" data-bind="type:'slider',data:demo1"></div>
@@ -72,9 +97,6 @@
                             document.onmousemove = null;
                             document.onselectstart = null;
                         }
-                        document.onmouseup = function(){
-
-                        }
                     }
                 }
                 function getBindData(dom){
@@ -84,16 +106,16 @@
                 return function(){
                     var dom = document.getElementsByTagName('*'),
                         ctx = null;
-                        for(var i=0;i<dom.length;i++){
-                            ctx = getBindData(dom[i]);
-                            ctx.type && Method[ctx.type] && Method[ctx.type](dom[i],ctx);
-                        }
+                    for(var i=0;i<dom.length;i++){
+                        ctx = getBindData(dom[i]);
+                        ctx.type && Method[ctx.type] && Method[ctx.type](dom[i],ctx);
+                    }
                 }
-            }
+            }();
             window.VM = VM;
         })();
 
-        var domo1 = {
+        var demo1 = {
             position:60,
             total:200
             },
