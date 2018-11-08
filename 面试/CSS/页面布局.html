@@ -10,6 +10,9 @@
             padding: 0;
             margin: 0;
         }
+        section{
+            margin-bottom: 10px;
+        }
         section article div{
             height: 100px;
         }
@@ -39,6 +42,38 @@
             <div class="right"></div>
             <div class="center">
                 <h1>浮动解决方案</h1>
+            </div>
+        </article>
+    </section>
+    <section class="layout position">
+        <style>
+            .layout.position{
+                height: 100px;
+            }
+            .layout.position .left{
+                width: 300px;
+                position: absolute;
+                left: 0;
+                background: blue;
+            }
+            .layout.position .right{
+                width: 300px;
+                position: absolute;
+                right: 0;
+                background: rebeccapurple;
+            }
+            .layout.position .center{
+                position: absolute;
+                left: 300px;
+                right: 300px;
+                background: yellowgreen;
+            }
+        </style>
+        <article class="left-right-center">
+            <div class="left"></div>
+            <div class="right"></div>
+            <div class="center">
+                <h1>绝对定位布局</h1>
             </div>
         </article>
     </section>
