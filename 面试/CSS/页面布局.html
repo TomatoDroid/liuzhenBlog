@@ -6,25 +6,41 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-        .left, .right{
-           height: 500px;
-           width: 300px; 
-           background: red;
+        *{
+            padding: 0;
+            margin: 0;
         }
-        .middle{
-            height: 500px;
-            margin: 0 auto;
-            background: yellow;
+        section article div{
+            height: 100px;
         }
     </style>
 </head>
 <body>
     <!-- 高度已知，请写出三栏布局，左右两栏各占300px，中间自适应 -->
     <!-- 1.浮动 2.绝对定位 3.flexbox 4.表格布局 5.网格布局 -->
-    <div>
-        <div class="left"></div>
-        <div class="middle"></div>
-        <div class="right"></div>
-    </div>
+    <section class="layout float">
+        <style>
+            .layout.float .left {
+                float: left;
+                width: 300px;
+                background: yellow;
+            }
+            .layout.float .right{
+                float: right;
+                width: 300px;
+                background: yellow;
+            }
+            .layout.float .center{
+                background: bisque;
+            }
+        </style>
+        <article class="left-right-center">
+            <div class="left"></div>
+            <div class="right"></div>
+            <div class="center">
+                <h1>浮动解决方案</h1>
+            </div>
+        </article>
+    </section>
 </body>
 </html>
