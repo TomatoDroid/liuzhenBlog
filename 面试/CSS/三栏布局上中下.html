@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        html, body{
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- <section class="layout absolute">
+        <style>
+            .layout.absolute .top{
+                position: absolute;
+                width: 100%;
+                height: 100px;
+                top: 0;
+                background: rebeccapurple;
+            }
+            .layout.absolute .bottom{
+                position: absolute;
+                width: 100%;
+                height: 100px;
+                bottom: 0;
+                background: rebeccapurple;
+            }
+            .layout.absolute .middle{
+                position: absolute;
+                top: 100px;
+                bottom: 100px;
+                width: 100%;
+                background: yellow;
+            }
+        </style>
+        <article class="top-middle-bottom">
+            <div class="top"></div>
+            <div class="middle">
+                <h1>absolute布局</h1>
+            </div>
+            <div class="bottom"></div>
+        </article>
+    </section> -->
+
+    <!-- <section class="layout flex">
+        <style>
+            .layout.flex {
+                height: 100%;
+            }
+            .layout.flex .top-middle-bottom{
+                display: flex;
+                flex-direction: column;
+                /* height: 100%; */
+            }
+            .layout.flex .top{
+                height: 100px;
+                background: rebeccapurple;
+            }
+            .layout.flex .middle{
+                flex:1;
+                background: yellow;
+            }
+            .layout.flex .bottom{
+                height: 100px;
+                background: rebeccapurple;
+            }
+        </style>
+        <article class="top-middle-bottom">
+            <div class="top"></div>
+            <div class="middle">
+                <h1>flex布局</h1>
+                <p>我是内容</p>
+                <p>我是内容</p>
+                <p>我是内容</p>
+                <p>我是内容</p>
+                <p>我是内容</p>
+                <p>我是内容</p>
+                <p>我是内容</p>
+            </div>
+            <div class="bottom"></div>
+        </article>
+    </section> -->
+
+     <!-- <section class="layout grid">
+        <style>
+            .layout.grid{
+                height: 100%;
+            }
+            .layout.grid .top-middle-bottom{
+                display: grid;
+                grid-template-rows: 100px auto 100px;
+                grid-template-columns: 100%;
+                height: 100%;
+            }
+            .layout.grid .top{
+                background: rebeccapurple;
+            }
+            .layout.grid .middle{
+                background: yellow;
+            }
+            .layout.grid .bottom{
+                background: rebeccapurple;
+            }
+        </style>
+        <article class="top-middle-bottom">
+            <div class="top"></div>
+            <div class="middle">
+                <h1>grid布局</h1>
+                <p>我是内容</p>
+                <p>我是内容</p>
+                <p>我是内容</p>
+                <p>我是内容</p>
+                <p>我是内容</p>
+                <p>我是内容</p>
+                <p>我是内容</p>
+            </div>
+            <div class="bottom"></div>
+        </article>
+    </section> -->
+
+    <section class="layout table">
+        <style>
+            .layout.table{
+                height: 100%;
+            }
+            .layout.table .top-middle-bottom{
+                display: table;
+                height: 100%;
+                width: 100%;
+            }
+            .layout.table .top-middle-bottom>div{
+                display: table-row;
+            }
+            .layout.table .top{
+                background: rebeccapurple;
+            }
+            .layout.table .middle{
+                background: yellow;
+            }
+            .layout.table .bottom{
+                background: rebeccapurple;
+            }
+        </style>
+        <article class="top-middle-bottom">
+            <div class="top">1</div>
+            <div class="middle">
+                <h1>table布局</h1>
+                <p>我是内容</p>
+                <p>我是内容</p>
+                <p>我是内容</p>
+                <p>我是内容</p>
+                <p>我是内容</p>
+                <p>我是内容</p>
+                <p>我是内容</p>
+            </div>
+            <div class="bottom">1</div>
+        </article>
+    </section>
+</body>
+</html>

@@ -19,7 +19,7 @@
     </style>
 </head>
 <body>
-    <!-- 浮动    绝对定位    flex布局    table -->
+    <!-- 三栏布局 -->
     <section class="layout float">
         <style>
             .layout.float .left{
@@ -27,13 +27,13 @@
                 width: 300px;
                 background: rebeccapurple;
             }
-            .layout.float .right{
-                float: right;
-                width: 300px;
-                background: rebeccapurple;
-            }
             .layout.float .center{
                 background: yellow;
+            }
+            .layout.float .right{
+                width: 300px;
+                float: right;
+                background: rebeccapurple;
             }
         </style>
         <article class="left-right-center">
@@ -42,26 +42,25 @@
             <div class="center">
                 <h1>浮动布局</h1>
             </div>
-        </article>
+        </article> 
     </section>
 
     <section class="layout absolute">
         <style>
-            .layout.absolute .left-right-center>div{
-                position: absolute;
-            }
             .layout.absolute .left{
-                left: 0;
+                position: absolute;
                 width: 300px;
+                left: 0;
                 background: rebeccapurple;
             }
             .layout.absolute .right{
-                right: 0;
+                position: absolute;
                 width: 300px;
+                right: 0;
                 background: rebeccapurple;
             }
             .layout.absolute .center{
-                /* 绝对定位，不设置宽度便可自适应 */
+                position: absolute;
                 left: 300px;
                 right: 300px;
                 background: yellow;
@@ -69,17 +68,16 @@
         </style>
         <article class="left-right-center">
             <div class="left"></div>
+            <div class="right"></div>
             <div class="center">
                 <h1>绝对布局</h1>
             </div>
-            <div class="right"></div>
-        </article>
+        </article> 
     </section>
 
     <section class="layout flex">
         <style>
             .layout.flex{
-                /* 上面absolute脱离文档流，会覆盖此布局 */
                 margin-top: 120px;
             }
             .layout.flex .left-right-center{
@@ -101,10 +99,10 @@
         <article class="left-right-center">
             <div class="left"></div>
             <div class="center">
-                <h1>flex布局</h1>
+                <h1>Flex布局</h1>
             </div>
             <div class="right"></div>
-        </article>
+        </article> 
     </section>
 
     <section class="layout table">
@@ -132,10 +130,10 @@
         <article class="left-right-center">
             <div class="left"></div>
             <div class="center">
-                <h1>table布局</h1>
+                <h1>Table布局</h1>
             </div>
             <div class="right"></div>
-        </article>
+        </article> 
     </section>
 
     <section class="layout grid">
@@ -147,7 +145,7 @@
             }
             .layout.grid .left{
                 background: rebeccapurple;
-            }
+            }   
             .layout.grid .center{
                 background: yellow;
             }
@@ -158,16 +156,10 @@
         <article class="left-right-center">
             <div class="left"></div>
             <div class="center">
-                <h1>grid布局</h1>
+                <h1>Grid布局</h1>
             </div>
             <div class="right"></div>
-        </article>
+        </article> 
     </section>
-    <!-- 他们之间有什么优缺点
-    浮动布局 优点：兼容性好。缺点；需要清除浮动，脱离了文档流
-    绝对定位布局：优点：兼容性好。缺点：脱离了文档流
-    flex布局：优点：解决了脱离文档流的问题。缺点；兼容性不好
-    table布局：优点：兼容性好，但现在不推荐使用了
-    grid布局：优点：下一代标准，实现简单。缺点:兼容性差 -->
 </body>
 </html>
