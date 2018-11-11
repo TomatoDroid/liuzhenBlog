@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- 父元素和子元素，子元素设置height：100px，margin-top：10px，
+    父元素高度为：？（100px或者110px，具体看父元素如何设置） -->
+    <section id="sec">
+        <style>
+            #sec{
+                background: blue;
+                /* 如果不设置overflow:hidden,则为100px */
+                overflow: hidden;
+            }
+            #sec .child{
+                height: 100px;
+                margin-top: 10px;
+                background: rebeccapurple;
+            }
+        </style>
+        <article class="child"></article>
+    </section>
+
+    <!-- 解决兄弟盒子边距塌陷 例如 p1下边距10px，p2上边距20px，默认会变成20px
+        解决方法：给p2设置一个父元素，创建BFC -->
+    <section id="margin">
+        <style>
+            #margin{
+                background: red;
+                overflow: hidden;
+            }
+            #margin p{
+                margin: 10px auto 20px;
+                background: greenyellow;
+            }
+        </style>
+        <p>1</p>
+        <article style="overflow:hidden">
+            <p>2</p>
+        </article>
+        <p>3</p>
+    </section>
+
+    <!-- BFC不与float元素重叠 -->
+    <section id="layout">
+        <style>
+            #layout{
+                margin-top: 10px;
+                background: olivedrab;
+            }
+            #layout .left{
+                float: left;
+                width: 300px;
+                height: 100px;
+                background: brown;
+            }
+            #layout .right{
+                height: 120px;
+                /* 左边浮动，当右边高度超过左边高度后，就会发生入侵现象，就是多余部分会跑到左边的底部 */
+                /* 此时加上BFC即可 */
+                overflow: hidden;
+                background: yellow;
+            }
+        </style>
+        <article class="left-right">
+            <div class="left"></div>
+            <div class="right">
+                这是内容
+            </div>
+        </article>
+    </section>
+
+    <!-- 清除浮动 -->
+    <!-- BFC子元素即使是float也会参与高度计算 -->
+    <section id="float">
+        <style>
+            #float{
+                background: rebeccapurple;
+                margin-top: 10px;
+                /* 如果不设置BFC,则父元素没有显示 */
+                float:left;
+                /* position: absolute; */
+                /* overflow: hidden; */
+                /* display: table; */
+            }
+            #float .float{
+                float: left;
+                font-size: 30px;
+            }
+        </style>
+        <article class="float">
+            我是浮动元素
+        </article>
+    </section>
+</body>
+</html>
