@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        section{
+            margin-top: 10px;
+        }
+        section article>div{
+            min-height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 高度固定，左右两边宽度固定，中间自适应 -->
+    <!-- 浮动    绝对定位    flex布局    table -->
+    <section class="layout float">
+        <style>
+            .layout.float .left{
+                float: left;
+                width: 300px;
+                background: rebeccapurple;
+            }
+            .layout.float .right{
+                float: right;
+                width: 300px;
+                background: rebeccapurple;
+            }
+            .layout.float .center{
+                background: yellow;
+            }
+        </style>
+        <article class="left-right-center">
+            <div class="left"></div>
+            <div class="right"></div>
+            <div class="center">
+                <h1>浮动布局</h1>
+            </div>
+        </article>
+    </section>
+
+    <section class="layout absolute">
+        <style>
+            .layout.absolute .left-right-center>div{
+                position: absolute;
+            }
+            .layout.absolute .left{
+                left: 0;
+                width: 300px;
+                background: rebeccapurple;
+            }
+            .layout.absolute .right{
+                right: 0;
+                width: 300px;
+                background: rebeccapurple;
+            }
+            .layout.absolute .center{
+                /* 绝对定位，不设置宽度便可自适应 */
+                left: 300px;
+                right: 300px;
+                background: yellow;
+            }
+        </style>
+        <article class="left-right-center">
+            <div class="left"></div>
+            <div class="center">
+                <h1>绝对布局</h1>
+            </div>
+            <div class="right"></div>
+        </article>
+    </section>
+
+    <section class="layout flex">
+        <style>
+            .layout.flex{
+                /* 上面absolute脱离文档流，会覆盖此布局 */
+                margin-top: 120px;
+            }
+            .layout.flex .left-right-center{
+                display: flex;
+            }
+            .layout.flex .left{
+                width: 300px;
+                background: rebeccapurple;
+            }
+            .layout.flex .center{
+                flex: 1;
+                background: yellow;
+            }
+            .layout.flex .right{
+                width: 300px;
+                background: rebeccapurple;
+            }
+        </style>
+        <article class="left-right-center">
+            <div class="left"></div>
+            <div class="center">
+                <h1>flex布局</h1>
+            </div>
+            <div class="right"></div>
+        </article>
+    </section>
+
+    <section class="layout table">
+        <style>
+            .layout.table .left-right-center{
+                display: table;
+                width: 100%;
+                height: 100px;
+            }
+            .layout.table .left-right-center>div{
+                display: table-cell;
+            }
+            .layout.table .left{
+                width: 300px;
+                background: rebeccapurple;
+            }
+            .layout.table .center{
+                background: yellow;
+            }
+            .layout.table .right{
+                width: 300px;
+                background: rebeccapurple;
+            }
+        </style>
+        <article class="left-right-center">
+            <div class="left"></div>
+            <div class="center">
+                <h1>table布局</h1>
+            </div>
+            <div class="right"></div>
+        </article>
+    </section>
+
+    <section class="layout grid">
+        <style>
+            .layout.grid .left-right-center{
+                display: grid;
+<<<<<<< HEAD:面试/CSS/三栏布局.html
+                width: 100px;
+=======
+                width: 100%;
+>>>>>>> de0b55c14330c9ec0917b29347d0f7c28fc8016f:面试/CSS/三栏布局左中右.html
+                grid-template-rows: 100px;
+                grid-template-columns: 300px auto 300px;
+            }
+            .layout.grid .left{
+                background: rebeccapurple;
+            }
+            .layout.grid .center{
+                background: yellow;
+            }
+            .layout.grid .right{
+                background: rebeccapurple;
+            }
+        </style>
+        <article class="left-right-center">
+            <div class="left"></div>
+            <div class="center">
+                <h1>grid布局</h1>
+            </div>
+            <div class="right"></div>
+        </article>
+    </section>
+    <!-- 他们之间有什么优缺点
+    浮动布局 优点：兼容性好。缺点；需要清除浮动，脱离了文档流
+    绝对定位布局：优点：兼容性好。缺点：脱离了文档流
+    flex布局：优点：解决了脱离文档流的问题。缺点；兼容性不好
+    table布局：优点：兼容性好，缺点：但现在不推荐使用了，其中一个table-cell高度变化后，其他也是需要改变的
+    grid布局：优点：下一代标准，代码量少。实现简单。缺点:兼容性差 -->
+
+    <!-- 二：去掉高度以后，该如何选择（也就是增加中间的高度）
+        flex table布局表现良好，grid布局需要调整高度，但是float absolute已经无法使用
+        如何使浮动超出部分表现良好，使用BFC,后面盒模型会提到 -->
+</body>
+</html>

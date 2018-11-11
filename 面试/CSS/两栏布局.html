@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        section {
+            margin-top: 10px;
+        }
+        section article>div{
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <section class="layout float">
+        <style>
+            .layout.float .left{
+                float: left;
+                width: 300px;
+                background: rebeccapurple;
+            }
+            .layout.float .right{
+                width: 100%;
+                background: yellow;
+            }
+        </style>
+        <article class="left-right">
+            <div class="left"></div>
+            <div class="right">
+                <h1>这是浮动布局</h1>
+            </div>
+        </article>
+    </section>
+
+    <section class="layout absolute">
+        <style>
+            .layout.absolute .left{
+                position: absolute;
+                left: 0;
+                width: 300px;
+                background: rebeccapurple;
+            }
+            .layout.absolute .right{
+                position: absolute;
+                left: 300px;
+                width: 100%;
+                background: yellow;
+            }
+        </style>
+        <article class="left-right">
+            <div class="left"></div>
+            <div class="right">
+                <h1>absolute布局</h1>
+            </div>
+        </article>
+    </section>
+
+    <section class="layout flex">
+        <style>
+            .layout.flex{
+                margin-top: 120px;
+            }
+           .layout.flex .left-right{
+               display: flex;
+           }
+           .layout.flex .left{
+               width: 300px;
+               background: rebeccapurple;
+           }
+           .layout.flex .right{
+               flex:1 0 auto;
+               background: yellow;
+           }
+        </style>
+        <article class="left-right">
+            <div class="left"></div>
+            <div class="right">
+                <h1>flex布局</h1>
+            </div>
+        </article>
+    </section>
+
+    <section class="layout table">
+        <style>
+            .layout.table .left-right{
+                display: table;
+                width: 100%;
+            }
+            .layout.table .left-right>div{
+                display: table-cell;
+            }
+            .layout.table .left{
+                width: 300px;
+                background: rebeccapurple;
+            }
+            .layout.table .right{
+                background: yellow;
+            }
+        </style>
+        <article class="left-right">
+            <div class="left"></div>
+            <div class="right">
+                <h1>table布局</h1>
+            </div>
+        </article>
+    </section>
+
+    <section class="layout grid">
+        <style>
+            .layout.grid .left-right{
+                display: grid;
+                /* grid-template-rows: 100px; */
+                grid-template-columns: 300px auto;
+            }
+            .layout.grid .left{
+                background: rebeccapurple;
+            }
+            .layout.grid .right{
+                background: yellow;
+            }
+        </style>
+        <article class="left-right">
+            <div class="left"></div>
+            <div class="right">
+                <h1>grid布局</h1>
+            </div>
+        </article>
+    </section>
+</body>
+</html>
