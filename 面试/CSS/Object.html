@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 构造函数式继承
+        // 关键点，在子类函数中执行父类的构造函数：Parent1.call(this);
+        // 缺点：无法继承父类prototype中的方法
+        var Parent1 = function(){
+            this.name = 'parent1';
+        }
+        Parent1.prototype.say = function(){
+            console.log('say hi');
+        }
+        var Child1 = function(){
+            Parent1.call(this);
+            this.type = 'child1Type';
+        }
+        child1 = new Child1();
+        console.log(child1);
+        
+        /* 原型式继承
+            关键：将父类的实例赋值给子类的原型，Child2.prototype = new Parent2();
+            缺点：父类如果有引用类型，一个实例修改，其他实例的这个属性跟着改变，由于覆盖了子类
+            构造函数属性，所以无法判断实例是子类构造函数生成还是父类生成
+        */
+        var Parent2 = function(){
+            this.name = 'parent2';
+            this.nums = [1,2,3];
+        }
+        Parent2.prototype.say = function(){
+            console.log('say hi');
+        }
+        var Child2 = function(){
+            this.type = 'child2Type';
+        }
+        Child2.prototype = new Parent2();
+
+        var c2 = new Child2();
+        var c22 = new Child2();
+        c2.nums.push(4);
+        console.log(c22.nums);
+        
+        /* 
+            组合式继承
+            关键：构造函数继承和原型继承的组合
+            缺点：修复父类构造函数调用两次的问题，但是还存在一个问题就是
+                  实例无法知道具体是通过那个构造函数创造的
+         */
+         var Parent3 = function(){
+            this.name = 'parent3';
+            this.nums = [1,2,3];
+        }
+        Parent3.prototype.say = function(){
+            console.log('say hi');
+        }
+        var Child3 = function(){
+            Parent3.call(this);
+            this.type = 'child3Type';
+        }
+        // Child3.prototype = new Parent3();
+        // 父类构造函数调用了两次，1是子类的构造函数，2是原型继承，
+        // 优化如下
+        Child3.prototype = Parent3.prototype;
+        var p3 = new Parent3();
+        var c3 = new Child3();
+        console.log(c3 instanceof Child3,c3 instanceof Parent3);
+        console.log(c3.constructor);
+
+        /* 终极法宝：寄生组合式继承 
+            关键，Object.create(Parent.prototype),Child.constructor=Child;
+        */
+        var Parent4 = function(){
+            this.name = 'parent4';
+        }
+        var Child4 = function(){
+            Parent4.call(this);
+            this.type = 'type4';
+        }
+        Child4.prototype = Object.create(Parent4.prototype);
+        // 修正子类构造函数
+        Child4.prototype.constructor = Child4;
+        var p4 = new Parent4();
+        var c4 = new Child4();
+        console.log(c4 instanceof Child4,c4 instanceof Parent4);
+        console.log(c4.constructor);
+
+        // Object.create();的原理
+        var inhertObject = function(o){
+            function F(){}
+            F.prototype = o;
+            return new F();
+        }
+    </script>
+</body>
+</html>

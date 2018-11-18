@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>原型链</title>
+</head>
+<body>
+    <script>
+        // 对象字面量
+        var o1 = {name:'o1'}
+        // 下面这个不算对象向字面量，因为类型一样
+        var o11 = new Object({name:'o11'});
+        // 构造函数
+        var M = function(name){
+            this.name = name;
+        }
+        var o2 = new M('o2');
+        // Object.create
+        var P = {name:'o3'}
+        var o3 = Object.create(P);
+    </script>
+</body>
+</html>
