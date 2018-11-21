@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /* 为何会出现跨域通信，是因为浏览器的同源策略，所谓同源指的是三个相同：
+            1 协议相同
+            2 域名相同
+            3 端口号相同 
+           同源策略限制了那些操作
+            1 Cookie,LocalStorage,IndexDB无法读取
+            2 无法获取DOM
+            3 AJAX请求无法发送
+        */
+
+        // 通信跨域的五种方式：JSONP,Hash,postMessage,webSocket,CORS
+        /* 一 JSONP的原理
+            1 利用<script src="">标签的src属性可以跨源的特点
+            特点: 简单适用，兼容性好 */
+        function addScriptTag(src){
+            var script = document.createElement('script');
+            script.src = src;
+            document.body.appendChild(script);
+        }
+        window.onload = function(){
+            addScriptTag('http://example.com/ip?callback=foo');
+        };
+        function foo(data){
+            console.log('Your public IP address is:'+data.ip);
+        }
+        // 服务器端
+        foo({
+            'ip':'8.8.8.8'
+        });
+        
+        /* 二 HASH  (片段标识符)
+            原理，子窗口通过监听window.onhashchange来监听hash是否变化，hash改变并不会导致页面刷新
+            缺点：不安全，传输数据有限 */
+        // 父窗口
+        var src = originURL + '#' + data;
+        document.getElementById('myIframe').src = src;
+        // 子窗口
+        window.onhashchange = function(){
+            var message = window.location.hash;
+        }
+        // 同样，子窗口也可以改变父窗口的
+        parent.location.href = target + '#' + data;
+
+        /* 三 postMessage 跨文档通信
+            window对象新增了一个window.postMessage方法，允许跨窗口通信，不论这两个窗口是否同源。 
+            postMessage接受两个参数，第一个参数是具体的内容，第二个参数是接收消息窗口的源（origin）协议 + 域名 + 端口
+        */
+        // 父窗口http://aaa.com向子窗口http://bbb.com发消息，调用postMessage方法就可以了。
+        var popup = window.open('http://bbb.com','title');
+        popup.postMessage('Hello World!','http://bbb.com');
+        // 子窗口 可以监听message事件
+        window.addEventListener('message',function(event){
+            event.source; //发送消息的网址
+            event.origin; //详细法向的网址
+            event.data; //消息内容
+        },false);
+        
+        // 四 WebSocket 
+        var ws = new WebSocket('ws://localhost:9998/echo');
+        // 建立时触发
+        ws.onopen = function(){
+            // 使用send发送数据
+            ws.send();
+        };
+        // 客户端接收服务端数据时触发
+        ws.onmessage = function(event){
+            // 接收到的数据
+            event.data;
+        };
+        // 通信错误时触发
+        ws.onerror = function(){
+
+        };
+        // 连接关闭时触发
+        ws.onclose = function(){
+            console.log('已关闭');
+        };
+        
+        /* 五 CORS CORS是跨源资源分享（Cross-Origin Resource Sharing）的缩写 */
+    </script>
+</body>
+</html>
