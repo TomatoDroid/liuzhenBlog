@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Object.defineProperty</title>
+</head>
+<body>
+    <script>
+        // Object.defineProperty()会直接在一个对象上定义一个属性，或者修改对象的现有属性，并返回这个对象
+        // 使用 __proto__
+        var obj1 = {};
+        var descriptor = Object.create(null); //没有继承属性
+        // 默认没有configurable,enumerablem,以及writeable
+        descriptor.value = 'static';
+        Object.defineProperty(obj1,'key',descriptor);
+        console.log(obj1);
+        
+        var obj2 = {};
+        Object.defineProperty(obj2,'key',{
+            configurable:false,
+            enumerable:false,
+            writable:false,
+            value:'static'
+        });
+        console.log(obj2);
+
+        // 创建一个新对象
+        var o = {};
+        Object.defineProperty(o,'a',{
+            configurable:true,
+            enumerable:true,
+            writable:true,
+            value:37
+        });
+        // 对象o拥有了属性a，值为37
+        var bValue;
+        Object.defineProperty(o,'b',{
+            get:function(){
+                return bValue;
+            },
+            set:function(newValue){
+                bValue = newValue;
+            },
+            configurable:true,
+            enumerable:true
+        });
+        o.b = 38;
+        // o.b的值现在总是与bValue相同，除非重新定义o.b
+        // 数据描述符和存取描述符不能混合使用
+        /* Object.defineProperty(o, "conflict", {
+            value: 0x9f91102, 
+            get: function() { 
+                return 0xdeadbeef; 
+            } 
+        }); */
+
+        // 添加多个属性和默认值
+        /* var o = {};
+        o.a = 1;
+        // 等同于 :
+        Object.defineProperty(o, "a", {
+        value : 1,
+        writable : true,
+        configurable : true,
+        enumerable : true
+        });
+
+
+        // 另一方面，
+        Object.defineProperty(o, "a", { value : 1 });
+        // 等同于 :
+        Object.defineProperty(o, "a", {
+        value : 1,
+        writable : false,
+        configurable : false,
+        enumerable : false
+        }); */
+
+        // 一般的getter和setter
+        // 下面的例子展示了如何实现一个自存档对象。 
+        function Archiver(){
+            var temperature = null;
+            var archive = [];
+            Object.defineProperty(this,'temperature',{
+                get:function(){
+                    console.log('get');
+                    return temperature;
+                },
+                set:function(value){
+                    temperature = value;
+                    archive.push({val:temperature});
+                }
+            });
+            this.getArchive = function(){
+                return archive;
+            }
+        }
+
+        var arc = new Archiver();
+        arc.temperature; //get
+        arc.temperature = 11;
+        arc.temperature = 13;
+        arc.getArchive();// [{ val: 11 }, { val: 13 }]  
+    </script>
+</body>
+</html>

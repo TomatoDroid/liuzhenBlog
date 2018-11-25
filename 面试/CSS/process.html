@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JS运行机制</title>
+</head>
+<body>
+    <script>
+        // JS是单线程的，先从上往下运行同步任务，再执行异步任务
+
+        /* console.log(1);
+        setTimeout(() => {
+            console.log(2);
+        }, 0);
+        console.log(3); // 1 3 2 */
+
+        // 执行结果是A,因为执行while(true)，造成死循环
+        /* console.log('A');
+        while(true){
+
+        }
+        console.log('B'); */
+        
+        // 执行结果还是A,
+        // 先执行同步任务，也就是console.log('A'),然后while(true)造成死循环，
+        // 根本还没有来得及执行setTimeout
+        /* console.log('A');
+        setTimeout(() => {
+            console.log('B');
+        }, 0);
+        while(true){
+
+        } */
+
+
+        // 运行结果：4个4，
+        // for循环是一个同步任务，所以先执行四个循环，遇到setTimeout就放入异步队列，等同步队列中
+        // 没有函数执行，再依次执行异步队列函数
+        for(var i=0;i<4;i++){
+            setTimeout(() => {
+                console.log(i);
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
