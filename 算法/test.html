@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function insertionSort(a,n){
+            if(n<=1) return;
+            for(let i=1;i<n;++i){
+                let value = a[i];
+                let j = i-1;
+                for(;j>=0;--j){
+                    if(a[j] > value){
+                        a[j+1] = a[j];
+                    }else{
+                        break;
+                    }
+                }  
+                a[j+1] = value;
+            }
+        }
+        let array2 = [6,5,4,3,2,1];
+        insertionSort(array2,array2.length);
+        console.log(array2);
+    </script>
+</body>
+</html>
