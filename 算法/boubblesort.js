@@ -48,3 +48,77 @@ function insertionSort(a,n){
 let array2 = [6,5,4,3,2,1];
 insertionSort(array2,array2.length);
 console.log(array2);
+
+
+// 归并排序， 相比来说，快速排序用的更多
+// 稳定，但不是原地排序 时间复杂度的O(nlogn)。空间复杂度是O(n)
+const mergeArr = (left,right) => {
+    let temp = [];
+    let leftIndex = 0;
+    let rightIndex = 0;
+    // 判断2个数组中元素的大小，依次插入数组
+    while(left.length > leftIndex && right.length > rightIndex){
+        if(left[leftIndex] <= right[rightIndex]){
+            temp.push(left[leftIndex]);
+            leftIndex++;
+        }else{
+            temp.push(right[rightIndex]);
+            rightIndex++;
+        }
+    }
+    // 合并多余数组
+    return temp.concat(left.slice(leftIndex)).concat(right.slice(rightIndex));
+}
+const mergeSort = (arr) => {
+    // 当任意数组分解到只有一个时返回
+    if(arr.length <=1 ) return arr;
+    const middle = Math.floor(arr.length/2); //找到中间值
+    const left = arr.slice(0,middle);   //分割数组
+    const right = arr.slice(middle);
+    // 递归 分解 合并
+    return mergeArr(mergeSort(left),mergeSort(right));
+}
+const array3 = [];
+let i = 0;
+while(i<10){
+    array3.push(Math.floor(Math.random()*1000));
+    i++;
+}
+const res = mergeSort(array3);
+console.log(res);
+
+// 快速排序
+// 原地排序，但不稳定，时间复杂度的O(nlogn)。空间复杂度是O(n)
+const swap = (arr,i,j) => {
+    const temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+}
+// 获取 pivot 交换完后的index
+const partition = (arr,pivot,left,right) => {
+    const pivotVal = arr[pivot];
+    let startIndex = left;
+    for(let i = left;i<right;i++){
+        if(arr[i] < pivotVal){
+            swap(arr,i,startIndex);
+            startIndex++;
+        }
+    }
+    swap(arr,startIndex,pivot);
+    return startIndex;
+}
+const quickSort = (arr,left,right) => {
+    if(left < right){
+        let pivot = right;
+        let partitionIndex = partition(arr,pivot,left,right);
+        quickSort(arr,left,partitionIndex-1<left ? left : partitionIndex-1);
+        quickSort(arr,partitionIndex+1>right ? right : partitionIndex+1,right);
+    }
+}
+
+const array4 = [];
+for(let i=0;i<10;i++){
+    array4.push(Math.floor(Math.random()*1000));
+}
+quickSort(array4,0,array4.length-1);
+console.log(array4);
