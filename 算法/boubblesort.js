@@ -51,7 +51,9 @@ console.log(array2);
 
 
 // 归并排序， 相比来说，快速排序用的更多
-// 稳定，但不是原地排序 时间复杂度的O(nlogn)。空间复杂度是O(n)
+// 稳定，但不是原地排序（这是因为归并排序的合并函数，
+// 在合并两个有序数组为一个有序数组时，需要借助额外的存储空间） ，时间复杂度的O(nlogn)。空间复杂度是O(n)
+
 const mergeArr = (left,right) => {
     let temp = [];
     let leftIndex = 0;
@@ -89,6 +91,7 @@ console.log(res);
 
 // 快速排序
 // 原地排序，但不稳定，时间复杂度的O(nlogn)。空间复杂度是O(n)
+// 快排通过巧妙的原地分区函数，可以实现原地排序，解决了归并排序占用内存太多的问题
 const swap = (arr,i,j) => {
     const temp = arr[i];
     arr[i] = arr[j];
@@ -122,3 +125,38 @@ for(let i=0;i<10;i++){
 }
 quickSort(array4,0,array4.length-1);
 console.log(array4);
+
+// 在O(n) 时间复杂度内，求无需数组的第K大元素
+const swapK = (arr,i,j) => {
+    let temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+}
+const partitionK = (arr,pivod,left,right) => {
+    let pivodValue = arr[pivod];
+    let startIndex = left;
+    for(let i=left;i<right;++i){
+        if(arr[i] > pivodValue){
+            swapK(arr,i,startIndex);
+            startIndex++;
+        }
+    }
+    swapK(arr,startIndex,pivod);
+    return startIndex;
+}
+const kQiuckSort = (arr,left,right,k) => {
+    if(left<right){
+        const pivod = right;
+        const partitionIndex = partitionK(arr,pivod,left,right);
+        if(partitionIndex+1 > k){
+            return kQiuckSort(arr,left,partitionIndex-1 < left ? left : partitionIndex-1,k);
+        }else if(partitionIndex+1 < k){
+            return kQiuckSort(arr,partitionIndex+1>right ? right : partitionIndex+1,right,k);
+        }else if(partitionIndex+1 === k){
+            return arr[partitionIndex]
+        }
+    }
+}
+const array5 = [2,8,1,6,5,4];
+console.log("第K大元素：k=3:",array5);
+console.log(kQiuckSort(array5,0,array5.length-1,3));
