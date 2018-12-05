@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>九宫格</title>
+    <link rel="stylesheet" href="./reset.css">
+    <style lang="">
+        .grid{
+            padding: 50px;
+        }
+    </style>
+</head>
+<body>
+    <ul class="grid">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+    </ul>
+    <style>
+        /* 第一步
+            布局，flex,grid,tabal-cell都行
+            注意点：重置CSS 使得各个浏览器css样式初始化
+        */
+        .grid{
+            display: flex;
+            flex-wrap: wrap;
+            width: 300px;
+        }
+        .grid li{
+            width: 100px;
+            height: 100px;
+            /* 使li内的内容垂直水平居中 */
+            line-height: 100px;
+            text-align: center;
+            
+            border: 4px solid gray;
+            /* 第二步 盒模型 */
+            box-sizing: border-box;
+            /* 第三步 负边距 */
+            margin-left: -4px;
+            margin-top: -4px;
+        }
+        .grid li:nth-child(3n+1){
+            margin-left: 0;
+        }
+
+        .grid li:hover{
+            border-color: red;
+            /* 第四步 层级 */
+            z-index: 2;
+        }
+    </style>
+</body>
+</html>
