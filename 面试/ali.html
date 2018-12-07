@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .del{
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <ul class="list">
+        <li>%%%%%%% 第一条<span class="del">×</span></li>
+        <li>%%%%%%% 第一条<span class="del">×</span></li>
+        <li>%%%%%%% 第一条<span class="del">×</span></li>
+        <li>%%%%%%% 第一条<span class="del">×</span></li>
+        <li>%%%%%%% 第一条<span class="del">×</span></li>
+    </ul>
+    <ul class="list">
+        <li>******** 第一条<span class="del">×</span></li>
+        <li>******** 第一条<span class="del">×</span></li>
+        <li>******** 第一条<span class="del">×</span></li>
+        <li>******** 第一条<span class="del">×</span></li>
+        <li>******** 第一条<span class="del">×</span></li>
+    </ul>
+    <script>
+        class List{
+            constructor(sel){
+                this.el = Array.from(document.querySelectorAll(sel));
+                let self = this;
+                this.el.forEach(item => {
+                    item.addEventListener('click',function(e){
+                        if(e.target.className.indexOf('del') > -1){
+                            // self.removeItem.call(self,e.target);
+                            self.removeItem(e.target);
+                        }
+                    });
+                });
+            }
+            removeItem(target){
+                let self = this;
+                let findParent = function(node){
+                    let parent = node.parentNode;
+                    let root = self.el.find(item => item === parent);
+                    if(root){
+                        root.removeChild(node);
+                    }else{
+                        findParent(parent);
+                    }
+                }
+                findParent(target);
+            }
+        }
+
+
+        window.addEventListener('DOMContentLoaded',function(){
+            new List('.list');
+        });
+    </script>
+</body>
+</html>
