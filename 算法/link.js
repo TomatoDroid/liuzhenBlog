@@ -103,5 +103,97 @@
         }
         this.head = root;                                                                              
     }
-
+    // 环验证
+    checkCircle(){
+        let fast = this.head.next;
+        let slow = this.head;
+        while(fast !== null && fast.next !== null){
+            fast = fast.next.next;
+            slow = slow.next;
+            if(fast === slow) return true;
+        }
+        return false;
+    }
+    // 删除倒数第K个节点
+    removeByIndexFromEnd(index){
+        if(this.checkCircle()) return false;
+        let pos = 1;
+        this.reverseList();
+        let currentNode =  this.head.next;
+        while(currentNode !== null && pos < index){
+            currentNode = currentNode.next;
+            pos++;
+        }
+        if(currentNode === null){
+            console.log('无法删除最后一个节点或者该节点不存在');
+            return false;
+        }
+        this.remove(currentNode.element);
+        this.reverseList();
+    }
+    // 求中间节点
+    findMiddleNode(){
+        let fast = this.head.next;
+        let slow = this.head.next;
+        while(fast.next !== null && fast.next.next !== null){
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        console.log(slow);
+        return slow;
+    }
  }
+
+ const mergeSortedLists = (listA,listB) => {
+    if(!listA){
+        return listB;
+    }
+    if(!listB){
+        return listA;
+    }
+    let a = listA;
+    let b = listB;    
+    let resultList = undefined;
+    if(a.element < b.element){
+        resultList = a;
+        a = a.next;
+    }else{
+        resultList = b;
+        b = b.next;
+    }
+    let currentNode = resultList;
+    while(a !== null && b !== null){
+        if(a.element < b.element){
+            currentNode.next = a;
+            a = a.next;
+        }else{
+            currentNode.next = b;
+            b = b.next;
+        }
+        currentNode = currentNode.next;
+    }
+    if(a != null){
+        currentNode.next = a;
+    }else{
+        currentNode.next = b;
+    }
+    return resultList;
+ }  
+
+ const sortedList1 = new LinkedList()
+ sortedList1.insert(9, 'head')
+ sortedList1.insert(8, 'head')
+ sortedList1.insert(7, 'head')
+ sortedList1.insert(6, 'head')
+ sortedList1.display();
+ const sortedList2 = new LinkedList()
+ sortedList2.insert(21, 'head')
+ sortedList2.insert(20, 'head')
+ sortedList2.insert(19, 'head')
+ sortedList2.insert(18, 'head')
+//  console.log('-------------sort two list ------------')
+//  let sortedList = mergeSortedLists(sortedList1.head.next, sortedList2.head.next)
+//  while (sortedList !== null) {
+//      console.log(sortedList.element)
+//      sortedList = sortedList.next
+//  }

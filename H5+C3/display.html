@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CSS 定位方式</title>
+    <style>
+        article{
+            margin-top: 10px;
+        }
+
+        section{
+            position: relative;
+            top: 0;
+            left: 0;
+            background: rebeccapurple;
+            height: 100px;
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <!-- display属性：block,inline,inline-block,table-cell -->
+    <div style="background:red;">
+        我是block,高度自行设置，默认宽度有父元素决定，默认高度由内容决定，自己独占一行
+    </div>
+    <span style="background:yellow;">
+        我是inline,宽度和高度由内容决定，与其他元素共占一行。。。。。。。。。
+    </span>
+    <span style="background:green;">
+        我是inline-block,宽度可以自行设置，类似block，但是与其他元素共占一行，类似inline。长用于设置垂直居中。
+    </span>
+    <!-- table-cell
+    此属性指让标签元素以表格单元格的形式呈现，单元格有一些比较特殊的属性，可以设置元素的垂直居中等。 -->
+
+    <!-- position属性 ，默认为static,如果是被设置定位，则它的top,left,bottom,right值就会生效，
+    能设置定位的属性是：relative,absolute,fixed -->
+    <section>
+        我的定位是relative,元素会在自身文档流所在位置上被移动，其他的元素则不会调整位置来弥补它偏离后剩下的空隙。
+    </section>
+    <!-- absolute（绝对定位）设置了绝对定位之后，元素脱离文档流，其他的元素会调整位置来弥补它偏离后剩下的空隙。
+    元素偏移是相对于是它最近的设置了定位属性（position值不为static）的元素。 -->
+
+    <!-- fixed(固定定位)
+    设置了固定定位之后，元素相对的偏移的参考是可视窗口，即使页面滚动，元素仍然会在固定位置。 -->
+</body>
+</html>
