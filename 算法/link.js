@@ -17,7 +17,6 @@
  * 3) 两个有序的链表合并
  * 4) 删除链表倒数第n个结点
  * 5) 求链表的中间结点
- *
  */
 
  class Node{
@@ -66,10 +65,7 @@
         while(currentNode !== null && currentNode.next.element !== item){
             currentNode = currentNode.next;
         }
-        if(currentNode.next === null){
-            return -1;
-        }
-        return currentNode;
+        return currentNode !== null ? currentNode : -1;
     }
     // 根据值删除
     remove(item){
@@ -96,9 +92,12 @@
         const root = new Node('head');
         let currentNode = this.head.next;
         while(currentNode !== null){
+            // 保存下一个节点的引用
             const next = currentNode.next;
+            // 正常的添加节点
             currentNode.next = root.next;
             root.next = currentNode;
+            // 改变当前节点
             currentNode = next;
         }
         this.head = root;                                                                              
