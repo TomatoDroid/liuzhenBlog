@@ -143,24 +143,16 @@
     }
  }
 
- const mergeSortedLists = (listA,listB) => {
-    if(!listA){
-        return listB;
+ const mergeSortedList = function(listA,listB){
+    if (!listA) {
+        return listB
     }
-    if(!listB){
-        return listA;
+    if (!listB) {
+        return listA
     }
     let a = listA;
-    let b = listB;    
-    let resultList = undefined;
-    if(a.element < b.element){
-        resultList = a;
-        a = a.next;
-    }else{
-        resultList = b;
-        b = b.next;
-    }
-    let currentNode = resultList;
+    let b = listB;
+    let currentNode = resultList = new Node('head');
     while(a !== null && b !== null){
         if(a.element < b.element){
             currentNode.next = a;
@@ -171,13 +163,13 @@
         }
         currentNode = currentNode.next;
     }
-    if(a != null){
+    if(a !== null){
         currentNode.next = a;
     }else{
         currentNode.next = b;
     }
     return resultList;
- }  
+}
 
  const sortedList1 = new LinkedList()
  sortedList1.insert(9, 'head')
