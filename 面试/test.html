@@ -5,23 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding:0;
+        }
+        .test{
+            height: 100px;
+        }
+        .test div{
+            width: 100px;
+            height: 100px;
+            background: rebeccapurple;
+            border: 1px solid black;
+            display: inline-block;
+        }
+    </style>
 </head>
 <body>
-    <script>
-        var globaNinja = 'Yoshi';
-        function reportActivity(){
-            var functionActivity = 'jumping';
-            for(var i=1;i<3;i++){
-                var forMessage = globaNinja +' ' +functionActivity;
-                console.log(forMessage);
-                console.log(i);
-            }
-            console.log(i===3);
-        }
-        reportActivity();
-        console.log(typeof functionActivity === 'undefined');
-        console.log(typeof i === 'undefined');
-        console.log(typeof forMessage === 'undefined');
-    </script>
+    <div class="test">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
 </body>
 </html>
