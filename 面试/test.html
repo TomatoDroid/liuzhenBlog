@@ -8,26 +8,39 @@
     <style>
         *{
             margin: 0;
-            padding:0;
+            padding: 0;
         }
-        .test{
-            height: 100px;
-        }
-        .test div{
-            width: 100px;
-            height: 100px;
-            background: rebeccapurple;
-            border: 1px solid black;
-            display: inline-block;
+        html,body{
+            height: 100%;
         }
     </style>
 </head>
 <body>
-    <div class="test">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-    </div>
+    <style>
+        section{
+            display: table;
+            height: 100%;
+            width: 100%;
+        }
+        section > div{
+            display: table-row;
+        }
+        .top{
+            background: rebeccapurple;
+        }
+        .bottom{
+            background: rebeccapurple;
+        }
+        .middle{
+            background: gray;
+        }
+    </style>
+    <section>
+        <div class="top">1</div>
+        <div class="middle">
+            我是中间自适应
+        </div>
+        <div class="bottom">1</div>
+    </section>
 </body>
 </html>
