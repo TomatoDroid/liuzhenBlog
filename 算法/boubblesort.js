@@ -126,7 +126,7 @@ for(let i=0;i<10;i++){
 quickSort(array4,0,array4.length-1);
 console.log(array4);
 
-// 在O(n) 时间复杂度内，求无需数组的第K大元素
+// 在O(n) 时间复杂度内，求无序数组的第K大元素
 const swapK = (arr,i,j) => {
     let temp = arr[i];
     arr[i] = arr[j];
@@ -153,7 +153,7 @@ const kQiuckSort = (arr,left,right,k) => {
         }else if(partitionIndex+1 < k){
             return kQiuckSort(arr,partitionIndex+1>right ? right : partitionIndex+1,right,k);
         }else if(partitionIndex+1 === k){
-            return arr[partitionIndex]
+            return arr[partitionIndex];
         }
     }
 }
