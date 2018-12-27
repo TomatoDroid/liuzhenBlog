@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <style>
+        /* flex  */
+        /* section{
+            width: 500px;
+            height: 500px;
+            background: rebeccapurple;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: center;
+            align-items: center;
+        }
+        article{
+            height: 100px;
+            width: 100px;
+            background: yellow;
+        }    */
+
+        /* position transform */
+        /* section{
+            width: 500px;
+            height: 500px;
+            background: rebeccapurple;
+            position: relative;
+        }
+        article{
+            position: absolute;
+            background: yellow;
+            top: 50%;
+            left: 50%;
+             没有宽度和高度移动自身50%即可 
+            transform: translateX(-50%) translateY(-50%);
+        }    */
+
+        /* position margin 子元素必须有宽度*/
+        /* section{
+            width: 500px;
+            height: 500px;
+            background: rebeccapurple;
+            position: relative;
+        }
+        article{
+            height: 100px;
+            width: 100px;
+            position: absolute;
+            background: yellow;
+            top: 50%;
+            left: 50%;
+            margin: -50px;
+        }     */
+
+        /* table 子元素table-cell会自动撑满父元素*/
+        section{
+            width: 500px;
+            height: 500px;
+            background: rebeccapurple;
+            display: table;
+        }
+        article{
+            height: 100px;
+            width: 100px;
+            background: yellow;
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+        } 
+    </style>
+    <section>
+        <article>
+            我垂直水平居中
+        </article>
+    </section>
+</body>
+</html>
