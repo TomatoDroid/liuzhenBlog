@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>简单实现双向绑定</title>
+</head>
+<body>
+    <input type="text">
+    <p></p>
+    <script>
+        const data = {};
+        const input = document.querySelector('input');
+        const p = document.querySelector('p');
+        Object.defineProperty(data,'text',{
+            set:function(value){
+                input.value = value;
+                p.innerHTML = value;
+            }
+        });
+        input.addEventListener('keyup',function(e){
+            data.text = e.target.value;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class Stroage{
+            static getInstance(){
+                if(!Storage.instance){
+                    Storage.instance = new Stroage();
+                }
+                return Storage.instance;
+            }
+            getItem(key){
+                return localStorage.getItem(key);
+            }
+            setItem(key,value){
+                return localStorage.setItem(key,value);
+            }
+        }
+        const storage = Stroage.getInstance();
+        storage.setItem('liuzhen','haha');
+        console.log(storage.getItem('liuzhen'));
+        
+    </script>
+</body>
+</html>
