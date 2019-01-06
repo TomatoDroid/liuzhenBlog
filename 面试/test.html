@@ -10,26 +10,13 @@
 			padding:0;
 			margin: 0;
 		}
-		html,body{
-			width: 100%;
-			height: 100%;
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-		}
-        .box{
+		section{
             width: 100px;
             height: 100px;
-        }
-        .aBox{
-            /* flex: 1; */
-            /* width: 50%; */
-            height: 0;
             background: rebeccapurple;
-            font-size: 20px;
-            line-height: 100px;
-            text-align: center;
+            position: absolute;
+            top: 100px;
+            left: 500px;
         }
     </style>
 </head>
@@ -39,5 +26,10 @@
             我是盒子
         </article>
     </section>
+    <script>
+        const section = document.querySelector('section');
+        console.log(getComputedStyle(section).width);
+        console.log(section.getBoundingClientRect());
+    </script>   
 </body>
 </html>

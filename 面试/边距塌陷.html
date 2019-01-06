@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>边距塌陷</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- 父子关系，如果子元素设置了外边距，在没有把父元素变成BFC的情况下，
+    父元素也会产生外边距，给父元素添加 overflow：hidden 这样父元素就变为 BFC，
+    不会随子元素产生外边距，但是父元素的高会变化。 -->
+    <!-- <section class="box" id="fat">
+        <style type="text/css">
+            #fat {
+                width: 100px; 
+                background-color: #f00;
+                /* overflow: hidden; */
+            }
+
+            #fat .child {
+                margin-top: 10px;
+                height: 100px;
+                background-color: blue;
+            }   
+        </style>
+        <article class="child"></article>
+    </section> -->
+    <!-- BFC不与float重叠 -->
+    <!-- <section id="layout">
+        <style media="screen">
+            #layout{
+            background: red;
+            }
+            #layout .left{
+            float: left;
+            width: 100px;
+            height: 100px;
+            background: #664664;
+            }
+            #layout .right{
+            height: 110px;
+            background: #ccc;
+            overflow: auto;
+            }
+        </style>
+        <div class="left"></div>
+        <div class="right"></div>
+        利用BFC的这一个原理就可以实现两栏布局，左边定宽，右边自适应。不会相互影响，哪怕高度不相等
+    </section> -->
+    <!-- BFC子元素即使是float也会参与计算 -->
+    <!-- <section id="float">
+        <style>
+            section{
+                background: rebeccapurple;
+                overflow: auto;
+            }
+            article{
+                /* width: 100%; */
+                float: left;
+                font-size: 30px;
+                background: red;
+                clear: both;
+            }
+            
+        </style>
+        <article>
+            我是浮动元素
+        </article>
+        <p>是否清除浮动dsadsadas</p>
+    </section> -->
+
+    <section id="margin">
+        <style>
+            .one{
+                background: rebeccapurple;
+                width: 100px;
+                height: 100px;
+                margin-bottom: 20px;
+            }
+            .two{
+                background: red;
+                width: 100px;
+                height: 100px;
+                margin-top: 10px;
+            }
+            div{
+                overflow: auto;
+            }
+        </style>
+        <article class="one">
+            我是第一块
+        </article>
+        <div>
+            <article class="two">
+                我是第二块
+            </article>
+        </div>
+        <!-- 这样就会出现第一个p标签的margin-bottom不会和第二个p标签的margin-top重叠，
+            这也是BFC元素的另一个原则，不会影响到外边的box，是一个独立的区域。 -->
+    </section>
+</body>
+</html>
