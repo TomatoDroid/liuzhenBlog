@@ -31,5 +31,11 @@
         console.log(getComputedStyle(section).width);
         console.log(section.getBoundingClientRect());
     </script>   
+    <script type="module">
+        console.log('支持module');
+    </script>
+    <script nomodule>
+        alert('浏览器不支持module');
+    </script>
 </body>
 </html>
