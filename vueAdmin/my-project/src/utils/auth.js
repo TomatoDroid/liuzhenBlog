@@ -2,14 +2,14 @@ import Cookies from 'js-cookie';
 
 const TokenKey = 'Admin-Token';
 
-export function getTooken(){
-    Cookies.getTooken(TokenKey);
+export function getToken(){
+    Cookies.get(TokenKey);
 }   
 
 export function setToken(token){
-    Cookies.setToken(TokenKey,token);
+    Cookies.set(TokenKey,token);
 }
 
 export function removeToken(){
-    Cookies.removeToken(TokenKey);
+    Cookies.remove(TokenKey);
 }
