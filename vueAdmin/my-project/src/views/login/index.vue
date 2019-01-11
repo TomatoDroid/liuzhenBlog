@@ -51,8 +51,11 @@
                 this.$refs[name].validate((valid) => {
                     if (valid) {
                         this.loading = true;
+                        console.log(this.$store);
+                        console.log(this.user)
                         this.$store.dispatch('LoginByUsername',this.formInline).then(() => {
                             this.loading = false;
+                            debugger
                             this.$router.push({path:this.redirect || '/'});
                         }).catch(() => {
                             this.loading = false;

@@ -1,5 +1,5 @@
 <template>
     <div>
-        登录了
+        dashboard
     </div>
 </template>

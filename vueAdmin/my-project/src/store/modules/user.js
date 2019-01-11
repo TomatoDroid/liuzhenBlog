@@ -2,6 +2,7 @@ import { loginByUsername, logout, getUserInfo } from '@/api/login';
 import { getToken, setToken, removeToken } from '@/utils/auth';
 
 const user = {
+    // namespaced: true,
     state:{
         user:'',
         status:'',
@@ -44,6 +45,7 @@ const user = {
     actions:{
         // 用户名登录
         LoginByUsername({ commit },userInfo){
+            console.log(userInfo);
             const username = userInfo.username.trim();
             return new Promise((resolve,reject) => {
                 loginByUsername(username,userInfo.password).then(response => {
