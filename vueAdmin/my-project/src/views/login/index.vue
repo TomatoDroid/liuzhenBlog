@@ -12,7 +12,7 @@
                 </Input>
             </FormItem>
             <FormItem>
-                <Button type="primary" @click="handleSubmit('formInline')">Signin</Button>
+                <Button :loading="loading" type="primary" @click="handleSubmit('formInline')">Signin</Button>
             </FormItem>
         </Form>
     </Row>
@@ -33,16 +33,38 @@
                         { required: true, message: 'Please fill in the password.', trigger: 'blur' },
                         { type: 'string', min: 6, message: 'The password length cannot be less than 6 bits', trigger: 'blur' }
                     ]
-                }
+                },
+                loading:false,
+                redirect:undefined,
+            }
+        },
+        watch: {
+            $route:{
+                handler:function(route){
+                    this.redirect = route.query && route.query.redirect;
+                },
+                immediate:true
             }
         },
         methods: {
             handleSubmit(name) {
                 this.$refs[name].validate((valid) => {
                     if (valid) {
+                        this.loading = true;
+                        console.log(this.$store);
+                        console.log(this.user)
+                        this.$store.dispatch('LoginByUsername',this.formInline).then(() => {
+                            this.loading = false;
+                            debugger
+                            this.$router.push({path:this.redirect || '/'});
+                        }).catch(() => {
+                            this.loading = false;
+                        });
                         this.$Message.success('Success!');
                     } else {
+                        console.log('error submit');
                         this.$Message.error('Fail!');
+                        return false;
                     }
                 })
             }
