@@ -20,10 +20,23 @@ const app = {
         },
         CLOSE_SIDEBAR: (state, withoutAnimation) => {
             Cookies.set('sidebarStatus',1);
-            state.sidebar.opend
+            state.sidebar.opend = false;
+            state.sidebar.withoutAnimation = withoutAnimation;
+        },
+        TOGGLE_DEVICE:(state, device) =>{
+            state.device = device;
         }
     },
     actions:{
         // https://github.com/PanJiaChen/vue-admin-template.git
+        ToggleSideBar:({commit}) => {
+            commit('TOGGLE_SIDEBAR');
+        },
+        CloseSideBar: ({commit}, withoutAnimation) => {
+            commit('CLOSE_SIDEBAR',withoutAnimation);
+        },
+        ToggleDevice: ({commit}, device) => {
+            commit('TOGGLE_DEVICE', device);
+        }
     }
 }
