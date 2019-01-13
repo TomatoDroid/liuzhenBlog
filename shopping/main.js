@@ -7,6 +7,7 @@ import App from './App.vue';
 import './style.css';
 // 导入产品数据
 import productor_data from './product.js';
+import { debug } from 'util';
 
 Vue.use(Vuex);
 Vue.use(VueRouter); 
