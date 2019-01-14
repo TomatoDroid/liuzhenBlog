@@ -1,7 +1,7 @@
 import axios from 'axios'
-// import { Message } from 'iview'
+import { Message } from 'iview'
 import store from '@/store'
-import { getToken } from '@/utils/auth'
+import { getToken } from '@/libs/util'
 
 // create an axios instance
 const service = axios.create({

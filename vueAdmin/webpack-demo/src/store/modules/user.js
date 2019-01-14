@@ -1,144 +1,95 @@
-import { loginByUsername, logout, getUserInfo } from '@/api/login'
-import { getToken, setToken, removeToken } from '@/utils/auth'
+import { login, logout, getUserInfo } from '@/api/user'
+import { getToken, setToken } from '@/libs/util'
 
-const user = {
-  state: {
-    user: '',
-    status: '',
-    code: '',
-    token: getToken(),
-    name: '',
-    avatar: '',
-    introduction: '',
-    roles: [],
-    setting: {
-      articlePlatform: []
-    }
-  },
+export default {
+	state:{
+		userName:'',
+		userId:'',
+		avatorImgPath:'',
+		token:getToken(),
+		access:'',
+		hasGetInfo:false,
+		unreadCount:0,
+		messageUnreadList: [],
+		messageReadList: [],
+		messageTrashList: [],
+		messageContentStore: [],
+	},
+	mutations:{
+		setAvator(state, avatorPath){
+			state.avatorImgPath = avatorPath
+		},
+		setUserId(state, userId){
+			state.userId = userId
+		},
+		setUserName(state, userName){
+			state.userName = userName
+		},
+		setAccess(state, access){
+			state.access = access
+		},
+		setToken(state, token){
+			state.token = token
+			setToken(token);
+		},
+		setHasGetInfo(state, status){
+			state.hasGetInfo = status
+		}
+	},
+	getters:{
 
-  mutations: {
-    SET_CODE: (state, code) => {
-      state.code = code
-    },
-    SET_TOKEN: (state, token) => {
-      state.token = token
-    },
-    SET_INTRODUCTION: (state, introduction) => {
-      state.introduction = introduction
-    },
-    SET_SETTING: (state, setting) => {
-      state.setting = setting
-    },
-    SET_STATUS: (state, status) => {
-      state.status = status
-    },
-    SET_NAME: (state, name) => {
-      state.name = name
-    },
-    SET_AVATAR: (state, avatar) => {
-      state.avatar = avatar
-    },
-    SET_ROLES: (state, roles) => {
-      state.roles = roles
-    }
-  },
-
-  actions: {
-    // 用户名登录
-    LoginByUsername({ commit }, userInfo) {
-      const username = userInfo.username.trim()
-      return new Promise((resolve, reject) => {
-        loginByUsername(username, userInfo.password).then(response => {
-          const data = response.data
-          commit('SET_TOKEN', data.token)
-          setToken(response.data.token)
-          resolve()
-        }).catch(error => {
-          reject(error)
-        })
-      })
-    },
-
-    // 获取用户信息
-    GetUserInfo({ commit, state }) {
-      return new Promise((resolve, reject) => {
-        getUserInfo(state.token).then(response => {
-          // 由于mockjs 不支持自定义状态码只能这样hack
-          if (!response.data) {
-            reject('Verification failed, please login again.')
-          }
-          const data = response.data
-
-          if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
-            commit('SET_ROLES', data.roles)
-          } else {
-            reject('getInfo: roles must be a non-null array!')
-          }
-
-          commit('SET_NAME', data.name)
-          commit('SET_AVATAR', data.avatar)
-          commit('SET_INTRODUCTION', data.introduction)
-          resolve(response)
-        }).catch(error => {
-          reject(error)
-        })
-      })
-    },
-
-    // 第三方验证登录
-    // LoginByThirdparty({ commit, state }, code) {
-    //   return new Promise((resolve, reject) => {
-    //     commit('SET_CODE', code)
-    //     loginByThirdparty(state.status, state.email, state.code).then(response => {
-    //       commit('SET_TOKEN', response.data.token)
-    //       setToken(response.data.token)
-    //       resolve()
-    //     }).catch(error => {
-    //       reject(error)
-    //     })
-    //   })
-    // },
-
-    // 登出
-    LogOut({ commit, state }) {
-      return new Promise((resolve, reject) => {
-        logout(state.token).then(() => {
-          commit('SET_TOKEN', '')
-          commit('SET_ROLES', [])
-          removeToken()
-          resolve()
-        }).catch(error => {
-          reject(error)
-        })
-      })
-    },
-
-    // 前端 登出
-    FedLogOut({ commit }) {
-      return new Promise(resolve => {
-        commit('SET_TOKEN', '')
-        removeToken()
-        resolve()
-      })
-    },
-
-    // 动态修改权限
-    ChangeRoles({ commit, dispatch }, role) {
-      return new Promise(resolve => {
-        commit('SET_TOKEN', role)
-        setToken(role)
-        getUserInfo(role).then(response => {
-          const data = response.data
-          commit('SET_ROLES', data.roles)
-          commit('SET_NAME', data.name)
-          commit('SET_AVATAR', data.avatar)
-          commit('SET_INTRODUCTION', data.introduction)
-          dispatch('GenerateRoutes', data) // 动态修改权限后 重绘侧边菜单
-          resolve()
-        })
-      })
-    }
-  }
+	},
+	actions:{
+		// 登录
+		handleLogin({commit}, {userName, password}){
+			userName = userName.trim()
+			return new Promise((resolve, reject) => {
+				login({
+					userName,
+					password
+				}).then(res => {
+					const data = res.data
+					commit('setToken', data)
+					resolve()
+				}).catch( err => {
+					reject(err)
+				})
+			})
+		},
+		// 退出登录
+		handleLogOut({state, commit}){
+			return new Promise((resolve, reject) => {
+				logout(state.token).then(() => {
+					commit('setToken','')
+					commit('setAccess','')
+					resolve()
+				}).catch((err) => {
+					reject(err)
+				})
+				// 如果你的退出登录无需请求接口，则可以直接使用下面三行代码而无需使用logout调用接口
+        // commit('setToken', '')
+        // commit('setAccess', [])
+        // resolve()
+			})
+		},
+		getUserInfo({state, commit}){
+			return new Promise((resolve, reject) => {
+				try{
+					getUserInfo(state.token).then(res => {
+						const data = res.data
+						commit('setAvator', data.avator)
+            commit('setUserName', data.name)
+            commit('setUserId', data.user_id)
+            commit('setAccess', data.access)
+						commit('setHasGetInfo', true)
+						resolve()
+					}).catch(err => {
+						reject(err)
+					})
+				}catch(err){
+					reject(err)
+				}
+			})
+		}
+	},
 }
-
-export default user

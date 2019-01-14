@@ -28,7 +28,6 @@ const app = {
         }
     },
     actions:{
-        // https://github.com/PanJiaChen/vue-admin-template.git
         ToggleSideBar:({commit}) => {
             commit('TOGGLE_SIDEBAR');
         },
@@ -40,3 +39,5 @@ const app = {
         }
     }
 }
+
+export default app;

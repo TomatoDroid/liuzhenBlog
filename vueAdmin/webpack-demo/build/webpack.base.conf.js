@@ -14,7 +14,8 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
-      '@': path.resolve(__dirname,'../src')
+			'@': path.resolve(__dirname,'../src'),
+			'_c': path.resolve(__dirname,'../src/components'),
     }
   },
   module: {
@@ -31,7 +32,11 @@ module.exports = {
         {
           test: /\.css$/,
           use: ['vue-style-loader', 'css-loader', 'postcss-loader']
-        },        
+				},
+				{
+					test:/\.less$/,
+					use: ['style-loader', 'css-loader', 'less-loader']
+				},
         {
           test: /\.(png|svg|jpg|gif)$/,
           use: [
@@ -43,7 +48,7 @@ module.exports = {
           use: [
             'file-loader'
           ]
-        },        
+        },
     ]
   },
   plugins: [new VueLoaderPlugin()],
