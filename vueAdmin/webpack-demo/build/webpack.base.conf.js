@@ -29,13 +29,24 @@ module.exports = {
           use:'babel-loader?cacheDirectory',
           exclude:/node_modules/
         },
+				{
+					test:/\.less$/,
+					use: [
+						{ loader:'style-loader'},
+						{
+							loader:'css-loader',
+							options:{ importLoaders: 1  }
+						},
+						{
+							loader:'less-loader',
+							options:{
+								javascriptEnabled: true,
+							}
+						}]
+				},
         {
           test: /\.css$/,
           use: ['vue-style-loader', 'css-loader', 'postcss-loader']
-				},
-				{
-					test:/\.less$/,
-					use: ['style-loader', 'css-loader', 'less-loader']
 				},
         {
           test: /\.(png|svg|jpg|gif)$/,

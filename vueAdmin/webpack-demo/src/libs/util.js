@@ -82,3 +82,17 @@ export const setTitle = (routeItem, vm) => {
 	const resTitle = pageTitle ? `${title} - ${pageTitle}` : title
 	window.document.title = resTitle
 }
+
+/**
+ * @param {String} url
+ * @description 从URL中解析参数
+ */
+export const getParams = url => {
+	const keyValueArray = url.split('?')[1].split('&')
+	const paramObj = {}
+	keyValueArray.forEach(itenm => {
+		const keyValue = item.split('=')
+		paramObj[keyValue[0]] = keyValue[1]
+	});
+	return paramObj
+}

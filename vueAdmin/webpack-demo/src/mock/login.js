@@ -1,34 +1,34 @@
-import { param2Obj } from '@/utils'
+import { getParams } from '@/libs/util'
 
-const userMap = {
-  admin: {
-    roles: ['admin'],
-    token: 'admin',
-    introduction: '我是超级管理员',
-    avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-    name: 'Super Admin'
-  },
-  editor: {
-    roles: ['editor'],
-    token: 'editor',
-    introduction: '我是编辑',
-    avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-    name: 'Normal Editor'
-  }
+const USER_MAP = {
+	super_admin:{
+		name:'super_admin',
+		user_id:'1',
+		access:['super_admin','admin'],
+		token:'super_admin',
+		avator: 'https://file.iviewui.com/dist/a0e88e83800f138b94d2414621bd9704.png'
+	},
+	admin:{
+		name:'admin',
+		user_id:'2',
+		access:['admin'],
+		token:'token',
+		avator: 'https://avatars0.githubusercontent.com/u/20942571?s=460&v=4'
+	}
 }
 
-export default {
-  loginByUsername: config => {
-    const { username } = JSON.parse(config.body)
-    return userMap[username]
-  },
-  getUserInfo: config => {
-    const { token } = param2Obj(config.url)
-    if (userMap[token]) {
-      return userMap[token]
-    } else {
-      return false
-    }
-  },
-  logout: () => 'success'
+export const login = req => {
+	// req = JSON.parse(req.body)
+	// return {token: USER_MAP[req.userName].token}
+	return {token: USER_MAP.super_admin.token}
+}
+
+export const getUserInfo = req => {
+	// const params = getParams(req.url)
+	// return USER_MAP[params.token]
+	return USER_MAP.super_admin
+}
+
+export const logout = req => {
+	return null
 }

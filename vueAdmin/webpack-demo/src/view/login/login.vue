@@ -23,18 +23,16 @@ export default {
 	components:{
 		LoginForm
 	},
-	computed: {
+	methods: {
 		...mapActions([
 			'handleLogin',
 			'getUserInfo'
-		])
-	},
-	methods: {
-		handleSubmit({username, password}){
-			this.handleLogin({username, password}).then(res => {
+		]),
+		handleSubmit({userName, password}){
+			this.handleLogin({userName, password}).then(res => {
 				this.getUserInfo().then(res => {
-					this.$route.push({
-						name:this.$config.homeName
+					this.$router.push({
+						name:'home'
 					})
 				})
 			})

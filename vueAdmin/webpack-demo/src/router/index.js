@@ -9,7 +9,7 @@ const homeName = 'home'
 Vue.use(Router)
 const router = new Router({
 	routes,
-	mode:'history'
+	// mode:'history'
 })
 
 const LOGIN_PAGE_NAME = 'login'
@@ -53,7 +53,7 @@ router.beforeEach((to, from, next) => {
 })
 
 router.afterEach( to => {
-	setTitle(to, router.app)
+	// setTitle(to, router.app)
 	iView.LoadingBar.finish()
 	window.scrollTo(0,0)
 })
