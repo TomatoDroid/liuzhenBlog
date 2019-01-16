@@ -21,7 +21,7 @@ import Main from '@/components/main'
 	 {
 		 path:'/login',
 		 name:'login',
-		 mata:{
+		 meta:{
 				title:'Login - 登录',
 				hideInMenu:true
 		 },
@@ -29,7 +29,7 @@ import Main from '@/components/main'
 	 },
 	 {
 			path:'/',
-			name:'_name',
+			name:'_home',
 			redirect:'/home',
 			component:Main,
 			meta:{
@@ -44,9 +44,9 @@ import Main from '@/components/main'
 						hideInMenu:true,
 						title:'首页哈哈哈',
 						notCache: true,
-						icon:'md_home'
+						icon:'md-home'
 					},
-					// component:() => import('@view/single-page/home')
+					component:() => import('@/view/single-page/home')
 				}
 			]
 	 },
