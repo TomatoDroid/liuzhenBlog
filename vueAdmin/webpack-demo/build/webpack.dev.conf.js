@@ -1,8 +1,7 @@
-const merge = require('webpack-merge');
-const path = require('path');
-const webpack = require('webpack');
-const baseConfig = require('./webpack.base.conf');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const merge = require('webpack-merge')
+const path = require('path')
+const webpack = require('webpack')
+const baseConfig = require('./webpack.base.conf')
 
 module.exports = merge(baseConfig, {
   mode: 'development',
@@ -13,12 +12,6 @@ module.exports = merge(baseConfig, {
     hot:true,
   },
   plugins:[
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      title: 'vueAdmin',
-      template: 'index.html',
-      inject: true,
-    }),
     // 这就开启了 css 热更新
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),

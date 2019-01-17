@@ -1,6 +1,7 @@
-const path = require('path');
+const path = require('path')
 
-const { VueLoaderPlugin } = require('vue-loader');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { VueLoaderPlugin } = require('vue-loader')
 
 
 module.exports = {
@@ -14,6 +15,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
+			'vue$': 'vue/dist/vue.esm.js',
 			'@': path.resolve(__dirname,'../src'),
 			'_c': path.resolve(__dirname,'../src/components'),
     }
@@ -22,7 +24,7 @@ module.exports = {
     rules: [
         {
           test: /\.vue$/,
-          loader: 'vue-loader'
+					loader: 'vue-loader',
         },
         {
           test:/\.js$/,
@@ -62,5 +64,13 @@ module.exports = {
         },
     ]
   },
-  plugins: [new VueLoaderPlugin()],
+  plugins: [
+		new HtmlWebpackPlugin({
+			filename: 'index.html',
+      title: 'DEVvueAdmin',
+      template: path.resolve(__dirname,'../index.html'),
+      inject: true,
+		}),
+		new VueLoaderPlugin(),
+	],
 };

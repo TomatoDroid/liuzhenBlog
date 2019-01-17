@@ -1,17 +1,16 @@
 import Cookies from 'js-cookie'
 // cookie保存的天数
+import config from '@/config'
 import { forEach, hasOneOf, objEqual } from '@/libs/tools'
+const { title, cookieExpires, useI18n } = config
 
-const title = '';
-const cookieExpires = 1;
-
-const TokenKey = 'Admin-Token';
+export const TOKEN_KEY = 'token'
 
 export function setToken(token){
-		Cookies.set(TokenKey,token),{ expires: cookieExpires || 1 };
+		Cookies.set(TOKEN_KEY,token),{ expires: cookieExpires || 1 };
 }
 export function getToken(){
-		const token = Cookies.get(TokenKey);
+		const token = Cookies.get(TOKEN_KEY);
 		if(token) return token
 		else return false
 }
@@ -76,6 +75,7 @@ export const getMenuByRouter = (list, access) => {
       if (showThisMenuEle(item, access)) res.push(obj)
 		}
 	})
+	return res
 }
 
 export const getRouteTitleHandled = (route) => {
@@ -96,7 +96,8 @@ export const getRouteTitleHandled = (route) => {
 export const showTitle = (item, vm) => {
   let { title, __titleIsFunction__ } = item.meta
   if (!title) return
-  if (useI18n) {
+  // if (useI18n) {
+		if (false) {
     if (title.includes('{{') && title.includes('}}') && useI18n) title = title.replace(/({{[\s\S]+?}})/, (m, str) => str.replace(/{{([\s\S]*)}}/, (m, _) => vm.$t(_.trim())))
     else if (__titleIsFunction__) title = item.meta.title
     else title = vm.$t(item.name)
@@ -128,4 +129,16 @@ export const getParams = url => {
 		paramObj[keyValue[0]] = keyValue[1]
 	});
 	return paramObj
+}
+
+export const findNodeUpperByClasses = (ele, classes) => {
+  let parentNode = ele.parentNode
+  if (parentNode) {
+    let classList = parentNode.classList
+    if (classList && classes.every(className => classList.contains(className))) {
+      return parentNode
+    } else {
+      return findNodeUpperByClasses(parentNode, classes)
+    }
+  }
 }
