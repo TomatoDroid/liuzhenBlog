@@ -1,7 +1,3 @@
-<style lang="less">
-  @import './login.less';
-</style>
-
 <template>
     <div class="login">
       <div class="login-con">
@@ -32,7 +28,7 @@ export default {
 			this.handleLogin({userName, password}).then(res => {
 				this.getUserInfo().then(res => {
 					this.$router.push({
-						name:'home'
+						name:this.$config.homeName
 					})
 				})
 			})
@@ -40,3 +36,6 @@ export default {
 	},
 }
 </script>
+<style lang="less">
+  @import './login.less';
+</style>

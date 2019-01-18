@@ -1,6 +1,6 @@
 <template>
 	<Dropdown ref="dropdown" @on-click="handleClick" :class="hideTitle ? '' : 'collased-menu-dropdown'" :transfer="hideTitle" :placement="placement">
-		<a class="drop-menu-a" type="text" @mouseover="handleMouseover($event, children)" :style="{textAlign: !hideTitle ? 'left' : ''}" >
+		<a class="drop-menu-a" type="text" @mouseover="handleMousemove($event, children)" :style="{textAlign: !hideTitle ? 'left' : ''}" >
 			<common-icon :size="rootIconSize" :color="textColor" :type="parentItem.icon"/>
 			<span class="menu-title" v-if="!hideTitle">{{ showTitle(parentItem) }}</span>
 			<Icon style="float: right;" v-if="!hideTitle" type="ios-arrow-forward" :size="16"/>
@@ -43,7 +43,7 @@ export default {
 		handleClick(name){
 			this.$emit('on-click',name)
 		},
-		handleMouseover(event, children){
+		handleMousemove(event, children){
 			const { pageY } = event
 			const height = children.length * 38
 			const isOverflow = pageY + height < window.innerHeight

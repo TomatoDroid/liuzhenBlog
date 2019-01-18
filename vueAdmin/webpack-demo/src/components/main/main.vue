@@ -10,17 +10,27 @@
 			</side-menu>
 		</Sider>
 		<Layout>
-			<Header>
-				Header
+			<Header class="header-con">
+				<header-bar :collapsed="collapsed" @on-coll-change="handleCollapsedChnage">
+					<user></user>
+					<language></language>
+					<error-store></error-store>
+					<fullscreen></fullscreen>
+				</header-bar>
 			</Header>
 			<Content>
-				Content
+				没有内容
 			</Content>
 		</Layout>
 	</Layout>
 </template>
 <script>
+import HeaderBar from './components/header-bar'
+import ErrorStore from './components/error-store'
+import Fullscreen from './components/fullscreen'
+import Language from './components/language'
 import SideMenu from './components/side-menu'
+import User from './components/user'
 
 import { mapMutations, mapActions, mapGetters } from 'vuex'
 import { getNewTagList, routeEqual } from '@/libs/util'
@@ -32,8 +42,12 @@ import './main.less'
 export default {
 	name:'Main',
 	components:{
+		HeaderBar,
+		ErrorStore,
+		Fullscreen,
+		Language,
 		SideMenu,
-
+		User,
 	},
 	data() {
 		return {
@@ -49,6 +63,13 @@ export default {
 		},
 	},
 	methods: {
+		...mapMutations([
+			'setBreadCrumb',
+			'setHomeRoute'
+		]),
+		...mapActions([
+
+		]),
 		turnToPage (route) {
       let { name, params, query } = {}
       if (typeof route === 'string') name = route
@@ -66,13 +87,26 @@ export default {
         params,
         query
       })
-    },
+		},
+		handleCollapsedChnage(state){
+			this.collapsed = state
+		}
 	},
 	watch: {
 		'$route'(newRoute){
 			const { name, query, params, meta } = newRoute
+
+			this.setBreadCrumb(newRoute)
+
 			this.$refs.sideMenu.updateOpenName(newRoute.name)
 		}
+	},
+	mounted() {
+		/**
+     * @description 初始化设置面包屑导航和标签导航
+     */
+		this.setHomeRoute(routers)
+		this.setBreadCrumb(this.$route)
 	},
 }
 </script>

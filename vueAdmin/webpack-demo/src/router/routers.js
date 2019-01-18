@@ -42,7 +42,7 @@ import Main from '@/components/main'
 					name:'home',
 					meta:{
 						hideInMenu:true,
-						title:'首页哈哈哈',
+						title:'首页',
 						notCache: true,
 						icon:'md-home'
 					},
@@ -116,6 +116,15 @@ import Main from '@/components/main'
         },
         component: () => import('@/view/components/count-to/count-to.vue')
 			},
+			{
+        path: 'drag_list_page',
+        name: 'drag_list_page',
+        meta: {
+          icon: 'ios-infinite',
+          title: '拖拽列表'
+        },
+        component: () => import('@/view/components/drag-list/drag-list.vue')
+      },
 		]
 	}
 ]

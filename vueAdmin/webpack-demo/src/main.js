@@ -7,14 +7,20 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
-
+import config from '@/config'
 import iView from 'iview'
 import './index.less'
+import '@/assets/icons/iconfont.css'
 
 import './mock'
 
 Vue.config.productionTip = false
 Vue.use(iView)
+
+/**
+ * @description 全局注册应用配置
+ */
+Vue.prototype.$config = config
 
 new Vue({
   el: '#app',
