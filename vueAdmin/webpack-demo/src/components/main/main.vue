@@ -12,10 +12,10 @@
 		<Layout>
 			<Header class="header-con">
 				<header-bar :collapsed="collapsed" @on-coll-change="handleCollapsedChnage">
-					<user></user>
+					<user :message-unread-count="unreadcCunt" :user-avator="userAvator"></user>
 					<language></language>
 					<error-store></error-store>
-					<fullscreen></fullscreen>
+					<fullscreen v-model="isFullscreen" style="padding-right:10px;"></fullscreen>
 				</header-bar>
 			</Header>
 			<Content>
@@ -60,6 +60,12 @@ export default {
 	computed: {
 		menuList () {
 			return this.$store.getters.menuList
+		},
+		userAvator(){
+			return this.$store.state.user.avatorImgPath
+		},
+		unreadcCunt(){
+			return this.$store.state.user.unreadCount
 		},
 	},
 	methods: {
