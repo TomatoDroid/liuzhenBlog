@@ -155,18 +155,6 @@ export const showTitle = (item, vm) => {
 }
 
 /**
- * @description 根据当前跳转的路由设置显示在浏览器标签的title
- * @param {Object} routeItem 路由对象
- * @param {Object} vm Vue实例
- */
-export const setTitle = (routeItem, vm) => {
-	const handleRoute = getRouteTitleHandled(routeItem)
-	const pageTitle = showTitle(handleRoute)
-	const resTitle = pageTitle ? `${title} - ${pageTitle}` : title
-	window.document.title = resTitle
-}
-
-/**
  * @param {String} url
  * @description 从URL中解析参数
  */
@@ -190,4 +178,79 @@ export const findNodeUpperByClasses = (ele, classes) => {
       return findNodeUpperByClasses(parentNode, classes)
     }
   }
+}
+
+// scrollTop animation
+export const scrollTop = (el, from = 0, to, duration = 500, endCallback) => {
+  if (!window.requestAnimationFrame) {
+    window.requestAnimationFrame = (
+      window.webkitRequestAnimationFrame ||
+      window.mozRequestAnimationFrame ||
+      window.msRequestAnimationFrame ||
+      function (callback) {
+        return window.setTimeout(callback, 1000 / 60)
+      }
+    )
+  }
+  const difference = Math.abs(from - to)
+  const step = Math.ceil(difference / duration * 50)
+
+  const scroll = (start, end, step) => {
+    if (start === end) {
+      endCallback && endCallback()
+      return
+    }
+
+    let d = (start + step > end) ? end : start + step
+    if (start > end) {
+      d = (start - step < end) ? end : start - step
+    }
+
+    if (el === window) {
+      window.scrollTo(d, d)
+    } else {
+      el.scrollTop = d
+    }
+    window.requestAnimationFrame(() => scroll(d, end, step))
+  }
+  scroll(from, to, step)
+}
+
+
+/**
+ * @description 根据当前跳转的路由设置显示在浏览器标签的title
+ * @param {Object} routeItem 路由对象
+ * @param {Object} vm Vue实例
+ */
+export const setTitle = (routeItem, vm) => {
+	const handleRoute = getRouteTitleHandled(routeItem)
+	const pageTitle = showTitle(handleRoute)
+	const resTitle = pageTitle ? `${title} - ${pageTitle}` : title
+	window.document.title = resTitle
+}
+
+/**
+ * @description 根据name/params/query判断两个路由对象是否相等
+ * @param {*} route1 路由对象
+ * @param {*} route2 路由对象
+ */
+export const routeEqual = (route1, route2) => {
+	const param1 = route1.params || {}
+	const param2 = route2.params || {}
+	const query1 = route1.query || {}
+	const query2 = route2.query || {}
+	return (route1.name === route2.name) && objEqual(param1,param2) && objEqual(query1, query2)
+}
+
+/**
+ * @param {*} list 现有标签导航列表
+ * @param {*} newRoute 新添加的路由原信息对象
+ * @description 如果该newRoute已经存在则不再添加
+ */
+export const getNewTagList = (list, newRoute) => {
+	const { name, path, meta } = newRoute
+	let newList =  [...list]
+	if(newList.findIndex(item => item.name === name) >= 0 ) return newList
+	else newList.push({name, path, meta})
+	return newList
 }

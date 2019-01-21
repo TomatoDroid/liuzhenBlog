@@ -18,8 +18,18 @@
 					<fullscreen v-model="isFullscreen" style="padding-right:10px;"></fullscreen>
 				</header-bar>
 			</Header>
-			<Content>
-				没有内容
+			<Content class="main-content-con">
+				<Layout class="main-layout-con">
+					<div class="tag-nav-wrapper">
+						<tags-nav :value="$route" @input="handleClick" :list="tagNavList" @on-close="handleCloseTag"></tags-nav>
+					</div>
+					<Content class="content-wrapper">
+						<keep-alive>
+							<router-view></router-view>
+						</keep-alive>
+						<a-back-top :height="100" :bottom="80" :right="50" container=".container-wrapper"></a-back-top>
+					</Content>
+				</Layout>
 			</Content>
 		</Layout>
 	</Layout>
@@ -31,6 +41,8 @@ import Fullscreen from './components/fullscreen'
 import Language from './components/language'
 import SideMenu from './components/side-menu'
 import User from './components/user'
+import TagsNav from './components/tags-nav'
+import ABackTop from './components/a-back-top'
 
 import { mapMutations, mapActions, mapGetters } from 'vuex'
 import { getNewTagList, routeEqual } from '@/libs/util'
@@ -48,6 +60,8 @@ export default {
 		Language,
 		SideMenu,
 		User,
+		TagsNav,
+		ABackTop,
 	},
 	data() {
 		return {
@@ -58,6 +72,12 @@ export default {
 		}
 	},
 	computed: {
+		...mapGetters([
+			'errorCount'
+		]),
+		tagNavList(){
+			this.$store.state.app.tagNavList
+		},
 		menuList () {
 			return this.$store.getters.menuList
 		},
@@ -94,16 +114,26 @@ export default {
         query
       })
 		},
+		handleCloseTag(){
+
+		},
 		handleCollapsedChnage(state){
 			this.collapsed = state
-		}
+		},
+		handleClick(item){
+			this.turnToPage(item)
+		},
+
 	},
 	watch: {
 		'$route'(newRoute){
 			const { name, query, params, meta } = newRoute
-
+			this.addTag({
+				route:{ name, query, params, meta },
+				type:'push'
+			})
 			this.setBreadCrumb(newRoute)
-
+			this.setTagNavList(getNewTagList(this.tagNavList, newRoute))
 			this.$refs.sideMenu.updateOpenName(newRoute.name)
 		}
 	},
@@ -111,8 +141,22 @@ export default {
 		/**
      * @description 初始化设置面包屑导航和标签导航
      */
+		this.setTagNavList()
 		this.setHomeRoute(routers)
+		this.addTag({
+			route: this.$store.state.app.homeRoute
+		})
 		this.setBreadCrumb(this.$route)
+		// 设置初始语言
+    // this.setLocal(this.$i18n.locale)
+    // 如果当前打开页面不在标签栏中，跳到homeName页
+    if (!this.tagNavList.find(item => item.name === this.$route.name)) {
+      this.$router.push({
+        name: this.$config.homeName
+      })
+    }
+    // 获取未读消息条数
+    // this.getUnreadMessageCount()
 	},
 }
 </script>

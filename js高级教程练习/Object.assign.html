@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    //浅拷贝
+    if(typeof Object.assign2 !== 'function'){
+        Object.defineProperty(Object,'assign2',{
+            value:function(target){
+                'use strict'
+                if(target == null){
+                    throw new TypeError('Cannot convert undefined or null to object')
+                }
+                var to = Object(target)
+                for(var i=1;i<arguments.length;i++){
+                    var nextSource = arguments[i]
+                    if(nextSource != null){
+                        for(var nextKey in nextSource){
+                            if(Object.prototype.hasOwnProperty.call(nextSource,nextKey)){
+                                to[nextKey] = nextSource[nextKey]
+                            }
+                        }
+                    }
+                }
+                return to
+            },
+            writable:true,
+            configurable:true
+        })
+    }
+
+    var a = {
+        name:'liuzhen',
+        age:24
+    }
+    var b = {
+        name:'yiyang',
+        books:{
+            name:'JavaScript 高级程序设计',
+            price:55
+        }
+    }
+
+    var c = Object.assign2(a,b)
+    console.log('a:',a)
+    b.books.price = 77
+    // console.log('修改深层引用后a:',a)
+    </script>
+</body>
+</html>
