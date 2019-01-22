@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body{
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        header{
+            width: 100%;
+            height: 200px;
+            background: yellow;
+        }
+        main{
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            height: 500px;
+            background: red;
+        }
+        .left{
+            width: 100px;
+            height: 100%;
+            background: rebeccapurple;
+        }
+        .content{
+            width: 100%;
+            height: 100%;
+            background: green;
+        }
+        @media (max-width: 700px) {
+            header{
+                height: 50px;
+                background: bisque;
+            }
+            .left{
+                width: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+    </header>
+    <main>
+        <div class="left"></div>
+        <div class="content"></div>
+    </main>
+</body>
+</html>

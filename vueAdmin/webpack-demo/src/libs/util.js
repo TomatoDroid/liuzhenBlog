@@ -108,6 +108,19 @@ export const getMenuByRouter = (list, access) => {
 }
 
 /**
+ * @description 本地存储和获取标签导航列表
+ */
+export const setTagNavListInLocalstorage = list => {
+	localStorage.tagNavList = JSON.stringify(list)
+}
+/**
+ * @returns {Array} 其中的每个元素只包含路由原信息中的name, path, meta三项
+ */
+export const getTagNavListFromLocalstorage = () => {
+	const list = localStorage.tagNavList
+	return list ? JSON.parse(list) : []
+}
+/**
  * @param {Array} routers 路由列表数组
  * @description 用于找到路由列表中name为home的对象
  */
@@ -253,4 +266,27 @@ export const getNewTagList = (list, newRoute) => {
 	if(newList.findIndex(item => item.name === name) >= 0 ) return newList
 	else newList.push({name, path, meta})
 	return newList
+}
+
+/**
+ * 判断打开的标签列表里是否已存在这个新添加的路由对象
+ */
+export const routeHasExist = (tagNavList, routeItem) => {
+	let len = tagNavList.length
+	let res = false
+	doCustomTimes(len, (index) => {
+		if(routeEqual(tagNavList[index], routeItem)) res = true
+	})
+	return res
+}
+
+/**
+ * @param {Number} times 回调函数需要执行的次数
+ * @param {Function} callback 回调函数
+ */
+export const doCustomTimes = (items,callback) => {
+	let i = -1
+	while(++i < items){
+		callback(i)
+	}
 }

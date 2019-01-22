@@ -8,7 +8,7 @@
 </head>
 <body>
     <script>
-    //浅拷贝
+    //浅拷贝  校验，循环参数对象，循环对象属性
     if(typeof Object.assign2 !== 'function'){
         Object.defineProperty(Object,'assign2',{
             value:function(target){
@@ -50,6 +50,31 @@
     console.log('a:',a)
     b.books.price = 77
     // console.log('修改深层引用后a:',a)
+
+
+    // 简易的深拷贝
+    function deepClone(source){
+        let target = {}
+        for(let key in source){
+            if(typeof source[key] === 'object'){
+                target[key] = deepClone(source[key])
+            }else{
+                target[key] = source[key]
+            }
+        }
+        return target
+    }
+    var d = {
+        name:'yiyang',
+        books:{
+            name:'JavaScript 高级程序设计',
+            price:55
+        }
+    }
+    var deep = deepClone(d)
+    deep.books.price = 11
+    console.log(deep)
+
     </script>
 </body>
 </html>

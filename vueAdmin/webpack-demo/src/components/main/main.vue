@@ -76,7 +76,7 @@ export default {
 			'errorCount'
 		]),
 		tagNavList(){
-			this.$store.state.app.tagNavList
+			return this.$store.state.app.tagNavList
 		},
 		menuList () {
 			return this.$store.getters.menuList
@@ -91,7 +91,9 @@ export default {
 	methods: {
 		...mapMutations([
 			'setBreadCrumb',
-			'setHomeRoute'
+			'setHomeRoute',
+			'setTagNavList',
+			'addTag',
 		]),
 		...mapActions([
 
