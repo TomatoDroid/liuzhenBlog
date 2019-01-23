@@ -94,6 +94,7 @@ export default {
 			'setHomeRoute',
 			'setTagNavList',
 			'addTag',
+			'closeTag',
 		]),
 		...mapActions([
 
@@ -116,8 +117,17 @@ export default {
         query
       })
 		},
-		handleCloseTag(){
-
+		handleCloseTag(res, type, route){
+			if(type !== 'others'){
+				if(type === 'all'){
+					this.turnToPage(this.$config.homeName)
+				}else{
+					if(routeEqual(this.$route, route)){
+						this.closeTag(route)
+					}
+				}
+			}
+			this.setTagNavList(res)
 		},
 		handleCollapsedChnage(state){
 			this.collapsed = state

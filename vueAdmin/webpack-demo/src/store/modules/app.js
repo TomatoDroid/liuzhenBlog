@@ -2,6 +2,7 @@ import {
 	getBreadCrumbList,
 	getMenuByRouter,
 	getHomeRoute,
+	getNextRoute,
 	getTagNavListFromLocalstorage,
 	setTagNavListInLocalstorage,
 	getRouteTitleHandled,
@@ -10,7 +11,16 @@ import {
 import router from '@/router'
 import routes from '@/router/routers'
 import config from '@/config'
+import { routeEqual } from '../../libs/util';
 const { homeName } = config
+
+const closePage = (state, route) => {
+  const nextRoute = getNextRoute(state.tagNavList, route)
+  state.tagNavList = state.tagNavList.filter(item => {
+    return !routeEqual(item, route)
+  })
+  router.push(nextRoute)
+}
 
 export default {
 	state:{
@@ -42,8 +52,11 @@ export default {
 			state.tagNavList = tagList
 			setTagNavListInLocalstorage([...tagList])
 		},
-		closeTag(){
-
+		closeTag(state,route){
+			let tag = state.tagNavList.filter(item => routeEqual(item, route))
+			route = tag[0] ? tag[0] : null
+			if(!route) return
+			closePage(state, route)
 		},
 		addTag(state, { route, type="unshift" }){
 			let router = getRouteTitleHandled(route)

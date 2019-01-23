@@ -229,6 +229,21 @@ export const scrollTop = (el, from = 0, to, duration = 500, endCallback) => {
   scroll(from, to, step)
 }
 
+/**
+ * @param {Array} list 标签列表
+ * @param {String} name 当前关闭的标签的name
+ */
+export const getNextRoute = (list, route) => {
+  let res = {}
+  if (list.length === 2) {
+    res = getHomeRoute(list)
+  } else {
+    const index = list.findIndex(item => routeEqual(item, route))
+    if (index === list.length - 1) res = list[list.length - 2]
+    else res = list[index + 1]
+  }
+  return res
+}
 
 /**
  * @description 根据当前跳转的路由设置显示在浏览器标签的title
