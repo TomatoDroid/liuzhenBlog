@@ -1,48 +1,80 @@
 class Promise{
-    // 构造器
     constructor(executor){
         this.state = 'pending'
         this.value = undefined
-        this.reson = undefined
-        this.onResolvedCallbacks = []
-        this.onRejectedCallbacks = []
-        // 成功
+        this.reason = undefined
+        this.onResolvedCallback = []
+        this.onRejectedCallback = []
         let resolve = value => {
             if(this.state === 'pending'){
                 this.state = 'fulfilled'
                 this.value = value
-                this.onResolvedCallbacks.forEach(fn => fn())
+                this.onResolvedCallback.forEach(fn => fn())
             }
         }
-        //失败
-        let reject = reson => {
-            if(this.state === 'pending'){
+        let reject = reason => {
+            if(this.state === 'pengding'){
                 this.state = 'rejected'
-                this.reson = reson
-                this.onRejectedCallbacks.forEach(fn => fn())
+                this.reason = reason
+                this.onRejectedCallback.forEach(fn => fn())
             }
         }
-        // 执行
         try{
-            executor(resolve, reject)
+            executor(resolve, rejected)
         }catch(err){
             reject(err)
         }
     }
     then(onFulfilled, onRejected){
-        if(this.state === 'fulfilled'){
-            onFulfilled(this.value)
+        let primise2 = new Promise((resolve, rejected) => {
+            if(this.state === 'fulfilled'){
+                let x = onFulfilled(this.value)
+                resolvePromise(primise2, x, resolve, rejected)
+            }
+            if(this.state === 'rejected'){
+                let x = onRejected(this.value)
+                resolvePromise(primise2, x, resolve, rejected)
+            }
+            if(this.state === 'pending'){
+                this.onResolvedCallback.push(() => {
+                    let x = onFulfilled(this.value)
+                    resolvePromise(primise2, x, resolve, rejected)
+                })
+                this.onRejectedCallback.push(() => {
+                    let x = onRejected(this.reason)
+                    resolvePromise(primise2, x, resolve, rejected)
+                })
+            }
+        })
+        return primise2
+    }
+}
+
+function resolvepromise(primise2, x, resolve, rejected){
+    if(x === primise2){
+        return reject(new TypeError('Chaining cycle detected for promise'))
+    }
+    let called
+    if(x !== null && (typeof x === 'object' || typeof x === 'function')){
+        try{
+            let then = x.then
+            if(typeof then === 'function'){
+                then.call(x, y => {
+                    if(called) return
+                    called = true
+                    resolvepromise(primise2, x, resolve, rejected)
+                }, err => {
+                    if (called) return;
+                    called = true;
+                    reject(err);// 失败了就失败了
+                })
+            }
+        }catch(err){
+            if(called) return
+            called = true
+            reject(err)
         }
-        if(this.state === 'rejected'){
-            onRejected(this.reson)
-        }
-        if(this.state === 'pending'){
-            this.onResolvedCallbacks.push(() => {
-                onFulfilled(this.value)
-            })
-            this.onRejectedCallbacks.push(() => {
-                onRejected(this.reson)
-            })
-        }
+    }else{
+        resolve(x)
     }
 }
