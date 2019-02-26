@@ -10,32 +10,22 @@
 			padding:0;
 			margin: 0;
 		}
-		section{
-            width: 100px;
+		.box{
+            width:100px;
             height: 100px;
-            background: rebeccapurple;
+            background: deepskyblue;
             position: absolute;
-            top: 100px;
-            left: 500px;
+            top: 200px;
+            left: 200px;
         }
     </style>
 </head>
 <body>
-    <section class="box">
-        <article class="aBox">
-            我是盒子
-        </article>
-    </section>
+    <div class="box"></div>
     <script>
-        const section = document.querySelector('section');
-        console.log(getComputedStyle(section).width);
-        console.log(section.getBoundingClientRect());
-    </script>   
-    <script type="module">
-        console.log('支持module');
-    </script>
-    <script nomodule>
-        alert('浏览器不支持module');
+        let box = document.querySelector('.box')
+        console.log(getComputedStyle(box).width,getComputedStyle(box).height)
+        console.log('rect',box.getBoundingClientRect())
     </script>
 </body>
 </html>
