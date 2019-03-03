@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .polling_message{
+            color: white;
+            float: left;
+            margin-left: 2%;
+        }
+        .view_port{
+            background: black;
+            height: 25px;
+            width: 100%;
+            overflow: hidden;
+        }
+        .cylon_eye{
+            color: white;
+            height: 100%;
+            width: 20%;
+            background-color: red;
+            background-image:linear-gradient(to right, rgba( 0,0,0,0.9 ) 25%, rgba( 0,0,0,0.1 ) 50%, rgba( 0,0,0,0.9 ) 75%);
+            animation: move_eye 4s linear 0s infinite alternate;
+        }
+        @keyframes move_eye {
+            from{
+                margin-left:-20px;
+            }
+            to{
+                margin-left:100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="view_port">
+        <div class="polling_message">
+            Listening for dispatcher
+        </div>
+        <div class="cylon_eye"></div>
+    </div>
+</body>
+</html>

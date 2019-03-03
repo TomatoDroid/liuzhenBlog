@@ -21,21 +21,17 @@
     </style>
 </head>
 <body>
-    <section class="box">
-        <article class="aBox">
-            我是盒子
-        </article>
-    </section>
     <script>
-        const section = document.querySelector('section');
-        console.log(getComputedStyle(section).width);
-        console.log(section.getBoundingClientRect());
-    </script>   
-    <script type="module">
-        console.log('支持module');
-    </script>
-    <script nomodule>
-        alert('浏览器不支持module');
+        var name = 'window'            
+        var object = {
+            name:'object',
+            getName: function(){
+                return function(){
+                    return name
+                }
+            }
+        }
+        console.log(object.getName()())
     </script>
 </body>
 </html>
