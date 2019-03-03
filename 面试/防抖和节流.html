@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div{
+            width: 100px;
+            height: 100px;
+            background: deepskyblue;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <script>
+    //防抖和节流是最常用的 高频触发优化方式
+    //防抖是将多次高频操作优化成最后一次执行
+    function debounce(fn, wait, immediate){
+        let timer = null
+        return function(){
+            let args = arguments
+            let context = this
+            if(immediate && !timer){
+                fn.apply(context,args)
+            }
+            if(timer) clearTimeout(timer)
+            timer = setTimeout(() => {
+                fn.apply(context, args)
+            }, wait);
+        }
+    }
+    let once = function(){
+        console.log(1)
+    }
+    let box = document.querySelector('div')
+    box.addEventListener('click',debounce(once, 1000, false),false)
+
+    // 节流：每隔一段时间执行一次，降低频率，
+    function throttle(fn, wait, immediate){
+        let timer = null
+        let callNow = immediate
+        return function(){
+            let args = arguments
+            let context = this
+            if(callNow){
+                fn.apply(context,args)
+                callNow = false
+            }
+            if(!timer){
+                timer = setTimeout(() => {
+                    fn.apply(context, args)
+                    timer = null
+                }, wait);
+            }
+        }
+    }
+    </script>
+</body>
+</html>
