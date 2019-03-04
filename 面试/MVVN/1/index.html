@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 1 将标签放入内存中去 -->
+    <!-- 2 编译，提前想要的元素 元素节点 -->
+    <!-- 3 数据劫持 -->
+    <!-- 4 watcher -->
+    <!-- 5 输入框 -->
+    <!-- 6 代理 -->
+    <div id="app">
+        <input type="text" v-model="fullname.firstname">
+        {{fullname.firstname}}
+    </div>
+    <script src="./mvvm/watcher.js"></script>
+    <script src="./mvvm/observer.js"></script>
+    <script src="./mvvm/compile.js"></script>
+    <script src="./mvvm/mvvm.js"></script>
+    <script>
+        var vm = new MVVM({
+            el:'#app',
+            data:{
+                fullname:{
+                    firstname:'liu'
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -57,6 +57,10 @@
             }
         }
     }
+    var con = function(){
+        console.log(1)
+    }
+    window.addEventListener('resize',throttle(con, 500, true),false)
     </script>
 </body>
 </html>
