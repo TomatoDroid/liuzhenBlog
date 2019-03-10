@@ -8,50 +8,43 @@
 </head>
 <body>
     <script>
-        var Observer = (function(){
-            var _messages = {};
-            return{
-                regist:function(type,fn){
-                    if(typeof _messages[type] === 'undefined'){   
-                        // 将动作推入到该消息对应的动作执行队列中
-                        // [fn] 方法数组
-                        _messages[type] = [fn];
+        var Observe = (function(){
+            var __message = {}
+            return {
+                register(type, fn){
+                    if(typeof __message[type] === 'undefined'){
+                        __message[type] = [fn]
                     }else{
-                        _messages[type].push(fn);
+                        __message[type].push(fn)
                     }
                 },
-                fire:function(type,args){
-                    if(!_messages[type]){
-                        return;
-                    }
-                    var events = {
+                fire(type, args){
+                    if(!__message[type]) return
+                    var events  ={
                         type:type,
                         args:args || {}
+                    },
+                    i = 0,
+                    length = __message[type].length
+                    for(;i<length;++i){
+                        __message[type][i].call(this, events)
                     }
-                    i=0;
-                    len = _messages[type].length;
-                    for(;i<len;i++){
-                        _messages[type][i].call(this,events);
-                    }
+                    
                 },
-                remove:function(type,fn){
-                    if(_messages[type] instanceof Array){
-                        var i = _messages[type].length-1;
-                        for(;i>=0;i--){
-                            _messages[type][i] === fn && _messages[type].slice(i,1);
+                remove(type, fn){
+                    if(__message[type] instanceof Array){
+                        var i = __message[type].length-1
+                        for(;i>=0;--i){
+                            __message[type][i] === fn && __message[type].splice(i,1)
                         }
                     }
                 }
             }
-        })();
-
-        Observer.regist('test',function(e){
-            console.log(e.type,e.args.msg);
-        });
-        Observer.regist('test',function(){
-            console.log('多个注册消息');
-        });
-        Observer.fire('test',{msg:'传递参数'});
+        })()
+        Observe.register('test',function(e){
+            console.log(e.type, e.args.msg)
+        })
+        Observe.fire('test',{msg:'传递参数'})
     </script>
 </body>
 </html>

@@ -86,6 +86,7 @@ CompileUtil = {
     },
     model(node, vm, expr){
         let updateFn = this.updater['modelUpdater']
+        debugger
         new Watcher(vm, expr, (newValue) => {
             updateFn && updateFn(node, this.getVal(vm, expr))
         })

@@ -4,6 +4,7 @@
 function inheritObject(o){
     function F(){}
     F.prototype = o;
+    console.log('new F()::', new F())
     return new F();
 }
 
