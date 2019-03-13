@@ -1,7 +1,8 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <!-- <img alt="Vue logo" src="../assets/logo.png">
+    <HelloWorld msg="Welcome to Your Vue.js App"/> -->
+    <button class="btn">0.5px按钮</button>
   </div>
 </template>
 
@@ -16,3 +17,13 @@ export default {
   }
 }
 </script>
+<style lang="less">
+.home{
+  .btn{
+    border: none;
+    padding: 0 16px;
+    box-shadow:  inset 0 0 1px #000;
+    // border: 1px solid black;
+  }
+}
+</style>

@@ -1,11 +1,18 @@
 //只做路由列表的配置
 import Home from '@/views/Home.vue'
-
+import Layout from '@/views/layout.vue'
 export default [
   {
-    path: '/',
+    path: '/home',
     name: 'home',
-    component: Home,
+    component: Layout,
+    children:[
+      {
+        path:'content',
+        name:'content',
+        component:Home
+      }
+    ]
   },
   {
     path: '/about',
@@ -30,6 +37,11 @@ export default [
         component: () => import('@/views/Child.vue')
       }
     ]
+  },
+  {
+    path:'/login',
+    name:'login',
+    component: () => import('@/views/login.vue')
   },
   {
     path:'/store',
