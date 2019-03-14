@@ -11,6 +11,11 @@ export default [
         path:'content',
         name:'content',
         component:Home
+      },
+      {
+        path:'tree',
+        name:'tree',
+        component: () => import('@/views/tree-layout.vue')
       }
     ]
   },

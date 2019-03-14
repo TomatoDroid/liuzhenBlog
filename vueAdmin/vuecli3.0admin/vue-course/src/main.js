@@ -5,6 +5,8 @@ import store from './store/store'
 import Bus from './bus'
 import iview from 'iview'
 import 'iview/dist/styles/iview.css'
+if(process.env.NODE_ENV !== 'production') require('./mock')
+
 Vue.config.productionTip = false
 
 Vue.prototype.$bus = Bus

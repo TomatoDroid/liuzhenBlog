@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .inner{
+            width: 33.33%;
+            height: 300px;
+            display: inline-block;
+            outline: solid 1px blue;
+            font-size: 30px;
+        }
+        .outer{
+            font-size: 0;
+            width: 500px;
+        }
+        .inner:last-child{
+            margin-right: -5px;
+        }
+/* 1 给父盒子设置font-size：0
+2 给父盒子宽度    在某些浏览器中，因为像素计算精度问题，还是会出现换行，我们给 outer 添加一个特定宽度：
+3 给最后一个盒子设置负的右margin    这个代码在某些旧版本浏览器中会出现换行。
+*/
+    </style>
+</head>
+<body>
+    <div class="outer">
+        <div class="inner"></div>
+        <div class="inner"></div>
+        <div class="inner"></div>
+    </div>
+</body>
+</html>
