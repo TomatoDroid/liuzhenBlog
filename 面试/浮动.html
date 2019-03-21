@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .container{
+            border: 1px solid blue;
+            /* overflow: hidden; */
+        }
+        .left{
+            width: 100px;
+            height: 100px;
+            background: yellow;
+            border: 1px solid rebeccapurple;
+            float: left;
+        }
+        span{
+            display: block;
+            clear: both;
+        }
+        
+        .container::after{
+            /* content: '';
+            display: block;
+            clear: both; */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left"></div>
+        <span>问吧呢的砂进口的撒娇大数据达拉斯</span>
+    </div>
+</body>
+</html>

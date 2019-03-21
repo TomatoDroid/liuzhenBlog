@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 二叉树路径求和 -->
+    <script>
+        // function TreeNode(){
+        //     this.val = x
+        //     this.left = null
+        //     this.right = null
+        // }
+        function findPath(node, expectNumber){
+            var result = []
+            if(node === null){
+                return result
+            }
+            dfsFind(node, expectNumber, [], 0, result)
+            return result
+        }
+        function dfsFind(node, expectNumber, path, currentSum, result){
+            currentSum += node.value
+            path.push(node.value)
+            if(currentSum === expectNumber && node.left === null && node.right === null){
+                result.push(path.splice(0))
+            }
+            if(node.left !== null){
+                dfsFind(node.left, expectNumber, path, currentSum, result)
+            }
+            if(node.right !== null){
+                dfsFind(node.right, expectNumber, path, currentSum, result)
+            }
+            path.pop()
+        }
+    </script>
+</body>
+</html>

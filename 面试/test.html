@@ -6,28 +6,34 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-        
+        .inner1, .inner2{
+            width: 100px;
+            height: 100px;
+            background: yellow;
+        }
+        .inner1{
+            margin: 20px 0;
+        } 
+        .inner2{
+            margin: 30px 0;
+        }
+        .overflow{
+            overflow: hidden;
+        }
     </style>
 </head>
 <body>
-        
+    <div class="outer">
+        <div class="overflow">
+            <div class="inner1"></div>
+        </div>
+        <div class="inner2" id="test" data-text="ad">
+            </div>
+    </div>
+
     <script>
-        // function sayHi(){
-        //     var say = function(){
-        //         console.log(hi)
-        //     }
-        //     var hi = 'liuzhen'
-        //     return say
-        // }
-        // console.log(sayHi())
-        // sayHi()()
-        var b = 10;
-        (function(){
-            a = 20
-            console.log(b)
-        })();
-        console.log(b)
-        console.log('a',window.a)
+        let div = document.getElementById('test')
+        console.log(div)
     </script>
 </body>
 </html>
