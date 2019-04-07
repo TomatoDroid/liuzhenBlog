@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .outer{
+            display: flex;
+            flex-wrap: wrap;
+            outline: 1px solid #000;
+            height: 210px;
+            width: 210px;
+        }
+        .inner1:nth-of-type(1){
+            flex: auto;
+            width: 30px;
+            background: rebeccapurple;
+        }
+        .inner1:nth-of-type(2){
+            width: 20px;
+            background: red;
+        }
+        .inner1:nth-of-type(3){
+            width: 40px;
+            background: yellow;
+        }
+    </style>
+</head>
+<body>
+    <div class="outer">
+        <div class="inner1"></div>
+        <div class="inner1"></div>
+        <div class="inner1"></div>
+    </div>
+    <script>
+        const res = {
+            code: 0,
+            data: {
+                lines: '20路,301路,5路,地铁5号线,机场大巴线,107路,机场快轨',
+                lineids: 'lzbd,lwes,lxid,lwic,lwdf,ldfx,loin',
+                linedetails: {
+                    lwdf: {name: '机场大巴线'},
+                    lwes: {name: '301路'},
+                    lwic: {name: '地铁5号线'},
+                    ldfx: {name: '107路'},
+                    lzbd: {name: '20路'},
+                    lxid: {name: '5路'},
+                    loin: {name: '机场快轨'},
+                }
+            }
+        } 
+        
+        function parse(res){
+            let linesArr = res.data.lines.split(',')
+            let lineidsArr = res.data.lineids.split(',')
+            let arr_bus = [], 
+                arr_subway = [],
+                arr_other = []
+            let result = []
+            let sort_arr = []
+            let busReg = /(\d*)路/
+            let subwayReg = /地铁(\d*)号线/
+            linesArr.map((item, index, arr) => {
+                if(busReg.test(item)){
+                    arr_bus.push(item)
+                }else if(subwayReg.test(item)){
+                    arr_subway.push(item)
+                }else{
+                    arr_other.push(item)
+                }
+            })
+            arr_bus.sort((a, b) => {
+                return parseInt(busReg.exec(a)[1]) - parseInt(busReg.exec(b)[1])
+            })
+            arr_subway.sort((a, b) => {
+                return parseInt(subwayReg.exec(a)[1]) - parseInt(subwayReg.exec(b)[1])
+            })
+            arr_other.sort((a, b) => {
+                return a.length - b.length
+            })
+            sort_arr = sort_arr.concat(arr_bus,arr_subway,arr_other)
+            sort_arr.forEach((item, index, arr) => {
+                let findIndex = linesArr.findIndex((ele,index) => {
+                    return ele === item
+                })
+                let key = lineidsArr[findIndex]
+                let obj = {}
+                obj[key] = res.data.linedetails[key]
+                result.push(obj)
+            })
+            return result
+        }
+        console.log(parse(res))
+    </script>
+</body>
+</html>

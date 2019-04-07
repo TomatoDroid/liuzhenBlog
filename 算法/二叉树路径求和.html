@@ -26,7 +26,7 @@
             currentSum += node.value
             path.push(node.value)
             if(currentSum === expectNumber && node.left === null && node.right === null){
-                result.push(path.splice(0))
+                result.push(path.slice(0))
             }
             if(node.left !== null){
                 dfsFind(node.left, expectNumber, path, currentSum, result)
@@ -36,6 +36,32 @@
             }
             path.pop()
         }
+
+        // 二叉树求深度
+        function maxDeep(node){
+            if(node === null){
+                return 0
+            }else{
+                let leftDeep = maxDeep(node.left)
+                let rightDeep = maxDeep(node.right)
+                let resultDeep = leftDeep > rightDeep ? leftDeep : rightDeep
+                return resultDeep + 1  
+            } 
+        }
+        let tree = {
+            value:1,
+            left:{
+                value:2,
+                left:{
+                    value:3,
+                    left:{value:4,left:null,right:null},
+                    right:{value:2,left:null,right:null}
+                },
+                right:{value:6,left:null,right:null}
+            },
+            right:{value:4,left:null,right:null}
+        }
+        console.log(maxDeep(tree))
     </script>
 </body>
 </html>

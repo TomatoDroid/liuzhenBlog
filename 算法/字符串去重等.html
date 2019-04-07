@@ -8,6 +8,8 @@
 </head>
 <body> 
     <script>
+        // 数组去重可以使用 new Set()
+        console.log(Array.from(new Set([1,2,2,3,4,4,5])))
         // 字符串去重
         function unique(str){
             let newStr = ''
@@ -49,6 +51,116 @@
         }
         let testArr = [2,8,3,5,7]
         console.log(twoSum(testArr, 9))
+
+        // 斐波那契数列
+        function fibonacci (n){
+            if(n === 0) return 0
+            if(n === 1) return 1
+            else return fibonacci (n-1) + fibonacci (n-2)
+        }
+        console.log(fibonacci (5))
+
+        // 判断字符串出现的次数
+        var str = 'aaaddddddddrrrrrrr'
+        function repeatNumber(str){
+            let obj = {}
+            let max = 0
+            let character = ''
+            for(let index in str){
+                obj[str[index]] = obj[str[index]]+1 || 1
+            }
+            for(let i in obj){
+                if(obj[i] > max){
+                    max = obj[i]
+                    character = i
+                }
+            }
+            return `${character}--${max}`
+        }
+        console.log('出现最多的字母：',repeatNumber(str))
+
+        //将字符串改成RMB  123456--123,456
+        console.log('1123456789'.replace(/\B(?=(\d{3})+$)/g,','))
+
+        // 扁平化数组 flat函数  递归借用concat
+        let testArr2 = [1,2,3,[4,6,7,[8,9]]]
+        // console.log(testArr2.flat(Infinity))  
+        function flatter(arr){
+            while(arr.some(item => Array.isArray(item))){
+                arr = [].concat(...arr)
+            }
+            return arr
+        }
+        console.log(flatter(testArr2))
+        
+        // 字符串翻转
+        let reverStr = 'liuzhen'
+        function reverseStr(str){
+            return str.split('').reverse().join('')
+        }
+        console.log(reverseStr(reverStr))
+
+        // 回文数字
+        function isPalindrome(str){
+            return str === str.split('').reverse().join('')
+        }
+        console.log(isPalindrome('上海自来水来自海上'))
+
+        //找出字符串中元音字母出现的个数
+        let vowelsStr = 'liuao'
+        // function vowels(str){
+        //     const choice = ['a','e','i','o','u']
+        //     let count = 0
+        //     for(let index in str){
+        //         if(choice.includes(str[index])){
+        //             count++
+        //         }
+        //     }
+        //     return count
+        // }
+        // 正则
+        function vowels(str){
+            const match = str.match(/[aeiou]/gi)
+            return match ? match.length : 0
+        }
+        console.log(vowels(vowelsStr))
+
+        //数组分割
+        function chunk(arr, size){
+            let chunks = []
+            let index = 0
+            while(index < arr.length){
+                chunks.push(arr.slice(index, index+size))
+                index += size
+            }
+            return chunks
+        }
+        console.log(chunk([1,2,3,4,5,6],2))
+
+        //找出从0开始到给定整数的所有质数
+        //先判断是不是质数
+        function isPrime(num){
+            if(num > 1 && num <= 3){
+                return true
+            }else{
+                for(let i=2;i<=Math.sqrt(num);++i){
+                    if(num % i === 0){
+                        return false
+                    }
+                }
+                return true
+            }
+        }
+        function prime(num){
+            const primes = []
+            for(let i=2;i<=num;++i){
+                if(isPrime(i)){
+                    primes.push(i)
+                }
+            }
+            return primes
+        }
+        console.log('质数',prime(7))
     </script>
 </body>
 </html>

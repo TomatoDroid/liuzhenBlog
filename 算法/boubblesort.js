@@ -6,7 +6,7 @@ function bobbleSort(a,n){
     for(let i=0;i<n;++i){
         // 提前退出冒泡排序的标志位
         let flag = false;
-        for(let j=0;j<n-i-1;++j){
+        for(let j=0;j<n-i-1;++j){ 
             if(a[j] > a[j+1]){  //交换
                 let tmp = a[j];
                 a[j] = a[j+1];
