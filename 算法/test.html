@@ -8,21 +8,14 @@
 </head>
 <body>
     <script>
-        const arr = [10,2,[8,7,[1,2]]]
-        function flatter(arr){
-            while(arr.some(item => Array.isArray(item))){
-                arr = [].concat(...arr)
-            }
-            return arr
-        }
-        console.log(flatter(arr))
-
-        const arr1 = [10,2,[8,7,[1,2]]]
-        function test(arr){
-            return arr = [].concat(...arr)
-            
-        }
-        console.log(test(arr1))
+        (function test(){
+            var a = 1
+        })()
+        console.log(a)
+        var a = 2
+        console.log(a)
+        a = 3
+        console.log(a)
     </script>
 </body>
 </html>

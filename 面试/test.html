@@ -8,14 +8,26 @@
 </head>
 <body>
     <canvas id="canvas" width="200" height="200"></canvas>
+    <img src='data:image/svg+xml;charset=utf8,<svg version="1.1" xmlns="http://www.w3.org/2000/svg"><rect width="300" height="100" style="fill:rgb(0,0,255);stroke-width:1;stroke:rgb(0,0,0)"/></svg>'/>
+    <iframe sandbox srcdoc='<p>Yeah, you can see it <a href="/gallery?mode=cover&amp;amp;page=1">in my gallery</a>.'></iframe>
+
     <script>
         const canvas = document.getElementById('canvas')
-        const context = canvas.getContext('2d')
-        context.fillStyle = '#ff0000'
-        context.fillRect(10,10,50,50)
-
-        context.fillStyle = 'rgba(0,0,255,0.5)'
-        context.fillRect(30,30,50,50)
+        const ctx = canvas.getContext('2d')
+        ctx.fillStyle = "rgba(23,28,96,0.5)";
+        ctx.beginPath();
+        ctx.arc(0,0,0,0, 2 * Math.PI, false);
+        ctx.fill();
+        //红
+        ctx.fillStyle = "rgba(195,13,35,0.5)";
+        ctx.beginPath();
+        ctx.arc(200,200,200,0, 2 * Math.PI, false);
+        ctx.fill();
+        //瞳孔
+        ctx.fillStyle = "rgba(23,28,96,0.5)";
+        ctx.beginPath();
+        ctx.arc(300, 230, 30, 0, 4 * Math.PI, false);
+        ctx.fill();
     </script>
 </body>
 </html>

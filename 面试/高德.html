@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+        1，local,sesion,cookie区别
+        2，判断是否是数组的几种方法
+        3，深拷贝
+        4，如何判断两个长相相似的对象是否相等
+        5，回文字符的判断
+        6，时间复杂度
+        7，node
+        8，把多维数组转为1维
+        9，最近关注的新技术
+        10，redux和vuex
+        */
+        // 2
+        // console.log(Array.prototype.isPrototypeOf([]))
+        // console.log([] instanceof Array)
+        // console.log(Array.isArray([]))
+        // console.log(Object.prototype.toString.call([1,2]))
+        // 3
+        // JSON.parse(JSON.stringify())  //function 类型无法复制
+        // function checkType(target){
+        //     return Object.prototype.toString.call(target).slice(8,-1)
+        // }
+        // function clone(target){
+        //     let result
+        //     let value = checkType(target)
+        //     if(value === 'Array'){
+        //         result = []
+        //     }else if(value === 'Object'){
+        //         result =  {}
+        //     }else{
+        //         return target
+        //     }
+        //     for(let index in target){
+        //         if(checkType(target[index]) === 'Array' || checkType(target[index]) === 'Object'){
+        //             result[index] = clone(target[index])
+        //         }else{
+        //             result[index] = target[index]
+        //         }
+        //     }
+        //     return result
+        // }
+        // const test = {
+        //     name:'liuzhen',
+        //     age:25,
+        //     work:{
+        //         location:'西直门',
+        //         go:function(){
+        //             console.log(1)
+        //         },
+        //         name:'',
+        //         age:null
+        //     }
+        // }
+        // // const testClone = clone(test)
+        // const testClone = JSON.parse(JSON.stringify(test))
+        // testClone.work.location = '望京'
+        // console.log(testClone)
+        // console.log(test)
+        // 4
+        // const a = {
+        //     name:'liuzhen'
+        // }
+        // const b = {
+        //     name:'lizhen'
+        // }
+        // function isEqual(a,b){
+        //     let aProps = Object.getOwnPropertyNames(a)
+        //     let bProps = Object.getOwnPropertyNames(b)
+        //     if(aProps.length !== bProps.length){
+        //         return false
+        //     }
+        //     for(let i=0;i<aProps.length;++i){
+        //         let value = aProps[i]
+        //         if(a[value] !== b[value]){
+        //             return false
+        //         }
+        //         return true
+        //     }
+        // }
+        // console.log(isEqual(a,b))
+        // 5
+        // str === str.split('').reverse().join()
+        //8
+        // const arr = [1,2,[3,4,[5,6]]]
+        // // console.log(arr.flat(Infinity))
+        // function flatter(arr){
+        //     while(arr.some(item => Array.isArray(item))){
+        //         arr = [].concat(...arr)
+        //     }
+
+        //     return arr
+        // }
+        // console.log(flatter(arr))
+    </script>
+</body>
+</html>
