@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      console.log("script start");
+      async function async1() {
+        await async2();
+        console.log("async1 end");
+      }
+      async function async2() {
+        console.log("async2 end");
+      }
+      async1();
+      setTimeout(function() {
+        console.log("setTimeout");
+      }, 0);
+      new Promise(resolve => {
+        console.log("Promise");
+        resolve();
+      })
+        .then(function() {
+          console.log("promise1");
+        })
+        .then(function() {
+          console.log("promise2");
+        });
+      console.log("script end");
+      // 1 先执行同步代码，在执行异步代码，async函数会立即执行，执行第一个await后转为微任务，
+      //settimeout属于宏任务，promise函数会立即执行，resolve()后会转为微任务
+      //2 属于宏任务的有：setTimeout,setInterval,script等，
+      // 微任务有: promise等
+
+      /**
+      什么是事件循环?
+      事件循环：JS是单线程，那遇到异步代码如何执行，
+      事件循环会将代码分为宏任务和微任务，浏览器执行完同步代码，
+      然后将产生的微任务队列整个执行完毕，
+      再执行一个宏任务队列中的任务，然后再将产生的微任务执行完毕。
+      关键点：一个宏任务执行后，刷新整个微任务队列 
+      */
+    </script>
+  </body>
+</html>

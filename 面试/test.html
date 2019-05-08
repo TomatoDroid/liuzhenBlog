@@ -1,33 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
-</head>
-<body>
-    <canvas id="canvas" width="200" height="200"></canvas>
-    <img src='data:image/svg+xml;charset=utf8,<svg version="1.1" xmlns="http://www.w3.org/2000/svg"><rect width="300" height="100" style="fill:rgb(0,0,255);stroke-width:1;stroke:rgb(0,0,0)"/></svg>'/>
-    <iframe sandbox srcdoc='<p>Yeah, you can see it <a href="/gallery?mode=cover&amp;amp;page=1">in my gallery</a>.'></iframe>
-
+    <style>
+      .parent {
+        position: relative;
+        margin-left: 100px;
+      }
+      #left {
+        position: absolute;
+        top: 0;
+        left: 0;
+        outline: 1px solid #000;
+      }
+      #canvas {
+        outline: 1px solid #000;
+        margin-left: 10px;
+      }
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+      .right {
+        margin-left: 1100px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="parent">
+      <img src="./微信截图.png" alt="" />
+      <canvas id="left" width="1000" height="900"></canvas>
+    </div>
+    <div class="right">
+      <canvas id="canvas" width="400" height="300"></canvas>
+    </div>
     <script>
-        const canvas = document.getElementById('canvas')
-        const ctx = canvas.getContext('2d')
-        ctx.fillStyle = "rgba(23,28,96,0.5)";
-        ctx.beginPath();
-        ctx.arc(0,0,0,0, 2 * Math.PI, false);
-        ctx.fill();
-        //红
-        ctx.fillStyle = "rgba(195,13,35,0.5)";
-        ctx.beginPath();
-        ctx.arc(200,200,200,0, 2 * Math.PI, false);
-        ctx.fill();
-        //瞳孔
-        ctx.fillStyle = "rgba(23,28,96,0.5)";
-        ctx.beginPath();
-        ctx.arc(300, 230, 30, 0, 4 * Math.PI, false);
-        ctx.fill();
+      let right = document.getElementById("canvas");
+      let left = document.getElementById("left");
+      let leftCtx = left.getContext("2d");
+      let rightCtx = right.getContext("2d");
+
+      let image = new Image();
+      image.src = "./微信截图.png";
+      image.onload = function() {};
+      let startX,
+        startY,
+        endX,
+        endY,
+        tempX,
+        tempY,
+        width,
+        height,
+        fillX = 0,
+        fillY = 0,
+        fillWidth,
+        fillHeight;
+      left.addEventListener(
+        "mousedown",
+        function(e) {
+          startX = endX = e.offsetX;
+          startY = endY = e.offsetY;
+          drawMask(image.width, image.height);
+          left.addEventListener("mousemove", handleMove, false);
+        },
+        false
+      );
+      left.addEventListener(
+        "mouseup",
+        function(e) {
+          rightCtx.drawImage(
+            image,
+            tempX,
+            tempY,
+            width,
+            height,
+            0,
+            0,
+            width,
+            height
+          );
+          left.removeEventListener("mousemove", handleMove, false);
+          clearMask();
+        },
+        false
+      );
+      function handleMove(e) {
+        endX = e.offsetX;
+        endY = e.offsetY;
+        // if (endX > fillX) {
+        //   fillX = endX;
+        // }
+        // if (endY > fillY) {
+        //   fillY = endY;
+        // }
+        width = Math.abs(endX - startX);
+        height = Math.abs(endY - startY);
+        // fillWidth = Math.abs(fillX - startX);
+        // fillHeight = Math.abs(fillY - startY);
+        endX < startX ? (tempX = endX) : (tempX = startX);
+        endY < startY ? (tempY = endY) : (tempY = startY);
+        draw(tempX, tempY, width, height, fillWidth, fillHeight);
+      }
+      // 绘制蒙版
+      function drawMask(width, height) {
+        leftCtx.fillStyle = "rgba(255,255,255,.5)";
+        leftCtx.fillRect(0, 0, width, height);
+      }
+      function clearMask() {
+        leftCtx.clearRect(0, 0, image.width, image.height);
+      }
+      function draw(x, y, width, height, fillWidth, fillHeight) {
+        // 绘制裁剪区域
+        leftCtx.fillStyle = "red";
+        leftCtx.fillRect(x, y, width, height);
+        // leftCtx.strokeStyle = "green";
+        // leftCtx.lineWidth = 5;
+        // leftCtx.strokeRect(x, y, width, height);
+        leftCtx.clearRect(x, y, width, height);
+      }
     </script>
-</body>
+  </body>
 </html>
