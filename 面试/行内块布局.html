@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      .author-meta {
+        width: 50%;
+        height: 300px;
+        outline: 2px solid darkblue;
+        text-align: center;
+      }
+      .author-info{
+          text-align: left;
+      }
+      .author-meta::before{
+          content: "";
+          display: inline-block;
+          vertical-align: middle;
+          height: 100%;
+          /* margin-right: -.25em; */
+      }
+      .author-img,
+      .author-info {
+        display: inline-block;
+        outline: 2px dashed darkseagreen;
+      }
+      .author-name,
+      .author-email {
+        display: block;
+      }
+      .author-img,
+      .author-info {
+        vertical-align: middle;
+      }
+    </style>
+  </head>
+  <body>
+    <p class="author-meta">
+      <img class="author-img" src="./头像.png" alt="" />
+      <span class="author-info">
+        <span class="author-name">刘臻</span>
+        <a class="author-email" href="1231231232@qq.com">777777@qq.com</a>
+      </span>
+    </p>
+  </body>
+</html>
