@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import iForm from '../components/form/Form.vue'
-import iFormItem from '../components/form/Form-item.vue'
+import iFormItem from '../components/form/FormItem.vue'
 import iInput from '../components/form/Input.vue'
 import { Vue, Component, Prop } from 'vue-property-decorator'
 
@@ -27,11 +27,11 @@ import { Vue, Component, Prop } from 'vue-property-decorator'
 })
 export default class extends Vue {
   // data
-  private form = {
+  form = {
     name: '',
     mail: ''
   }
-  private rules = {
+  rules = {
     name: [{ required: true, message: '用户名不能为空', trigger: 'blur' }],
     mail: [
       { required: true, message: '邮箱格式不能为空', trigger: 'blur' },
