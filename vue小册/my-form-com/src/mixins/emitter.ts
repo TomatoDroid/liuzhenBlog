@@ -10,7 +10,7 @@ function broadcast(this: any, componentName: string, eventName: string, params: 
             if (name === componentName) {
                 child.$emit.apply(child, [eventName].concat(params))
             } else {
-                broadcast.call(child, componentName, eventName, params)
+                broadcast.apply(child, [componentName, eventName, params])
             }
         }
     )
@@ -29,8 +29,8 @@ export default class extends Vue {
             }
         }
         if (parent) {
+            // parent.$emit.apply(parent, [eventName].concat([params]))
             parent.$emit.apply(parent, [eventName, params])
-            // parent.$emit.apply(eventName, params)
         }
     }
 
