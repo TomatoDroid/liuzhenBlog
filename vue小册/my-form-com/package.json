@@ -9,6 +9,7 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "async-validator": "^3.2.4",
     "core-js": "^3.6.4",
     "eslint-config-alloy": "^3.6.0",
     "register-service-worker": "^1.6.2",
