@@ -5,9 +5,9 @@
             <i-form-item label="用户名" prop="name">
                 <i-input v-model="formValidate.name"></i-input>
             </i-form-item>
-            <i-form-item label="邮箱" prop="mail">
+            <!-- <i-form-item label="邮箱" prop="mail">
                 <i-input v-model="formValidate.mail"></i-input>
-            </i-form-item>
+            </i-form-item> -->
         </i-form>
         <button @click="submit('form')">提交</button>
         <button @click="reset">重置</button>

@@ -9,6 +9,7 @@
 import { Component, Mixins } from 'vue-property-decorator'
 import Emitter from '../../mixins/emitter'
 import ComponentB from './B.vue'
+import { findComponentDownward } from '../../utils/assist'
 
 @Component({
     name: 'ComponentA',
@@ -25,11 +26,18 @@ export default class extends Mixins(Emitter) {
         this.$on('from-b', this.showMessage)
         this.$on('from-c', this.showCMessage)
     }
+    mounted() {
+        const comC: any = findComponentDownward(this, 'ComponentC')
+        comC.sayHello()
+    }
     showMessage(message: string) {
         console.log('A：', message)
     }
     showCMessage(message: string) {
         console.log('A:', message)
+    }
+    sayHello() {
+        console.log('hello i am ComponentA')
     }
 }
 </script>

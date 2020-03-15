@@ -20,8 +20,11 @@ export default class extends Mixins(Emitter) {
     @Provide('form') form = this
 
     fileds: any[] = []
-
+    beforeCreate() {
+        console.log('Form beforeCreate')
+    }
     created() {
+        console.log('Form created')
         this.$on('on-form-item-add', (filed: any) => {
             if (filed) {
                 this.fileds.push(filed)
@@ -32,6 +35,18 @@ export default class extends Mixins(Emitter) {
                 this.fileds.splice(this.fileds.indexOf(filed), 1)
             }
         })
+    }
+    beforeMount() {
+        console.log('Form beforeMount')
+    }
+    mounted() {
+        console.log('Form mounted')
+    }
+    beforeUpdate() {
+        console.log('Form beforeUpdate')
+    }
+    updated() {
+        console.log('Form Updated')
     }
     // 公开方法：全部重置数据
     resetFileds() {

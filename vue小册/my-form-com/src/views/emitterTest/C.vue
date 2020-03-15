@@ -7,6 +7,7 @@
 <script lang="ts">
 import { Component, Mixins } from 'vue-property-decorator'
 import Emitter from '../../mixins/emitter'
+import { findComponentUpward, findBrothersComponents } from '../../utils/assist'
 
 @Component({
     name: 'ComponentC'
@@ -20,6 +21,15 @@ export default class extends Mixins(Emitter) {
     }
     created() {
         this.$on('from-a', this.showMeeage)
+    }
+    mounted() {
+        const comA: any = findComponentUpward(this, 'ComponentA')
+        comA.sayHello()
+        const brothers = findBrothersComponents(this, 'ComponentC', false)
+        console.log(brothers)
+    }
+    sayHello() {
+        console.log('hello I am C')
     }
 }
 </script>

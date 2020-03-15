@@ -35,8 +35,18 @@ export default class extends Mixins(Vue, Emitter) {
     private validateStatus = '' // 校验状态
     private validateMessage = '' // 校验不通过时的信息
     private initialValue = '' // 存储初始值，以便恢复默认值
-
+    beforeCreate() {
+        console.log('item beforeCreate')
+    }
+    created() {
+        console.log('item created')
+    }
+    beforeMount() {
+        console.log('item beforeMount')
+    }
     mounted() {
+        console.log('item mounted')
+
         if (this.prop) {
             this.dispatch('iForm', 'on-form-item-add', this)
             this.initialValue = this.fieldVlaue
