@@ -1,7 +1,7 @@
 <template>
     <div>
         <button @click="handleClick">向BC发送消息</button>
-        <component-b></component-b>
+        <component-b :value.sync="value"></component-b>
     </div>
 </template>
 
@@ -18,6 +18,8 @@ import { findComponentDownward } from '../../utils/assist'
     }
 })
 export default class extends Mixins(Emitter) {
+    value = 'liuzhen'
+
     handleClick() {
         this.broadcast('ComponentB', 'from-a', 'A的消息')
         this.broadcast('ComponentC', 'from-a', { name: 'A', sex: 24 })

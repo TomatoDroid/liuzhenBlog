@@ -13,6 +13,12 @@
                 <router-link to="/form">自定义form表单</router-link>
             </li>
         </ul>
+        <h3>动态渲染</h3>
+        <ul>
+            <li>
+                <router-link to="/display">动态渲染.vue文件</router-link>
+            </li>
+        </ul>
         <h3>Installed CLI Plugins</h3>
         <ul>
             <li>

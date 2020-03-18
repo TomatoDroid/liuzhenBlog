@@ -11,14 +11,14 @@ export function findComponentUpward(context: any, componentName: string) {
     return parent
 }
 // 向上找到所有的指定组件
-export function findComponetsUpward(context: any, componentName: string) {
+export function findComponentsUpward(context: any, componentName: string) {
     const parents: Array<any> = []
     const parent = context.$parent
     if (parent) {
         if (parent.$options.name === componentName) {
             parents.push(parent)
         }
-        return parent.concat(findComponetsUpward(parent, componentName))
+        return parent.concat(findComponentsUpward(parent, componentName))
     } else {
         return []
     }

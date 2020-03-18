@@ -28,6 +28,16 @@ const routes = [
         name: 'emitter',
         component: () =>
             import(/* webpackChunkName: "about" */ '../views/emitterTest/EmitterTest.vue')
+    },
+    {
+        path: '/display',
+        name: 'display',
+        component: () => import(/* webpackChunkName: "about" */ '../views/Display.vue')
+    },
+    {
+        path: '/alert',
+        name: 'alert',
+        component: () => import(/* webpackChunkName: "about" */ '../views/AlertTest.vue')
     }
 ]
 

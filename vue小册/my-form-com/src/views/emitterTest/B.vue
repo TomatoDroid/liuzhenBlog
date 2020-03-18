@@ -2,12 +2,13 @@
     <div>
         <p>ComponentB</p>
         <button @click="handleClick">向A-dispatch消息</button>
+        <span>fromA:{{ value }}</span>
         <c></c>
     </div>
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Component, Mixins, Prop } from 'vue-property-decorator'
 import Emitter from '../../mixins/emitter'
 import C from './C.vue'
 
@@ -18,6 +19,8 @@ import C from './C.vue'
     }
 })
 export default class extends Mixins(Emitter) {
+    @Prop(String) value?: string
+
     private created() {
         this.$on('from-a', this.showMessage)
     }
@@ -26,6 +29,7 @@ export default class extends Mixins(Emitter) {
     }
     handleClick() {
         this.dispatch('ComponentA', 'from-b', 'B的消息')
+        this.$emit('update:value', 'a')
     }
 }
 </script>
