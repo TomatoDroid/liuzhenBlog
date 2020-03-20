@@ -21,23 +21,33 @@ const routes = [
     {
         path: '/form',
         name: 'form',
-        component: () => import(/* webpackChunkName: "about" */ '../views/MyForm.vue')
+        component: () => import(/* webpackChunkName: "form" */ '../views/MyForm.vue')
     },
     {
         path: '/emitter',
         name: 'emitter',
         component: () =>
-            import(/* webpackChunkName: "about" */ '../views/emitterTest/EmitterTest.vue')
+            import(/* webpackChunkName: "emitter" */ '../views/emitterTest/EmitterTest.vue')
     },
     {
         path: '/display',
         name: 'display',
-        component: () => import(/* webpackChunkName: "about" */ '../views/Display.vue')
+        component: () => import(/* webpackChunkName: "display" */ '../views/Display.vue')
     },
     {
         path: '/alert',
         name: 'alert',
-        component: () => import(/* webpackChunkName: "about" */ '../views/AlertTest.vue')
+        component: () => import(/* webpackChunkName: "alert" */ '../views/AlertTest.vue')
+    },
+    {
+        path: '/table',
+        name: 'table',
+        component: () => import(/* webpackChunkName: "table" */ '../views/TableRender.vue')
+    },
+    {
+        path: '/tableSlot',
+        name: 'tableSlot',
+        component: () => import(/* webpackChunkName: "tableSlot" */ '../views/TableSlot.vue')
     }
 ]
 
