@@ -48,6 +48,11 @@ const routes = [
         path: '/tableSlot',
         name: 'tableSlot',
         component: () => import(/* webpackChunkName: "tableSlot" */ '../views/TableSlot.vue')
+    },
+    {
+        path: '/tree',
+        name: 'tree',
+        component: () => import(/* webpackChunkName: "tableSlot" */ '../views/Tree.vue')
     }
 ]
 
